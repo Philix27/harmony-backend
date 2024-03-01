@@ -5,9 +5,24 @@ import (
 )
 
 func RoutesHandler(router fiber.Router) {
-	router.Get("/", announce)
-	// return c.SendStatus(fiber.StatusOK)
+	router.Post("/", createOrg)
+	router.Delete("/", deleteOrg)
+	router.Get("/members", viewMembers)
+	router.Post("/invite", sendAnInvite)
+	router.Put("/invite", updateOrgInfo)
 }
-func announce(c *fiber.Ctx) error {
+func createOrg(c *fiber.Ctx) error {
+	return c.SendString("Borrow Checker")
+}
+func viewMembers(c *fiber.Ctx) error {
+	return c.SendString("Borrow Checker")
+}
+func sendAnInvite(c *fiber.Ctx) error {
+	return c.SendString("Borrow Checker")
+}
+func deleteOrg(c *fiber.Ctx) error {
+	return c.SendString("Borrow Checker")
+}
+func updateOrgInfo(c *fiber.Ctx) error {
 	return c.SendString("Borrow Checker")
 }

@@ -1,4 +1,4 @@
-package task_manager
+package team
 
 import (
 	"github.com/gofiber/fiber/v2"
