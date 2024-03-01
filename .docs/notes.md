@@ -1,2 +1,3 @@
 # Notes
 
+- Like Github wiki
