@@ -3,10 +3,10 @@ package middleware
 import "github.com/gofiber/fiber/v2"
 
 func ApiHandler(c *fiber.Ctx) error {
-	return c.SendString("API handler")
+	return c.Next()
 }
 
-func V1(c *fiber.Ctx) error {
-	return c.SendString("V1")
+func Version(c *fiber.Ctx) error {
+	return c.Next()
 	// .SendStatus(fiber.StatusOK)
 }
