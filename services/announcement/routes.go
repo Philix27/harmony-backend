@@ -4,7 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-var list = []AnnouncementDto{}
+var list = []announcementDto{}
 
 func RoutesHandler(router fiber.Router) {
 	router.Post("/", create)
@@ -16,7 +16,7 @@ func RoutesHandler(router fiber.Router) {
 }
 
 func create(c *fiber.Ctx) error {
-	body := &AnnouncementDto{}
+	body := &announcementDto{}
 
 	if err := c.BodyParser(body); err != nil {
 		return err

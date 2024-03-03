@@ -1,6 +1,6 @@
 package announcement
 
-type AnnouncementDto struct {
+type announcementDto struct {
 	Id       int    `json:"id"`
 	Title    string `json:"title"`
 	Expired  bool   `json:"expiredAt"`
