@@ -8,6 +8,7 @@
   "scripts": {
     "gqlgen": "go run github.com/99designs/gqlgen generate",
     "run": "go run server.go",
+    "docs_fmt": "./swag fmt",
     "dev": "go run main.go"
   }
 }
