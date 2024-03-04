@@ -65,16 +65,6 @@ func main() {
 	v1.Route("/user", user.RoutesHandler)
 	v1.Route("/wiki", wiki.RoutesHandler)
 
-	// fmt.Println("Handlers Count")
-
-	// for i, data := range app.GetRoutes() {
-	// 	fmt.Println("Index: %v Name:", i+1, data.Name)
-	// 	fmt.Println("Index: %v Params:", i+1, data.Params)
-	// 	fmt.Println("Index: %v Handlers:", i+1, data.Handlers)
-	// 	fmt.Println("Index: %v Path:", i+1, data.Path)
-	// }
-
-
 	app.Get("/swagger/*", swagger.HandlerDefault) // default
 
 	// app.Get("/swagger/*", swagger.New(swagger.Config{ // custom
