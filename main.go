@@ -18,16 +18,25 @@ import (
 	"github.com/gofiber/swagger"
 )
 
-// @title Fiber Example API
+// @title Harmony
 // @version 1.0
-// @description This is a sample swagger for Fiber
+// @description Harmony Backend Server
 // @termsOfService http://swagger.io/terms/
-// @contact.name API Support
-// @contact.email fiber@swagger.io
+
+// @contact.name Felix Eligbue
+// @contact.email philixbob@gmail.com
+// @contact.url    http://www.swagger.io/support
+
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
-// @host localhost:8080
-// @BasePath /
+
+// @host localhost:3111
+// @BasePath /api/v1/
+
+// @securityDefinitions.basic  BasicAuth
+
+// @externalDocs.description  OpenAPI
+// @externalDocs.url          https://swagger.io/resources/open-api/
 
 func main() {
 	app := fiber.New(fiber.Config{
