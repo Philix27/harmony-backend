@@ -81,6 +81,5 @@ func main() {
 	// 	OAuth2RedirectUrl: "http://localhost:8080/swagger/oauth2-redirect.html",
 	// }))
 
-
 	log.Fatal(app.Listen(":3111"))
 }
