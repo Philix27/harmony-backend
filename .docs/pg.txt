@@ -1,0 +1,10 @@
+ // To run server
+ pg_ctl -D testDb -l myDataLog.log start
+
+// to start and stop server
+brew services start postgresql
+brew services stop postgresql
+
+// Run postgresql queries
+psql postgres
+ 

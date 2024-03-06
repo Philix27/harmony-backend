@@ -1,15 +1,17 @@
 package main
 
 import (
+	appConfig "harmony/config"
 	_ "harmony/docs"
+	"harmony/helper"
 	"harmony/services/app"
+	"os"
 
 	"log"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-
-	"gorm.io/gorm"
+	"github.com/joho/godotenv"
 )
 
 // @title Harmony
@@ -33,6 +35,10 @@ import (
 // @externalDocs.url          https://swagger.io/resources/open-api/
 
 func main() {
+	err := godotenv.Load(".env")
+
+	helper.ErrorPanic(err)
+
 	server := fiber.New(fiber.Config{
 		Prefork:           true,
 		CaseSensitive:     true,
@@ -49,11 +55,23 @@ func main() {
 		AllowHeaders: "Origin, Content-Type, Accept",
 	}))
 
-	appState := app.AppState {
-		DB: &gorm.DB{},
+	config := &appConfig.DbConfig{
+		Host:     os.Getenv("DB_HOST"),
+		Port:     os.Getenv("DB_PORT"),
+		Password: os.Getenv("DB_PASSWORD"),
+		User:     os.Getenv("DB_USER"),
+		SSLMode:  os.Getenv("DB_SSLMODE"),
+		DbName:   os.Getenv("DB_NAME"),
+	}
+
+	db, err := appConfig.DbNewConnection(config)
+	helper.ErrorPanic(err)
+
+	appState := app.AppState{
+		DB: db,
 	}
 
 	appState.SetupRoutes(server)
 
-	log.Fatal(server.Listen(":3111"))
+	log.Fatal(server.Listen(os.Getenv("PORT")))
 }
