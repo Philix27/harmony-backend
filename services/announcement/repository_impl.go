@@ -2,7 +2,7 @@ package announcement
 
 import (
 	"errors"
-	"harmony/helper"
+	"harmony/libs/helper"
 
 	"gorm.io/gorm"
 )

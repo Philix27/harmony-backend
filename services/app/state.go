@@ -1,7 +1,7 @@
 package app
 
 import (
-	"harmony/middleware"
+	"harmony/libs/middleware"
 	"harmony/services/announcement"
 	"harmony/services/auth"
 	"harmony/services/chat"

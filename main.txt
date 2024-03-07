@@ -1,9 +1,9 @@
 package main
 
 import (
+	appConfig "harmony/config"
 	_ "harmony/docs"
-	appConfig "harmony/libs/config"
-	"harmony/libs/helper"
+	"harmony/helper"
 	"os"
 
 	"harmony/services/app"
@@ -74,5 +74,5 @@ func main() {
 
 	appState.SetupRoutes(server)
 
-	log.Fatal(server.Listen(os.Getenv("PORT")))
+	log.Fatal(server.Listen("5111"))
 }

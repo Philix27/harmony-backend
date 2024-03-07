@@ -1,7 +1,7 @@
 package announcement
 
 import (
-	"harmony/helper"
+	"harmony/libs/helper"
 
 	"github.com/go-playground/validator"
 )
