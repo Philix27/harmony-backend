@@ -1,14 +1,12 @@
 package main
 
 import (
+	"fmt"
 	_ "harmony/docs"
 	appConfig "harmony/libs/config"
 	"harmony/libs/helper"
-	"os"
-
 	"harmony/services/app"
-
-	"log"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -38,7 +36,7 @@ import (
 func main() {
 	err := godotenv.Load(".env")
 
-	helper.ErrorPanic(err)
+	helper.ErrorPanic(err, "Could not load env")
 
 	server := fiber.New(fiber.Config{
 		Prefork:           false,
@@ -66,13 +64,20 @@ func main() {
 	}
 
 	db, err := appConfig.DbNewConnection(config)
-	helper.ErrorPanic(err)
+	helper.ErrorPanic(err, "Cannot connect to db")
 
 	appState := app.AppState{
 		DB: db,
 	}
 
 	appState.SetupRoutes(server)
-
-	log.Fatal(server.Listen(os.Getenv("PORT")))
+	
+	serverErr := server.Listen(":3434")
+	// helper.ErrorPanic(serverErr, "Error loading server")
+	if serverErr != nil {
+		fmt.Println("Error Error")
+		panic("Panic error")
+	}
+	fmt.Println("After listen")
+	// log.Fatal(server.Listen(os.Getenv("PORT")))
 }

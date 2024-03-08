@@ -18,21 +18,21 @@ func NewAnnouncementRepository(db *gorm.DB) iRepository {
 // Create implements iRepository.
 func (r *repositoryImpl) Create(data announcementM) {
 	result := r.Db.Create(&data)
-	helper.ErrorPanic(result.Error)
+	helper.ErrorPanic(result.Error, "Create announcement")
 }
 
 // Delete implements iRepository.
 func (r *repositoryImpl) Delete(dataId int) {
 	var payload announcementM
 	result := r.Db.Where("id = ?", dataId).Delete(&payload)
-	helper.ErrorPanic(result.Error)
+	helper.ErrorPanic(result.Error, "Delete announcement")
 }
 
 // FindAll implements iRepository.
 func (r *repositoryImpl) FindAll() (list []announcementM) {
 	var announceList []announcementM
 	result := r.Db.Find(&announceList)
-	helper.ErrorPanic(result.Error)
+	helper.ErrorPanic(result.Error, "Find all announcement")
 	return announceList
 }
 
@@ -57,5 +57,5 @@ func (r *repositoryImpl) Update(data announcementM) {
 	}
 
 	result := r.Db.Model(&data).Updates(updateAn)
-	helper.ErrorPanic(result.Error)
+	helper.ErrorPanic(result.Error, "Update announcement")
 }

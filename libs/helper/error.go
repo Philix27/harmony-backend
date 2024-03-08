@@ -1,10 +1,8 @@
 package helper
 
-import "log"
-
-func ErrorPanic(err error) {
-    if err != nil {
-        log.Fatal(err)
-        panic(err)
-    }
+func ErrorPanic(err error, msg string) {
+	if err != nil {
+		// log.Fatal(err)
+		panic(err)
+	}
 }
