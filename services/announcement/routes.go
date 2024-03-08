@@ -7,15 +7,16 @@ import (
 var list = []announcementDto{}
 
 func RoutesHandler(router fiber.Router) {
-	router.Post("/", create)
-	router.Patch("/:id/expired", update)
-	router.Get("/", getAll)
-	router.Get("/id", getOne)
-	router.Delete("/", deleteOne)
+	router.Post("/", create).Name("createAn")
+	router.Patch("/:id/expired", update).Name("Patch")
+	router.Get("/", getAll).Name("GetAll")
+	router.Name("GetOne").Get("/id", getOne)
+	router.Name("Delete").Delete("/", deleteOne)
 
 }
 
 func create(c *fiber.Ctx) error {
+
 	body := &announcementDto{}
 
 	if err := c.BodyParser(body); err != nil {

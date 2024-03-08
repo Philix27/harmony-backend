@@ -9,7 +9,7 @@ type announcementDto struct {
 }
 
 type createAnnouncementDto struct {
-	Title    string `validate:"required, min=1, max=10" json:name `
+	Title    string `validate:"required, min=1, max=10" json:"name" `
 	Subtitle string `validate:"required"`
 }
 

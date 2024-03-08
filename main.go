@@ -70,8 +70,10 @@ func main() {
 	}
 
 	appState.SetupRoutes(server)
-	
-	server.Listen(":3434")
-	
+
+	helper.GenerateTypescriptPaths(server)
+
+	// server.Listen(":3434")
+
 	// log.Fatal(server.Listen(os.Getenv("PORT")))
 }

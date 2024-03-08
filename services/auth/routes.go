@@ -5,7 +5,7 @@ import (
 )
 
 func RoutesHandler(router fiber.Router) {
-	router.Post("/create_user", createUser)
+	router.Post("/create_user", createUser).Name("createUser")
 	router.Post("/send_email_otp", sendEmailOtp)
 	router.Post("/verify_email_otp", verifyEmailOtp)
 	router.Post("/login", login)
