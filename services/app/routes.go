@@ -6,7 +6,9 @@ import (
 	"harmony/services/auth"
 	"harmony/services/chat"
 	"harmony/services/organization"
-	"harmony/services/task_manager"
+	tasks "harmony/services/task"
+	"harmony/services/taskEpic"
+	"harmony/services/taskStory"
 	"harmony/services/team"
 	"harmony/services/user"
 	"harmony/services/wiki"
@@ -23,7 +25,9 @@ func (a *AppState) SetupRoutes(app *fiber.App)  {
 	v1.Route("/auth", auth.RoutesHandler)
 	v1.Route("/chat", chat.RoutesHandler)
 	v1.Route("/organization", organization.RoutesHandler)
-	v1.Route("/task_manager", task_manager.RoutesHandler)
+	v1.Route("/task_manager", taskEpic.RoutesHandler)
+	v1.Route("/task_manager", taskStory.RoutesHandler)
+	v1.Route("/task_manager", tasks.RoutesHandler)
 	v1.Route("/team", team.RoutesHandler)
 	v1.Route("/user", user.RoutesHandler)
 	v1.Route("/wiki", wiki.RoutesHandler)

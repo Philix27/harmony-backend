@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	_ "harmony/docs"
 	appConfig "harmony/libs/config"
 	"harmony/libs/helper"
@@ -72,12 +71,7 @@ func main() {
 
 	appState.SetupRoutes(server)
 	
-	serverErr := server.Listen(":3434")
-	// helper.ErrorPanic(serverErr, "Error loading server")
-	if serverErr != nil {
-		fmt.Println("Error Error")
-		panic("Panic error")
-	}
-	fmt.Println("After listen")
+	server.Listen(":3434")
+	
 	// log.Fatal(server.Listen(os.Getenv("PORT")))
 }
