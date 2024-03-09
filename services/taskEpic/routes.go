@@ -5,12 +5,12 @@ import (
 )
 
 func RoutesHandler(router fiber.Router) {
-	epic := router.Group("/epic")
-	epic.Post("/", createEpic)
-	epic.Put("/", updateEpic)
-	epic.Delete("/", deleteEpic)
-	epic.Get("/id", getOneEpic)
-	epic.Get("/", getEpics)
+	r := router.Group("/")
+	r.Post("/", createEpic).Name("TaskEpicCreate")
+	r.Put("/", updateEpic).Name("TaskEpicUpdate")
+	r.Delete("/", deleteEpic).Name("TaskEpicDelete")
+	r.Get("/id", getOneEpic).Name("TaskEpicGetOne")
+	r.Get("/", getEpics).Name("TaskEpicGet")
 
 }
 

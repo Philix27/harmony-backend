@@ -5,12 +5,12 @@ import (
 )
 
 func RoutesHandler(router fiber.Router) {
-	task := router.Group("/task")
-	task.Post("/", createTask)
-	task.Put("/", updateTask)
-	task.Delete("/", deleteTask)
-	task.Get("/id", getOneTask)
-	task.Get("/", getTasks)
+	task := router.Group("/")
+	task.Post("/", createTask).Name("Task_Create")
+	task.Put("/", updateTask).Name("Task_Update")
+	task.Delete("/", deleteTask).Name("Task_Delete")
+	task.Get("/id", getOneTask).Name("Task_GetOne")
+	task.Get("/", getTasks).Name("Task_GetAll")
 
 }
 

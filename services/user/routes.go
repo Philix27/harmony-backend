@@ -5,7 +5,8 @@ import (
 )
 
 func RoutesHandler(router fiber.Router) {
-	router.Get("/", announce)
+	r := router.Group("/")
+	r.Get("/", announce).Name("UserGet")
 	// return c.SendStatus(fiber.StatusOK)
 }
 func announce(c *fiber.Ctx) error {

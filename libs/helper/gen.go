@@ -10,9 +10,14 @@ import (
 
 
 func GenerateTypescriptPaths(server *fiber.App)  {
-    setup := "class Async { \n" 
+    setup := "class ApiRoutes { \n" 
 
 	for _, r := range server.GetRoutes() {
+
+		if r.Path == "/api" || r.Path == "/api/v1" || r.Path ==  "/" || r.Path == "/swagger/*"{
+			continue
+		}
+
 		 c := fmt.Sprintf(`static %v_%v = "%v";`, r.Name, r.Method,  r.Path);
 
 		 setup = setup + c + "\n"

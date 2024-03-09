@@ -5,12 +5,13 @@ import (
 )
 
 func RoutesHandler(router fiber.Router) {
-	router.Post("/create_team", createTeam)
-	router.Post("/get_teams", getAllTeams)
-	router.Post("/get_team_members", getTeamMembers)
-	router.Post("/add_member", addMember)
-	router.Post("/remove_member", removeMember)
-	router.Post("/delete_team", deleteTeam)
+	r := router.Group("/")
+	r.Post("/create_team", createTeam).Name("TeamCreate")
+	r.Post("/get_teams", getAllTeams).Name("TeamGetAll")
+	r.Post("/get_team_members", getTeamMembers).Name("TeamGetMembers")
+	r.Post("/add_member", addMember).Name("TeamAdd")
+	r.Post("/remove_member", removeMember).Name("TeamRemove")
+	r.Post("/delete_team", deleteTeam).Name("TeamDelete")
 	// return c.SendStatus(fiber.StatusOK)
 }
 func getAllTeams(c *fiber.Ctx) error {

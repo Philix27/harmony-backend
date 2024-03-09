@@ -7,11 +7,12 @@ import (
 var list = []announcementDto{}
 
 func RoutesHandler(router fiber.Router) {
-	router.Post("/", create).Name("AnnouncementCreate")
-	router.Patch("/:id/expired", update).Name("AnnouncementPatch")
-	router.Get("/", getAll).Name("AnnouncementGetAll")
-	router.Get("/id", getOne).Name("AnnouncementGetOne")
-	router.Delete("/", deleteOne).Name("AnnouncementDelete")
+	announce := router.Group("/")
+	announce.Post("/", create).Name("AnnouncementCreate")
+	announce.Patch("/:id/expired", update).Name("AnnouncementPatch")
+	announce.Get("/", getAll).Name("AnnouncementGetAll")
+	announce.Get("/id", getOne).Name("AnnouncementGetOne")
+	announce.Delete("/", deleteOne).Name("AnnouncementDelete")
 
 }
 

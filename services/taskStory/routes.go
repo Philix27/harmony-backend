@@ -5,12 +5,12 @@ import (
 )
 
 func RoutesHandler(router fiber.Router) {
-	stories := router.Group("/stories")
-	stories.Post("/", createStory)
-	stories.Put("/", updateStory)
-	stories.Delete("/", deleteStory)
-	stories.Get("/id", getOneStory)
-	stories.Get("/", getStories)
+	stories := router.Group("/")
+	stories.Post("/", createStory).Name("TaskStoryCreate")
+	stories.Put("/", updateStory).Name("TaskStoryUpdate")
+	stories.Delete("/", deleteStory).Name("TaskStoryDelete")
+	stories.Get("/id", getOneStory).Name("TaskStoryGetOne")
+	stories.Get("/", getStories).Name("TaskStoryGetAll")
 
 }
 
