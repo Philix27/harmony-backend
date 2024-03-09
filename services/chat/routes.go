@@ -5,7 +5,7 @@ import (
 )
 
 func RoutesHandler(router fiber.Router) {
-	router.Get("/", announce)
+	router.Get("/", announce).Name("Chat")
 	// return c.SendStatus(fiber.StatusOK)
 }
 func announce(c *fiber.Ctx) error {

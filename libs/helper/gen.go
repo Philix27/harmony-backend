@@ -10,12 +10,12 @@ import (
 
 
 func GenerateTypescriptPaths(server *fiber.App)  {
-    setup := "class Async {" 
+    setup := "class Async { \n" 
 
 	for _, r := range server.GetRoutes() {
-		 c := fmt.Sprintf(`static routes_%v_%v = "%v";`, r.Name, r.Method,  r.Path);
+		 c := fmt.Sprintf(`static %v_%v = "%v";`, r.Name, r.Method,  r.Path);
 
-		 setup = setup + c
+		 setup = setup + c + "\n"
 	}
 
 	newVar := fmt.Append([]byte(setup), "}")
@@ -24,4 +24,7 @@ func GenerateTypescriptPaths(server *fiber.App)  {
 	if err2 != nil {
 		log.Print(err2)
 	}
+}
+func GenerateDto(server *fiber.App)  {
+   
 }

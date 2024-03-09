@@ -5,13 +5,13 @@ import (
 )
 
 func RoutesHandler(router fiber.Router) {
-	router.Post("/create_user", createUser).Name("createUser")
-	router.Post("/send_email_otp", sendEmailOtp)
-	router.Post("/verify_email_otp", verifyEmailOtp)
-	router.Post("/login", login)
-	router.Post("/resent_otp", resendOtp)
-	router.Post("/logout", logout)
-	router.Get("/get_auth_credentials", getAuthCredentials)
+	router.Post("/create_user", createUser).Name("AuthCreateUser")
+	router.Post("/send_email_otp", sendEmailOtp).Name("AuthSendEmailOtp")
+	router.Post("/verify_email_otp", verifyEmailOtp).Name("AuthVerifyEmailOtp")
+	router.Post("/login", login).Name("AuthLogin")
+	router.Post("/resent_otp", resendOtp).Name("AuthResetOtp")
+	router.Post("/logout", logout).Name("AuthLogout")
+	router.Get("/get_auth_credentials", getAuthCredentials).Name("AuthGetCredentials")
 }
 
 func sendEmailOtp(c *fiber.Ctx) error {

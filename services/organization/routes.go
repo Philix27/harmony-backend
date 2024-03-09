@@ -5,11 +5,11 @@ import (
 )
 
 func RoutesHandler(router fiber.Router) {
-	router.Post("/", createOrg)
-	router.Delete("/", deleteOrg)
-	router.Get("/members", viewMembers)
-	router.Post("/invite", sendAnInvite)
-	router.Put("/invite", updateOrgInfo)
+	router.Post("/", createOrg).Name("AuthVerifyEmailOtp")
+	router.Delete("/", deleteOrg).Name("AuthVerifyEmailOtp")
+	router.Get("/members", viewMembers).Name("AuthVerifyEmailOtp")
+	router.Post("/invite", sendAnInvite).Name("AuthVerifyEmailOtp")
+	router.Put("/invite", updateOrgInfo).Name("AuthVerifyEmailOtp")
 }
 func createOrg(c *fiber.Ctx) error {
 	return c.SendString("Borrow Checker")
