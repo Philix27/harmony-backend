@@ -8,19 +8,18 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-
-func GenerateTypescriptPaths(server *fiber.App)  {
-    setup := "class ApiRoutes { \n" 
+func GenerateTypescriptPaths(server *fiber.App) {
+	setup := "class ApiRoutes { \n"
 
 	for _, r := range server.GetRoutes() {
 
-		if r.Path == "/api" || r.Path == "/api/v1" || r.Path ==  "/" || r.Path == "/swagger/*"{
+		if r.Path == "/api" || r.Path == "/api/v1" || r.Path == "/" || r.Path == "/swagger/*" {
 			continue
 		}
-println(r.Params)
-		 c := fmt.Sprintf(`static %v_%v = "%v";`, r.Name, r.Method,  r.Path);
+		println(r.Params)
+		c := fmt.Sprintf(`static %v_%v = "%v";`, r.Name, r.Method, r.Path)
 
-		 setup = setup + c + "\n"
+		setup = setup + c + "\n"
 	}
 
 	newVar := fmt.Append([]byte(setup), "}")
@@ -30,6 +29,6 @@ println(r.Params)
 		log.Print(err2)
 	}
 }
-func GenerateDto(server *fiber.App)  {
-   
+func GenerateDto(server *fiber.App) {
+
 }

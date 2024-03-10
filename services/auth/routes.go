@@ -4,8 +4,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func RoutesHandler(router fiber.Router)  {
-	r:= Routes{}
+func RoutesHandler(router fiber.Router) {
+	r := Routes{}
 	router.Post("/create_user", r.createUser).Name("AuthCreateUser")
 	router.Post("/send_email_otp", r.sendEmailOtp).Name("AuthSendEmailOtp")
 	router.Post("/verify_email_otp", r.verifyEmailOtp).Name("AuthVerifyEmailOtp")
@@ -18,6 +18,7 @@ func RoutesHandler(router fiber.Router)  {
 type Routes struct {
 	service iService
 }
+
 func NewRoutes() iRoutes {
 	return &Routes{}
 }
@@ -26,11 +27,18 @@ func (*Routes) sendEmailOtp(c *fiber.Ctx) error {
 
 	return c.SendString("Borrow Checker")
 }
-func  (*Routes)verifyEmailOtp(c *fiber.Ctx) error {
+func (*Routes) verifyEmailOtp(c *fiber.Ctx) error {
 	return c.SendString("Borrow Checker")
 }
-func (*Routes) createUser(c *fiber.Ctx) error {
-	return c.SendString("Borrow Checker")
+func (r *Routes) createUser(c *fiber.Ctx) error {
+	body := new(createUserDto)
+
+	if err := c.BodyParser(body); err != nil {
+		return err
+	}
+	// c.Status()
+	return r.service.CreateUser(*body)
+
 }
 func (*Routes) login(c *fiber.Ctx) error {
 	return c.SendString("Borrow Checker")
@@ -44,5 +52,3 @@ func (*Routes) logout(c *fiber.Ctx) error {
 func (*Routes) getAuthCredentials(c *fiber.Ctx) error {
 	return c.SendString("Borrow Checker")
 }
-
-

@@ -6,16 +6,16 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-
 type iRepository interface {
-     CreateUser(data user.User)
+	CreateUser(data user.User) error
 }
 
 type iService interface {
-	 CreateUser(data createUserDto)
+	CreateUser(data createUserDto) error
+	login(data LoginDto)
 }
 
-type iRoutes interface  {
+type iRoutes interface {
 	createUser(c *fiber.Ctx) error
 	sendEmailOtp(c *fiber.Ctx) error
 	verifyEmailOtp(c *fiber.Ctx) error

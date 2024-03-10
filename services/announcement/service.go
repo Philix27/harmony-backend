@@ -56,7 +56,7 @@ func (s *serviceImpl) FindAll() (list []announcementResponseDto) {
 // FindById implements iService.
 func (s *serviceImpl) FindById(dataId int) (data announcementResponseDto, err error) {
 	announceData, err := s.repository.FindById(dataId)
-	helper.ErrorPanic(err,  "FindById announcement service")
+	helper.ErrorPanic(err, "FindById announcement service")
 	response := announcementResponseDto{
 		Id:       announceData.Id,
 		Title:    announceData.Title,
@@ -69,7 +69,7 @@ func (s *serviceImpl) FindById(dataId int) (data announcementResponseDto, err er
 // Update implements iService.
 func (s *serviceImpl) Update(data updateAnnouncementDto) {
 	announceData, err := s.repository.FindById(data.Id)
-	helper.ErrorPanic(err,  "Update announcement service")
+	helper.ErrorPanic(err, "Update announcement service")
 	announceData.Title = data.Title
 	announceData.Subtitle = data.Subtitle
 

@@ -8,11 +8,10 @@ import (
 	"gorm.io/gorm"
 )
 
-
 func RunMigrations(db *gorm.DB) {
-    db.AutoMigrate(
-        &announcement.AnnouncementM{}, 
-        &task.Task{},
-        &user.User{},
-    )
+	db.AutoMigrate(
+		&announcement.AnnouncementM{},
+		&task.Task{},
+		&user.User{},
+	)
 }

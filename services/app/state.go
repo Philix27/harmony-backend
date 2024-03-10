@@ -4,8 +4,6 @@ import (
 	"gorm.io/gorm"
 )
 
-
 type AppState struct {
-    DB  *gorm.DB
+	DB *gorm.DB
 }
-

@@ -8,5 +8,3 @@ func ErrorPanic(err error, msg string) {
 		panic(err)
 	}
 }
-
-

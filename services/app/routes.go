@@ -17,9 +17,8 @@ import (
 	"github.com/gofiber/swagger"
 )
 
-
-func (a *AppState) SetupRoutes(app *fiber.App)  {
-    api := app.Group("/api", middleware.ApiHandler) // /api
+func (a *AppState) SetupRoutes(app *fiber.App) {
+	api := app.Group("/api", middleware.ApiHandler) // /api
 	v1 := api.Group("/v1", middleware.Version)      // /api/v1
 	v1.Route("/announcement", announcement.RoutesHandler)
 	v1.Route("/auth", auth.RoutesHandler)
@@ -33,7 +32,7 @@ func (a *AppState) SetupRoutes(app *fiber.App)  {
 	v1.Route("/wiki", wiki.RoutesHandler)
 
 	app.Get("/swagger/*", swagger.HandlerDefault) // default
-    // app.Get("/swagger/*", swagger.New(swagger.Config{ // custom
+	// app.Get("/swagger/*", swagger.New(swagger.Config{ // custom
 	// 	URL: "http://example.com/doc.json",
 	// 	DeepLinking: false,
 	// 	// Expand ("list") or Collapse ("none") tag groups by default
