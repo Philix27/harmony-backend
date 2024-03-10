@@ -1,13 +1,5 @@
 package organization
 
-type organizationModel struct {
-	Id          string
-	Name        string
-	Description string
-	CreatedAt   string
-	UpdatedAt   string
-}
-
 type createOrganizationDto struct {
 	Name        string
 	Description string
@@ -19,6 +11,9 @@ type updateOrganizationDto struct {
 type deleteOrganizationDto struct {
 	Id string
 }
-type getByIdOrganizationDto struct {
+type getByUserIdDto struct {
+	Id string
+}
+type getByOrgIdDto struct {
 	Id string
 }

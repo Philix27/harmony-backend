@@ -7,12 +7,13 @@ import (
 )
 
 type iRepository interface {
-	CreateUser(data user.User) error
+	CreateUser(data user.User) (user.User, error)
+	getUserByEmail(data getUserByEmailDto) (user.User, error)
 }
 
 type iService interface {
-	CreateUser(data createUserDto) error
-	login(data LoginDto)
+	CreateUser(data createUserDto) (user.User, error)
+	login(data LoginDto) 
 }
 
 type iRoutes interface {

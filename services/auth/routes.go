@@ -34,12 +34,21 @@ func (r *Routes) createUser(c *fiber.Ctx) error {
 	body := new(createUserDto)
 
 	if err := c.BodyParser(body); err != nil {
-		return err
+		return c.SendStatus(402)
 	}
-	// c.Status()
-	return r.service.CreateUser(*body)
 
+	result, err := r.service.CreateUser(*body)
+
+	if err != nil {
+		c.SendStatus(fiber.StatusNotFound)
+		return c.JSON(fiber.Map{
+			"message": "Cannot create user",
+		})
+	}
+
+	return c.JSON(result)
 }
+
 func (*Routes) login(c *fiber.Ctx) error {
 	return c.SendString("Borrow Checker")
 }

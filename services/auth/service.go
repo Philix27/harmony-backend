@@ -16,18 +16,24 @@ func (*Service) login(data LoginDto) {
 }
 
 // CreateUser implements iRepository.
-func (s Service) CreateUser(data createUserDto) error {
+func (s Service) CreateUser(data createUserDto) (user.User, error) {
 
 	password, err := bcrypt.GenerateFromPassword([]byte(data.Password), 14)
 
 	if err != nil {
-		return err
+		return user.User{}, err
 	}
 
-	return s.repository.CreateUser(user.User{
+	user, err := s.repository.CreateUser(user.User{
 		Email:    data.Email,
 		Password: string(password),
 	})
+
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
 
 }
 
