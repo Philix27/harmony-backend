@@ -17,7 +17,7 @@ func GenerateTypescriptPaths(server *fiber.App)  {
 		if r.Path == "/api" || r.Path == "/api/v1" || r.Path ==  "/" || r.Path == "/swagger/*"{
 			continue
 		}
-
+println(r.Params)
 		 c := fmt.Sprintf(`static %v_%v = "%v";`, r.Name, r.Method,  r.Path);
 
 		 setup = setup + c + "\n"

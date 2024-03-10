@@ -1,4 +1,4 @@
-package tasks
+package task
 
 import (
 	"github.com/gofiber/fiber/v2"

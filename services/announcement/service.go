@@ -23,7 +23,7 @@ func (s *serviceImpl) Create(data createAnnouncementDto) {
 	err := s.validate.Struct(data)
 	helper.ErrorPanic(err, "Create announcement service")
 
-	model := announcementM{
+	model := AnnouncementM{
 		Title:    data.Title,
 		Subtitle: data.Subtitle,
 	}

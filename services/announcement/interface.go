@@ -1,11 +1,11 @@
 package announcement
 
 type iRepository interface {
-	Create(data announcementM)
-	Update(data announcementM)
+	Create(data AnnouncementM)
+	Update(data AnnouncementM)
 	Delete(dataId int)
-	FindById(dataId int) (data announcementM, err error)
-	FindAll() (list []announcementM)
+	FindById(dataId int) (data AnnouncementM, err error)
+	FindAll() (list []AnnouncementM)
 }
 
 type iService interface {

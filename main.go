@@ -2,9 +2,10 @@ package main
 
 import (
 	_ "harmony/docs"
-	appConfig "harmony/libs/config"
+	"harmony/libs/database"
 	"harmony/libs/helper"
 	"harmony/services/app"
+	"log"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
@@ -53,7 +54,7 @@ func main() {
 		AllowHeaders: "Origin, Content-Type, Accept",
 	}))
 
-	config := &appConfig.DbConfig{
+	config := &database.DbConfig{
 		Host:     os.Getenv("DB_HOST"),
 		Port:     os.Getenv("DB_PORT"),
 		Password: os.Getenv("DB_PASSWORD"),
@@ -62,8 +63,10 @@ func main() {
 		DbName:   os.Getenv("DB_NAME"),
 	}
 
-	db, err := appConfig.DbNewConnection(config)
+	db, err := database.DbNewConnection(config)
 	helper.ErrorPanic(err, "Cannot connect to db")
+
+	database.RunMigrations(db)
 
 	appState := app.AppState{
 		DB: db,
@@ -73,7 +76,5 @@ func main() {
 
 	helper.GenerateTypescriptPaths(server)
 
-	// server.Listen(":3434")
-
-	// log.Fatal(server.Listen(os.Getenv("PORT")))
+	log.Fatal(server.Listen(":" + os.Getenv("PORT")))
 }

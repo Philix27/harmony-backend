@@ -1,4 +1,4 @@
-package appConfig
+package database
 
 import (
 	"fmt"
@@ -28,8 +28,7 @@ func DbNewConnection(config *DbConfig) (*gorm.DB, error)  {
         fmt.Println("Error connecting", err.Error())
         return db, err
     }
-
+    
     return db, nil
-
-      
 } 
+
