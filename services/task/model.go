@@ -2,14 +2,19 @@ package task
 
 import "time"
 
-type Task struct {
-	ID          uint   `gorm: "type:int; primary_key"`
-	Name        string `gorm: "type:varchar(255)"`
-	Description string `gorm: "type:varchar(255)"`
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
+type TaskModel struct {
+	Id                uint
+	Name              string
+	Description       string
+	GithubIssueNumber string
+	GithubIssueLink   string
+	// Relationship
+	Story      string
+	AssignedTo string
+	CreatedAt  time.Time
+	UpdatedAt  time.Time
 }
 
-func (Task) TableName() string {
+func (TaskModel) TableName() string {
 	return "tasks"
 }

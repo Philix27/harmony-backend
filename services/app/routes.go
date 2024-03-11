@@ -11,7 +11,7 @@ import (
 	"harmony/services/taskStory"
 	"harmony/services/team"
 	"harmony/services/user"
-	"harmony/services/wiki"
+	"harmony/services/notes"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/swagger"
@@ -29,7 +29,7 @@ func (a *AppState) SetupRoutes(app *fiber.App) {
 	v1.Route("/task", task.RoutesHandler)
 	v1.Route("/team", team.RoutesHandler)
 	v1.Route("/user", user.RoutesHandler)
-	v1.Route("/wiki", wiki.RoutesHandler)
+	v1.Route("/notes", notes.RoutesHandler)
 
 	app.Get("/swagger/*", swagger.HandlerDefault) // default
 	// app.Get("/swagger/*", swagger.New(swagger.Config{ // custom
