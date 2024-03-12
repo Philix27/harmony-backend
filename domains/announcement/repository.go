@@ -7,28 +7,28 @@ import (
 	"gorm.io/gorm"
 )
 
-type repositoryImpl struct {
+type Repository struct {
 	Db *gorm.DB
 }
 
-func NewAnnouncementRepository(db *gorm.DB) iRepository {
-	return &repositoryImpl{Db: db}
+func InitializeRepository(db *gorm.DB) iRepository {
+	return &Repository{Db: db}
 }
 
 // Create implements iRepository.
-func (r *repositoryImpl) Create(data AnnouncementM) {
+func (r *Repository) Create(data AnnouncementM) {
 	result := r.Db.Create(&data)
 	helper.ErrorPanic(result.Error, "Create announcement")
 }
 
 // Delete implements iRepository.
-func (r *repositoryImpl) Delete(dataId int) {
+func (r *Repository) Delete(dataId int) {
 	result := r.Db.Where("id = ?", dataId).Delete(new(AnnouncementM))
 	helper.ErrorPanic(result.Error, "Delete announcement")
 }
 
 // FindAll implements iRepository.
-func (r *repositoryImpl) FindAll() (list []AnnouncementM) {
+func (r *Repository) FindAll() (list []AnnouncementM) {
 	var announceList []AnnouncementM
 	result := r.Db.Find(&announceList)
 	helper.ErrorPanic(result.Error, "Find all announcement")
@@ -36,7 +36,7 @@ func (r *repositoryImpl) FindAll() (list []AnnouncementM) {
 }
 
 // FindById implements iRepository.
-func (r *repositoryImpl) FindById(dataId int) (data AnnouncementM, err error) {
+func (r *Repository) FindById(dataId int) (data AnnouncementM, err error) {
 	var announcementItem AnnouncementM
 	result := r.Db.Find(&announcementItem, dataId)
 
@@ -49,7 +49,7 @@ func (r *repositoryImpl) FindById(dataId int) (data AnnouncementM, err error) {
 }
 
 // Update implements iRepository.
-func (r *repositoryImpl) Update(data AnnouncementM) {
+func (r *Repository) Update(data AnnouncementM) {
 	var updateAn = updateAnnouncementDto{
 		Title: data.Subtitle,
 		Id:    data.Id,

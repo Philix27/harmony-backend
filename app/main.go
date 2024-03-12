@@ -1,7 +1,6 @@
 package main
 
 import (
-
 	_ "harmony/docs"
 	"harmony/libs/database"
 	"harmony/libs/helper"
@@ -73,7 +72,7 @@ func main() {
 		DB: db,
 	}
 
-	appState.SetupRoutes(server)
+	appState.SetupRoutes(server, db)
 
 	helper.GenerateTypescriptPaths(server)
 

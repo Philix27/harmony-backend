@@ -5,7 +5,7 @@ type createUserDto struct {
 	Password string
 }
 type getUserByEmailDto struct {
-	Email    string
+	Email string
 }
 type LoginDto struct {
 	Email    string

@@ -13,7 +13,7 @@ type iRepository interface {
 
 type iService interface {
 	CreateUser(data createUserDto) (user.User, error)
-	login(data LoginDto) 
+	login(data LoginDto)
 }
 
 type iRoutes interface {

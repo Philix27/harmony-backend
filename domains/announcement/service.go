@@ -6,20 +6,20 @@ import (
 	"github.com/go-playground/validator"
 )
 
-type serviceImpl struct {
+type Service struct {
 	repository iRepository
 	validate   *validator.Validate
 }
 
-func NewServiceImpl(repository iRepository, validate *validator.Validate) iService {
-	return &serviceImpl{
+func InitializeService(repository iRepository, validate *validator.Validate) iService {
+	return &Service{
 		repository: repository,
 		validate:   validate,
 	}
 }
 
 // Create implements iService.
-func (s *serviceImpl) Create(data createAnnouncementDto) {
+func (s *Service) Create(data createAnnouncementDto) {
 	err := s.validate.Struct(data)
 	helper.ErrorPanic(err, "Create announcement service")
 
@@ -32,12 +32,12 @@ func (s *serviceImpl) Create(data createAnnouncementDto) {
 }
 
 // Delete implements iService.
-func (s *serviceImpl) Delete(dataId int) {
+func (s *Service) Delete(dataId int) {
 	s.repository.Delete(dataId)
 }
 
 // FindAll implements iService.
-func (s *serviceImpl) FindAll() (list []announcementResponseDto) {
+func (s *Service) FindAll() (list []announcementResponseDto) {
 	result := s.repository.FindAll()
 
 	var announceList []announcementResponseDto
@@ -54,7 +54,7 @@ func (s *serviceImpl) FindAll() (list []announcementResponseDto) {
 }
 
 // FindById implements iService.
-func (s *serviceImpl) FindById(dataId int) (data announcementResponseDto, err error) {
+func (s *Service) FindById(dataId int) (data announcementResponseDto, err error) {
 	announceData, err := s.repository.FindById(dataId)
 	helper.ErrorPanic(err, "FindById announcement service")
 	response := announcementResponseDto{
@@ -67,7 +67,7 @@ func (s *serviceImpl) FindById(dataId int) (data announcementResponseDto, err er
 }
 
 // Update implements iService.
-func (s *serviceImpl) Update(data updateAnnouncementDto) {
+func (s *Service) Update(data updateAnnouncementDto) {
 	announceData, err := s.repository.FindById(data.Id)
 	helper.ErrorPanic(err, "Update announcement service")
 	announceData.Title = data.Title

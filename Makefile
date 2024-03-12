@@ -38,7 +38,7 @@ test:
 
 # Run 'go fmt' on all go files
 fmt:
-	$(GO_CMD) fmt ./
+	$(GO_CMD) fmt ./...
 
 # Run 'go vet' to check for common mistakes
 vet:
@@ -46,6 +46,9 @@ vet:
 
 # Run all checks
 check: fmt vet test
+
+
+
 
 # Shortcuts
 .PHONY: build clean run deps test fmt vet check
