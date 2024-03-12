@@ -1,7 +1,7 @@
 package main
 
 import (
-	"harmony/app"
+
 	_ "harmony/docs"
 	"harmony/libs/database"
 	"harmony/libs/helper"
@@ -69,7 +69,7 @@ func main() {
 
 	database.RunMigrations(db)
 
-	appState := app.AppState{
+	appState := AppState{
 		DB: db,
 	}
 
