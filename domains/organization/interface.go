@@ -1,7 +1,7 @@
 package organization
 
 import (
-	"harmony/services/user"
+	"harmony/domains/user"
 
 	"github.com/gofiber/fiber/v2"
 )

@@ -1,10 +1,11 @@
 package main
 
 import (
+	"harmony/app"
 	_ "harmony/docs"
 	"harmony/libs/database"
 	"harmony/libs/helper"
-	"harmony/services/app"
+
 	"log"
 	"os"
 

@@ -1,14 +1,14 @@
 package database
 
 import (
-	"harmony/services/announcement"
-	"harmony/services/notes"
-	"harmony/services/organization"
-	"harmony/services/task"
-	"harmony/services/taskEpic"
-	"harmony/services/taskStory"
-	"harmony/services/team"
-	"harmony/services/user"
+	"harmony/domains/announcement"
+	"harmony/domains/notes"
+	"harmony/domains/organization"
+	"harmony/domains/task"
+	"harmony/domains/taskEpic"
+	"harmony/domains/taskStory"
+	"harmony/domains/team"
+	"harmony/domains/user"
 
 	"gorm.io/gorm"
 )

@@ -1,17 +1,17 @@
 package app
 
 import (
+	"harmony/domains/announcement"
+	"harmony/domains/auth"
+	"harmony/domains/chat"
+	"harmony/domains/notes"
+	"harmony/domains/organization"
+	"harmony/domains/task"
+	"harmony/domains/taskEpic"
+	"harmony/domains/taskStory"
+	"harmony/domains/team"
+	"harmony/domains/user"
 	"harmony/libs/middleware"
-	"harmony/services/announcement"
-	"harmony/services/auth"
-	"harmony/services/chat"
-	"harmony/services/organization"
-	"harmony/services/task"
-	"harmony/services/taskEpic"
-	"harmony/services/taskStory"
-	"harmony/services/team"
-	"harmony/services/user"
-	"harmony/services/notes"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/swagger"

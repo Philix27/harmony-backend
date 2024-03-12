@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"harmony/services/user"
+	"harmony/domains/user"
 
 	"golang.org/x/crypto/bcrypt"
 )

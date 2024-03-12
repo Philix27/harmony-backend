@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"harmony/services/user"
+	"harmony/domains/user"
 
 	"gorm.io/gorm"
 )
