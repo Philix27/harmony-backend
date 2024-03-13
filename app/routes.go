@@ -15,15 +15,13 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/swagger"
-	"gorm.io/gorm"
 )
 
-func (a *AppState) SetupRoutes(app *fiber.App, db *gorm.DB) {
+func (state *AppState) SetupRoutes(app *fiber.App) {
 	api := app.Group("/api", middleware.ApiHandler) // /api
 	v1 := api.Group("/v1", middleware.Version)      // /api/v1
 
-	announcement.Setup(v1, db)
-	// v1.Route("/announcement", announcement.Setup(db))
+	announcement.Setup(v1, state.DB)
 	v1.Route("/auth", auth.RoutesHandler)
 	v1.Route("/chat", chat.RoutesHandler)
 	v1.Route("/organization", organization.RoutesHandler)

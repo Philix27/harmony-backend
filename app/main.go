@@ -64,6 +64,12 @@ func main() {
 	}
 
 	db, err := database.DbNewConnection(config)
+	if err != nil {
+		println("An error occurred during db con")
+	} else {
+		log.Println("Database connection successful")
+		println("Database connection successful")
+	}
 	helper.ErrorPanic(err, "Cannot connect to db")
 
 	database.RunMigrations(db)
@@ -72,7 +78,7 @@ func main() {
 		DB: db,
 	}
 
-	appState.SetupRoutes(server, db)
+	appState.SetupRoutes(server)
 
 	helper.GenerateTypescriptPaths(server)
 

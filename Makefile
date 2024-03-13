@@ -25,8 +25,8 @@ run:
 	./$(BINARY_NAME)
 
 # Run development
-run d:
-	$(GO_RUN_DEV) $(BINARY_NAME)
+run_d:
+	$(GO_RUN_DEV) ./app/main.go
 
 # Install dependencies
 deps:
