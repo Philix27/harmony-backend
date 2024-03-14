@@ -6,7 +6,7 @@ import (
 
 func RoutesHandler(router fiber.Router) {
 	r := router.Group("/")
-	r.Post("/", createOrg).Name("AuthCreateOrh")
+	r.Post("/", createOrg).Name("AuthCreateOrg")
 	r.Delete("/", deleteOrg).Name("AuthDelete")
 	r.Get("/members", viewMembers).Name("AuthViewMembers")
 	r.Post("/invite", sendAnInvite).Name("AuthInviteMember")
