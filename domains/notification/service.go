@@ -1,28 +1,31 @@
 package notification
 
-type NotificationService struct {
+type Service struct {
+	SendGrid string
+	Twilo    string
+	Termii   string
 }
 
 // sendEmail implements iService.
-func (*NotificationService) sendEmail() {
+func (*Service) sendEmail() {
 	panic("unimplemented")
 }
 
 // sendEmailOtp implements iService.
-func (*NotificationService) sendEmailOtp() {
+func (*Service) sendEmailOtp() {
 	panic("unimplemented")
 }
 
 // sendPhoneMsg implements iService.
-func (*NotificationService) sendPhoneMsg() {
+func (*Service) sendPhoneMsg() {
 	panic("unimplemented")
 }
 
 // sendPhoneOtp implements iService.
-func (*NotificationService) sendPhoneOtp() {
+func (*Service) sendPhoneOtp() {
 	panic("unimplemented")
 }
 
 func InitializeNotifiaction() iService {
-	return &NotificationService{}
+	return &Service{}
 }

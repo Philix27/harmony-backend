@@ -12,7 +12,7 @@ type Routes struct {
 
 func InitRoutes(svc iService) iRoutes {
 	return &Routes{
-		service:  svc,
+		service: svc,
 	}
 }
 
