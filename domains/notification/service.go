@@ -7,25 +7,25 @@ type Service struct {
 }
 
 // sendEmail implements iService.
-func (*Service) sendEmail() {
+func (s *Service) SendEmail(email string, msg string) {
 	panic("unimplemented")
 }
 
 // sendEmailOtp implements iService.
-func (*Service) sendEmailOtp() {
+func (*Service) SendEmailOtp() {
 	panic("unimplemented")
 }
 
 // sendPhoneMsg implements iService.
-func (*Service) sendPhoneMsg() {
+func (*Service) SendPhoneMsg() {
 	panic("unimplemented")
 }
 
 // sendPhoneOtp implements iService.
-func (*Service) sendPhoneOtp() {
+func (*Service) SendPhoneOtp() {
 	panic("unimplemented")
 }
 
-func InitializeNotifiaction() iService {
+func InitializeNotification() iService {
 	return &Service{}
 }

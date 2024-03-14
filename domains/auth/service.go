@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"harmony/domains/notification"
 	"harmony/domains/user"
 
 	"golang.org/x/crypto/bcrypt"
@@ -8,6 +9,7 @@ import (
 
 type Service struct {
 	repository iRepository
+	notifySvc notification.Service
 }
 
 // login implements iService.
@@ -33,10 +35,12 @@ func (s Service) CreateUser(data createUserDto) (user.User, error) {
 		return user, err
 	}
 
+	s.notifySvc.SendEmail(user.Email, "Your account has been created successfully");
+	
 	return user, nil
 
 }
 
-func NewService(repository iRepository) iService {
+func InitService(repository iRepository) iService {
 	return &Service{repository: repository}
 }

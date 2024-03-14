@@ -1,8 +1,8 @@
 package notification
 
 type iService interface {
-	sendEmailOtp()
-	sendPhoneOtp()
-	sendEmail()
-	sendPhoneMsg()
+	SendEmailOtp()
+	SendPhoneOtp()
+	SendEmail(email string, msg string)
+	SendPhoneMsg()
 }
