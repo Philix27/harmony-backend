@@ -3,18 +3,29 @@ package auth
 import (
 	"harmony/domains/notification"
 	"harmony/domains/user"
+	"harmony/libs/app_err"
 
 	"golang.org/x/crypto/bcrypt"
 )
 
 type Service struct {
 	repository iRepository
-	notifySvc notification.Service
+	notifySvc  notification.Service
 }
 
 // login implements iService.
-func (*Service) login(data LoginDto) {
-	panic("unimplemented")
+func (s *Service) login(data LoginDto) (string, error) {
+	user, err := s.repository.getUserByEmail(data.Email)
+
+	if err != nil {
+		return app_err.Auth_IncorrectPassword, err
+	}
+
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(data.Password)); err != nil {
+		return "", app_err.AppErrors{app_err.Auth_IncorrectPassword}
+	}
+
+	return "Success", nil
 }
 
 // CreateUser implements iRepository.
@@ -35,8 +46,6 @@ func (s Service) CreateUser(data createUserDto) (user.User, error) {
 		return user, err
 	}
 
-	s.notifySvc.SendEmail(user.Email, "Your account has been created successfully");
-	
 	return user, nil
 
 }

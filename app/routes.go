@@ -33,5 +33,5 @@ func (state *AppState) SetupRoutes(app *fiber.App) {
 	v1.Route("/notes", notes.RoutesHandler)
 
 	app.Get("/swagger/*", swagger.HandlerDefault) // default
-	
+
 }

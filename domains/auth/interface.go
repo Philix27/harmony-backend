@@ -8,7 +8,7 @@ import (
 
 type iRepository interface {
 	CreateUser(data user.User) (user.User, error)
-	getUserByEmail(data getUserByEmailDto) (user.User, error)
+	getUserByEmail(email string) (user.User, error)
 }
 
 type iService interface {

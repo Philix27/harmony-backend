@@ -8,10 +8,10 @@ type Service struct {
 func (s *Service) create(data createTaskDto) (TaskModel, error) {
 
 	user, err := s.repository.createTask(TaskModel{
-		Name:              data.Name,
-		Story:             data.Story,
-		Description:       data.Description,
-		AssignedTo:        data.AssignedTo,
+		Name:        data.Name,
+		Story:       data.Story,
+		Description: data.Description,
+		AssignedTo:  data.AssignedTo,
 	})
 
 	if err != nil {

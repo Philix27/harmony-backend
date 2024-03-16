@@ -20,8 +20,8 @@ func (TaskModel) TableName() string {
 }
 
 type createTaskDto struct {
-	Name              string
-	Description       string
+	Name        string
+	Description string
 	// Relationship
 	Story      string
 	AssignedTo string

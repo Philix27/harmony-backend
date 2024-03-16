@@ -11,10 +11,10 @@ type repository struct {
 }
 
 // getUser implements iRepository.
-func (r *repository) getUserByEmail(data getUserByEmailDto) (user.User, error) {
+func (r *repository) getUserByEmail(email string) (user.User, error) {
 	var userModel user.User
 
-	err := r.Db.Where("email = ?", data.Email).First(&userModel)
+	err := r.Db.Where("email = ?", email).First(&userModel)
 
 	return userModel, err.Error
 }
