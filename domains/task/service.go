@@ -10,8 +10,6 @@ func (s *Service) create(data createTaskDto) (TaskModel, error) {
 	user, err := s.repository.createTask(TaskModel{
 		Name:              data.Name,
 		Story:             data.Story,
-		GithubIssueLink:   data.GithubIssueLink,
-		GithubIssueNumber: data.GithubIssueNumber,
 		Description:       data.Description,
 		AssignedTo:        data.AssignedTo,
 	})

@@ -8,11 +8,11 @@ import (
 
 func Setup(router fiber.Router, db *gorm.DB) {
 
-	repo := InitializeRepository(db)
+	repo := NewRepository(db)
 
-	svc := InitializeService(repo, validator.New())
+	svc := NewService(repo, validator.New())
 
-	handler := InitRoutes(svc)
+	handler := NewRoutes(svc)
 
 	router.Route("/announcement", handler.create)
 

@@ -19,3 +19,9 @@ if x := someFunction(); x < 0 {
 } else {
     // code to execute if x is greater than 0
 }
+
+
+name, age := "John", 25
+	
+	println(name)
+	println(age)

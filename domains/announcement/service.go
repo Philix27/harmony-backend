@@ -11,7 +11,7 @@ type Service struct {
 	validate   *validator.Validate
 }
 
-func InitializeService(repository iRepository, validate *validator.Validate) iService {
+func NewService(repository iRepository, validate *validator.Validate) iService {
 	return &Service{
 		repository: repository,
 		validate:   validate,

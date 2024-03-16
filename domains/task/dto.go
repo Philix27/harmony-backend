@@ -1,10 +1,27 @@
 package task
 
-type createTaskDto struct {
+import "time"
+
+type TaskModel struct {
+	Id                uint
 	Name              string
 	Description       string
 	GithubIssueNumber string
 	GithubIssueLink   string
+	// Relationship
+	Story      string
+	AssignedTo string
+	CreatedAt  time.Time
+	UpdatedAt  time.Time
+}
+
+func (TaskModel) TableName() string {
+	return "tasks"
+}
+
+type createTaskDto struct {
+	Name              string
+	Description       string
 	// Relationship
 	Story      string
 	AssignedTo string

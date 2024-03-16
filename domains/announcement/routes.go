@@ -10,7 +10,7 @@ type Routes struct {
 	service iService
 }
 
-func InitRoutes(svc iService) iRoutes {
+func NewRoutes(svc iService) iRoutes {
 	return &Routes{
 		service: svc,
 	}
