@@ -22,9 +22,10 @@ func (s *Service) login(data LoginDto) (string, error) {
 	}
 
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(data.Password)); err != nil {
-		return "", app_err.AppErrors{app_err.Auth_IncorrectPassword}
+		return app_err.Auth_IncorrectPassword, err
 	}
 
+	// claims := jwt.ClaimsFactory(jwt.NewSigner(), jwt.StandardClaimsFactory{issu})
 	return "Success", nil
 }
 
