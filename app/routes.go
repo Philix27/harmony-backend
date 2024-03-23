@@ -1,4 +1,4 @@
-package main
+package app
 
 import (
 	"harmony/domains/announcement"
@@ -17,7 +17,7 @@ import (
 	"github.com/gofiber/swagger"
 )
 
-func (state *AppState) SetupRoutes(app *fiber.App) {
+func (state AppState) SetupRoutes(app *fiber.App) {
 	api := app.Group("/api", middleware.ApiHandler) // /api
 	v1 := api.Group("/v1", middleware.Version)      // /api/v1
 

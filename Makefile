@@ -26,7 +26,7 @@ run:
 
 # Run development
 rd:
-	$(GO_RUN_DEV) ./app/main.go
+	$(GO_RUN_DEV) ./main.go
 
 # Install dependencies
 deps:
