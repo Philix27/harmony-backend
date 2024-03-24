@@ -1,13 +1,17 @@
 package task
 
+import (
+	"harmony/libs/database"
+)
+
 type Service struct {
 	repository iRepository
 }
 
 // create implements iService.
-func (s *Service) create(data createTaskDto) (TaskModel, error) {
+func (s *Service) create(data createTaskDto) (database.TaskModel, error) {
 
-	user, err := s.repository.createTask(TaskModel{
+	user, err := s.repository.createTask(database.TaskModel{
 		Name:        data.Name,
 		Story:       data.Story,
 		Description: data.Description,
@@ -22,12 +26,12 @@ func (s *Service) create(data createTaskDto) (TaskModel, error) {
 }
 
 // getByOrgId implements iService.
-func (*Service) getByOrgId(data getTaskByIdDto) (TaskModel, error) {
+func (*Service) getByOrgId(data getTaskByIdDto) (database.TaskModel, error) {
 	panic("unimplemented")
 }
 
 // getTasks implements iService.
-func (*Service) getTasks(data filterDto) (TaskModel, error) {
+func (*Service) getTasks(data filterDto) (database.TaskModel, error) {
 	panic("unimplemented")
 }
 

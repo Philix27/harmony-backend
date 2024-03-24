@@ -1,21 +1,6 @@
 package task
 
-import (
-	"gorm.io/gorm"
-)
-
-type TaskModel struct {
-	gorm.Model
-	Name              string
-	Description       string
-	GithubIssueNumber string
-	GithubIssueLink   string
-	// Relationship
-	Story      string
-	AssignedTo string
-}
-
-func (TaskModel) TableName() string {
+func TableName() string {
 	return "tasks"
 }
 

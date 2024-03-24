@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"harmony/domains/user"
+	"harmony/libs/database"
 
 	"gorm.io/gorm"
 )
@@ -11,8 +11,8 @@ type repository struct {
 }
 
 // getUser implements iRepository.
-func (r *repository) getUserByEmail(email string) (user.User, error) {
-	var userModel user.User
+func (r *repository) getUserByEmail(email string) (database.User, error) {
+	var userModel database.User
 
 	err := r.Db.Where("email = ?", email).First(&userModel)
 
@@ -24,8 +24,8 @@ func NewRepository(db *gorm.DB) iRepository {
 }
 
 // CreateUser implements iRepository.
-func (r *repository) CreateUser(data user.User) (user.User, error) {
-	userData := new(user.User)
+func (r *repository) CreateUser(data database.User) (database.User, error) {
+	userData := new(database.User)
 	result := r.Db.Create(userData)
 
 	return *userData, result.Error

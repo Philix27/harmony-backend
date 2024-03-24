@@ -1,18 +1,18 @@
 package auth
 
 import (
-	"harmony/domains/user"
+	"harmony/libs/database"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 type iRepository interface {
-	CreateUser(data user.User) (user.User, error)
-	getUserByEmail(email string) (user.User, error)
+	CreateUser(data database.User) (database.User, error)
+	getUserByEmail(email string) (database.User, error)
 }
 
 type iService interface {
-	CreateUser(data createUserDto) (user.User, error)
+	CreateUser(data createUserDto) (database.User, error)
 	login(data LoginDto) (string, error)
 }
 

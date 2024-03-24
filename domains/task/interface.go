@@ -1,19 +1,21 @@
 package task
 
 import (
+	"harmony/libs/database"
+
 	"github.com/gofiber/fiber/v2"
 )
 
 type iRepository interface {
-	createTask(data TaskModel) (TaskModel, error)
-	getTasks(data filterDto) (TaskModel, error)
-	getByOrgId(data getTaskByIdDto) (TaskModel, error)
+	createTask(data database.TaskModel) (database.TaskModel, error)
+	getTasks(data filterDto) (database.TaskModel, error)
+	getByOrgId(data getTaskByIdDto) (database.TaskModel, error)
 }
 
 type iService interface {
-	create(data createTaskDto) (TaskModel, error)
-	getTasks(data filterDto) (TaskModel, error)
-	getByOrgId(data getTaskByIdDto) (TaskModel, error)
+	create(data createTaskDto) (database.TaskModel, error)
+	getTasks(data filterDto) (database.TaskModel, error)
+	getByOrgId(data getTaskByIdDto) (database.TaskModel, error)
 }
 
 type iRoutes interface {

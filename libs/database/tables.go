@@ -1,28 +1,66 @@
 package database
 
 import (
-	"harmony/domains/announcement"
-	"harmony/domains/notes"
-	"harmony/domains/organization"
-	"harmony/domains/task"
-	"harmony/domains/taskEpic"
-	"harmony/domains/taskStory"
-	"harmony/domains/team"
-	"harmony/domains/user"
-
 	"gorm.io/gorm"
 )
 
-func RunMigrations(db *gorm.DB) {
-	db.AutoMigrate(
-		announcement.AnnouncementM{},
-		task.TaskModel{},
-		user.User{},
-		organization.OrganizationModel{},
-		taskEpic.TaskEpicModel{},
-		taskStory.TaskStoryModel{},
-		team.TeamModel{},
-		notes.Notes{},
-	)
+type User struct {
+	gorm.Model
+	Email        string `gorm: "type:varchar(255)"`
+	Password     string `gorm: "type:varchar(255)"`
+	AccessToken  string
+	RefreshToken string
+}
 
+type Organization struct {
+	gorm.Model
+	Name          string
+	Description   string
+	Notes         []Notes
+	Teams         []Team
+	Announcements []Announcement
+	Epics         []TaskEpic
+}
+
+type Notes struct {
+	gorm.Model
+	Title string `json:"name"`
+	Body  string `json:"description"`
+}
+
+type Team struct {
+	gorm.Model
+	Name        string `json:"name"`
+	Description string `json:"description"`
+}
+
+type Announcement struct {
+	gorm.Model
+	Title    string `gorm: "type:varchar(255)"`
+	Subtitle string `gorm: "type:varchar(255)"`
+}
+
+type TaskEpic struct {
+	gorm.Model
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Stories     []TaskStory
+}
+
+type TaskStory struct {
+	gorm.Model
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Tasks       []Task
+}
+
+type Task struct {
+	gorm.Model
+	Name              string
+	Description       string
+	GithubIssueNumber string
+	GithubIssueLink   string
+	// Relationship
+	Story      string
+	AssignedTo string
 }

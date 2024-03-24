@@ -2,8 +2,8 @@ package auth
 
 import (
 	"harmony/domains/notification"
-	"harmony/domains/user"
 	"harmony/libs/app_err"
+	"harmony/libs/database"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -30,15 +30,15 @@ func (s *Service) login(data LoginDto) (string, error) {
 }
 
 // CreateUser implements iRepository.
-func (s Service) CreateUser(data createUserDto) (user.User, error) {
+func (s Service) CreateUser(data createUserDto) (database.User, error) {
 
 	password, err := bcrypt.GenerateFromPassword([]byte(data.Password), 14)
 
 	if err != nil {
-		return user.User{}, err
+		return database.User{}, err
 	}
 
-	user, err := s.repository.CreateUser(user.User{
+	user, err := s.repository.CreateUser(database.User{
 		Email:    data.Email,
 		Password: string(password),
 	})

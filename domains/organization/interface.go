@@ -1,20 +1,20 @@
 package organization
 
 import (
-	"harmony/domains/user"
+	"harmony/libs/database"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 type iRepository interface {
-	createOrg(data organizationModel) (user.User, error)
-	getByUserEmail(data getByUserIdDto) (user.User, error)
-	getByOrgId(data getByOrgIdDto) (user.User, error)
+	createOrg(data organizationModel) (database.User, error)
+	getByUserEmail(data getByUserIdDto) (database.User, error)
+	getByOrgId(data getByOrgIdDto) (database.User, error)
 }
 
 type iService interface {
-	create(data createOrganizationDto) (user.User, error)
-	get(data getByUserIdDto) (user.User, error)
+	create(data createOrganizationDto) (database.User, error)
+	get(data getByUserIdDto) (database.User, error)
 }
 
 type iRoutes interface {
