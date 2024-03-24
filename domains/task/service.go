@@ -9,9 +9,9 @@ type Service struct {
 }
 
 // create implements iService.
-func (s *Service) create(data createTaskDto) (database.TaskModel, error) {
+func (s *Service) create(data createTaskDto) (database.Task, error) {
 
-	user, err := s.repository.createTask(database.TaskModel{
+	user, err := s.repository.createTask(database.Task{
 		Name:        data.Name,
 		Story:       data.Story,
 		Description: data.Description,
@@ -26,12 +26,12 @@ func (s *Service) create(data createTaskDto) (database.TaskModel, error) {
 }
 
 // getByOrgId implements iService.
-func (*Service) getByOrgId(data getTaskByIdDto) (database.TaskModel, error) {
+func (*Service) getByOrgId(data getTaskByIdDto) (database.Task, error) {
 	panic("unimplemented")
 }
 
 // getTasks implements iService.
-func (*Service) getTasks(data filterDto) (database.TaskModel, error) {
+func (*Service) getTasks(data filterDto) (database.Task, error) {
 	panic("unimplemented")
 }
 

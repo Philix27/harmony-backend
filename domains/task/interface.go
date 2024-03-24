@@ -7,15 +7,15 @@ import (
 )
 
 type iRepository interface {
-	createTask(data database.TaskModel) (database.TaskModel, error)
-	getTasks(data filterDto) (database.TaskModel, error)
-	getByOrgId(data getTaskByIdDto) (database.TaskModel, error)
+	createTask(data database.Task) (database.Task, error)
+	getTasks(data filterDto) (database.Task, error)
+	getByOrgId(data getTaskByIdDto) (database.Task, error)
 }
 
 type iService interface {
-	create(data createTaskDto) (database.TaskModel, error)
-	getTasks(data filterDto) (database.TaskModel, error)
-	getByOrgId(data getTaskByIdDto) (database.TaskModel, error)
+	create(data createTaskDto) (database.Task, error)
+	getTasks(data filterDto) (database.Task, error)
+	getByOrgId(data getTaskByIdDto) (database.Task, error)
 }
 
 type iRoutes interface {
