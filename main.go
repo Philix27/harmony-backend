@@ -1,8 +1,8 @@
 package main
 
 import (
-	"harmony/app"
 	_ "harmony/docs"
+	"harmony/libs/app"
 	"harmony/libs/database"
 	"harmony/libs/helper"
 
@@ -75,7 +75,6 @@ func main() {
 
 	database.RunMigrations(db)
 
-	
 	appState := app.AppState{
 		DB: db,
 	}
@@ -86,4 +85,3 @@ func main() {
 
 	log.Fatal(server.Listen(":" + os.Getenv("PORT")))
 }
-

@@ -1,9 +1,11 @@
 package task
 
-import "time"
+import (
+	"gorm.io/gorm"
+)
 
 type TaskModel struct {
-	Id                uint
+	gorm.Model
 	Name              string
 	Description       string
 	GithubIssueNumber string
@@ -11,8 +13,6 @@ type TaskModel struct {
 	// Relationship
 	Story      string
 	AssignedTo string
-	CreatedAt  time.Time
-	UpdatedAt  time.Time
 }
 
 func (TaskModel) TableName() string {

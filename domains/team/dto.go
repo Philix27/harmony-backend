@@ -1,9 +1,9 @@
 package team
 
+import "gorm.io/gorm"
+
 type TeamModel struct {
-	Id          int    `json:"id"`
+	gorm.Model
 	Name        string `json:"name"`
 	Description string `json:"description"`
-	UpdateAt    bool   `json:"updateAt"`
-	CreateAt    string `json:"createAt"`
 }

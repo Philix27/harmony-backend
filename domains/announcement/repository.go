@@ -52,7 +52,7 @@ func (r *Repository) FindById(dataId int) (data AnnouncementM, err error) {
 func (r *Repository) Update(data AnnouncementM) {
 	var updateAn = updateAnnouncementDto{
 		Title: data.Subtitle,
-		Id:    data.Id,
+		Id:    int(data.ID),
 	}
 
 	result := r.Db.Model(&data).Updates(updateAn)

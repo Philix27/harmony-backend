@@ -1,11 +1,11 @@
 package taskEpic
 
+import "gorm.io/gorm"
+
 type TaskEpicModel struct {
-	Id          int    `json:"id"`
+	gorm.Model
 	Title       string `json:"title"`
 	Description string `json:"description"`
-	UpdateAt    bool   `json:"updateAt"`
-	CreateAt    string `json:"createAt"`
 }
 
 type createTaskEpicDto struct {

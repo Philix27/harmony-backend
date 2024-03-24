@@ -44,7 +44,7 @@ func (s *Service) FindAll() (list []announcementResponseDto) {
 
 	for _, val := range result {
 		an := announcementResponseDto{
-			Id:    val.Id,
+			Id:    int(val.ID),
 			Title: val.Title,
 		}
 		announceList = append(announceList, an)
@@ -58,7 +58,7 @@ func (s *Service) FindById(dataId int) (data announcementResponseDto, err error)
 	announceData, err := s.repository.FindById(dataId)
 	helper.ErrorPanic(err, "FindById announcement service")
 	response := announcementResponseDto{
-		Id:       announceData.Id,
+		Id:       int(announceData.ID),
 		Title:    announceData.Title,
 		Subtitle: announceData.Subtitle,
 	}

@@ -1,15 +1,14 @@
 package announcement
 
 import (
-	"time"
+	"gorm.io/gorm"
 )
 
 type AnnouncementM struct {
-	Id        int    `gorm: "type:int; primary_key"`
-	Title     string `gorm: "type:varchar(255)"`
-	Subtitle  string `gorm: "type:varchar(255)"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	gorm.Model
+
+	Title    string `gorm: "type:varchar(255)"`
+	Subtitle string `gorm: "type:varchar(255)"`
 }
 
 type Tabler interface {

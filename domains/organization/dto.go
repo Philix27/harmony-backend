@@ -1,12 +1,11 @@
 package organization
 
-import "time"
+import "gorm.io/gorm"
 
 type OrganizationModel struct {
+	gorm.Model
 	Name        string
 	Description string
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
 }
 type createOrganizationDto struct {
 	Name        string

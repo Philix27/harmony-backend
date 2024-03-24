@@ -1,9 +1,9 @@
 package taskStory
 
+import "gorm.io/gorm"
+
 type TaskStoryModel struct {
-	Id          int    `json:"id"`
+	gorm.Model
 	Title       string `json:"title"`
 	Description string `json:"description"`
-	UpdateAt    bool   `json:"updateAt"`
-	CreateAt    string `json:"createAt"`
 }

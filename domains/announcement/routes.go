@@ -29,7 +29,7 @@ func (r *Routes) create(route fiber.Router) {
 		list = append(list, *body)
 
 		return c.JSON(list)
-	})
+	}).Name("AnnouncementCreate")
 
 }
 
