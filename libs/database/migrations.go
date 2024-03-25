@@ -3,17 +3,21 @@ package database
 import (
 	"gorm.io/gorm"
 )
-
+// The order of which you run the migrations matters
+// User first, workspace next
 func RunMigrations(db *gorm.DB) {
-	db.AutoMigrate(
-		Announcement{},
-		Task{},
+	err := db.AutoMigrate(
 		User{},
-		Organization{},
-		TaskEpic{},
-		TaskStory{},
+		Workspace{},
+		Announcement{},
 		Team{},
 		Notes{},
+		Task{},
+		TaskStory{},
+		TaskEpic{},
 	)
 
+	if err != nil {
+		println("Could not run migrations, %v", err.Error())
+	}
 }

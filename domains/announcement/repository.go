@@ -2,6 +2,8 @@ package announcement
 
 import (
 	"errors"
+
+	"harmony/libs/database"
 	"harmony/libs/helper"
 
 	"gorm.io/gorm"
@@ -16,43 +18,51 @@ func NewRepository(db *gorm.DB) iRepository {
 }
 
 // Create implements iRepository.
-func (r *Repository) Create(data AnnouncementM) {
-	result := r.Db.Create(&data)
+func (r *Repository) Create(data createAnnouncementDto) {
+	model := database.Announcement{
+		Title: data.Title,
+	}
+	result := r.Db.Create(&model)
 	helper.ErrorPanic(result.Error, "Create announcement")
 }
 
 // Delete implements iRepository.
 func (r *Repository) Delete(dataId int) {
-	result := r.Db.Where("id = ?", dataId).Delete(new(AnnouncementM))
+	result := r.Db.Where("id = ?", dataId).Delete(new(announcement))
 	helper.ErrorPanic(result.Error, "Delete announcement")
 }
 
 // FindAll implements iRepository.
-func (r *Repository) FindAll() (list []AnnouncementM) {
-	var announceList []AnnouncementM
+func (r *Repository) FindAll() (list []announcement) {
+	var announceList []announcement
 	result := r.Db.Find(&announceList)
 	helper.ErrorPanic(result.Error, "Find all announcement")
 	return announceList
 }
 
 // FindById implements iRepository.
-func (r *Repository) FindById(dataId int) (data AnnouncementM, err error) {
-	var announcementItem AnnouncementM
+func (r *Repository) FindById(dataId int) (data announcement, err error) {
+	var announcementItem database.Announcement
 	result := r.Db.Find(&announcementItem, dataId)
 
+	res := announcement{
+		Title:    announcementItem.Title,
+		Subtitle: announcementItem.Subtitle,
+	}
+
 	if result != nil {
-		return announcementItem, nil
+		return res, nil
 	} else {
-		return announcementItem, errors.New("Announcement not found")
+		return res, errors.New("Announcement not found")
 	}
 
 }
 
 // Update implements iRepository.
-func (r *Repository) Update(data AnnouncementM) {
+func (r *Repository) Update(data updateAnnouncementDto) {
 	var updateAn = updateAnnouncementDto{
 		Title: data.Subtitle,
-		Id:    int(data.ID),
+		Id:    int(data.Id),
 	}
 
 	result := r.Db.Model(&data).Updates(updateAn)

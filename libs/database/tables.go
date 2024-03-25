@@ -6,13 +6,13 @@ import (
 
 type User struct {
 	gorm.Model
-	Email        string `gorm: "type:varchar(255)"`
-	Password     string `gorm: "type:varchar(255)"`
+	Email        string
+	Password     string
 	AccessToken  string
 	RefreshToken string
 }
 
-type Organization struct {
+type Workspace struct {
 	gorm.Model
 	Name          string
 	Description   string
@@ -24,34 +24,39 @@ type Organization struct {
 
 type Notes struct {
 	gorm.Model
-	Title string `json:"name"`
-	Body  string `json:"description"`
+	Title       string 
+	Body        string 
+	WorkspaceID uint
 }
 
 type Team struct {
 	gorm.Model
-	Name        string `json:"name"`
-	Description string `json:"description"`
+	Name        string 
+	Description string 
+	WorkspaceID uint
 }
 
 type Announcement struct {
 	gorm.Model
-	Title    string `gorm: "type:varchar(255)"`
-	Subtitle string `gorm: "type:varchar(255)"`
+	Title       string
+	Subtitle    string
+	WorkspaceID uint
 }
 
 type TaskEpic struct {
 	gorm.Model
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	Stories     []TaskStory
+	Title       string 
+	Description string 
+	TaskStories     []TaskStory
+	WorkspaceID uint
 }
 
 type TaskStory struct {
 	gorm.Model
-	Title       string `json:"title"`
-	Description string `json:"description"`
+	Title       string 
+	Description string 
 	Tasks       []Task
+	TaskEpicID  uint
 }
 
 type Task struct {
@@ -60,7 +65,6 @@ type Task struct {
 	Description       string
 	GithubIssueNumber string
 	GithubIssueLink   string
-	// Relationship
-	Story      string
-	AssignedTo string
+	AssignedTo  string
+	TaskStoryID uint
 }

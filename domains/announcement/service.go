@@ -23,17 +23,7 @@ func (s *Service) Create(data createAnnouncementDto) {
 	err := s.validate.Struct(data)
 	helper.ErrorPanic(err, "Create announcement service")
 
-	model := AnnouncementM{
-		Title:    data.Title,
-		Subtitle: data.Subtitle,
-	}
-
-	s.repository.Create(model)
-}
-
-// Delete implements iService.
-func (s *Service) Delete(dataId int) {
-	s.repository.Delete(dataId)
+	s.repository.Create(data)
 }
 
 // FindAll implements iService.
@@ -44,7 +34,7 @@ func (s *Service) FindAll() (list []announcementResponseDto) {
 
 	for _, val := range result {
 		an := announcementResponseDto{
-			Id:    int(val.ID),
+			Id:    int(val.Id),
 			Title: val.Title,
 		}
 		announceList = append(announceList, an)
@@ -56,9 +46,11 @@ func (s *Service) FindAll() (list []announcementResponseDto) {
 // FindById implements iService.
 func (s *Service) FindById(dataId int) (data announcementResponseDto, err error) {
 	announceData, err := s.repository.FindById(dataId)
+
 	helper.ErrorPanic(err, "FindById announcement service")
+
 	response := announcementResponseDto{
-		Id:       int(announceData.ID),
+		Id:       int(announceData.Id),
 		Title:    announceData.Title,
 		Subtitle: announceData.Subtitle,
 	}
@@ -68,10 +60,12 @@ func (s *Service) FindById(dataId int) (data announcementResponseDto, err error)
 
 // Update implements iService.
 func (s *Service) Update(data updateAnnouncementDto) {
-	announceData, err := s.repository.FindById(data.Id)
-	helper.ErrorPanic(err, "Update announcement service")
-	announceData.Title = data.Title
-	announceData.Subtitle = data.Subtitle
-
-	s.repository.Update(announceData)
+	s.repository.Update(data)
 }
+
+
+// Delete implements iService.
+func (s *Service) Delete(dataId int) {
+	s.repository.Delete(dataId)
+}
+

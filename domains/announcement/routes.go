@@ -4,7 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-var list = []announcementDto{}
+var list = []announcement{}
 
 type Routes struct {
 	service iService
@@ -18,7 +18,7 @@ func NewRoutes(svc iService) iRoutes {
 
 func (r *Routes) create(route fiber.Router) {
 	route.Post("/", func(c *fiber.Ctx) error {
-		body := &announcementDto{}
+		body := &announcement{}
 
 		if err := c.BodyParser(body); err != nil {
 			return err
@@ -42,7 +42,7 @@ func (r *Routes) update(c *fiber.Ctx) error {
 
 	for i, j := range list {
 		if j.Id == id {
-			list[i].Expired = true
+			list[i].Title = ""
 			break
 		}
 	}

@@ -1,13 +1,15 @@
 package announcement
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"github.com/gofiber/fiber/v2"
+)
 
 type iRepository interface {
-	Create(data AnnouncementM)
-	Update(data AnnouncementM)
+	Create(data createAnnouncementDto)
+	Update(data updateAnnouncementDto)
 	Delete(dataId int)
-	FindById(dataId int) (data AnnouncementM, err error)
-	FindAll() (list []AnnouncementM)
+	FindById(dataId int) (data announcement, err error)
+	FindAll() (list []announcement)
 }
 
 type iService interface {
