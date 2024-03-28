@@ -63,9 +63,7 @@ func (s *Service) Update(data updateAnnouncementDto) {
 	s.repository.Update(data)
 }
 
-
 // Delete implements iService.
 func (s *Service) Delete(dataId int) {
 	s.repository.Delete(dataId)
 }
-

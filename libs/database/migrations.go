@@ -3,6 +3,7 @@ package database
 import (
 	"gorm.io/gorm"
 )
+
 // The order of which you run the migrations matters
 // User first, workspace next
 func RunMigrations(db *gorm.DB) {
@@ -13,8 +14,8 @@ func RunMigrations(db *gorm.DB) {
 		Team{},
 		Notes{},
 		Task{},
-		TaskStory{},
-		TaskEpic{},
+		Task_Story{},
+		Task_Epic{},
 	)
 
 	if err != nil {
