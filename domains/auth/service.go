@@ -8,6 +8,11 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+type iService interface {
+	CreateUser(data createUserDto) (database.User, error)
+	login(data LoginDto) (string, error)
+}
+
 type Service struct {
 	repository iRepository
 	notifySvc  notification.Service

@@ -20,7 +20,7 @@ type DbConfig struct {
 	SSLMode  string
 }
 
-func DbNewConnection(config *DbConfig) (*gorm.DB, error) {
+func NewConnection(config *DbConfig) (*gorm.DB, error) {
 
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer

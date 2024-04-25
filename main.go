@@ -11,32 +11,14 @@ import (
 
 	"os"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 )
 
 
 func main() {
-	err := godotenv.Load(".env")
-
-	helper.ErrorPanic(err, "Could not load env")
-
-	server := fiber.New(fiber.Config{
-		Prefork:           false,
-		CaseSensitive:     true,
-		StrictRouting:     true,
-		ServerHeader:      "Harmony Server",
-		AppName:           "Harmony",
-		EnablePrintRoutes: true,
-		IdleTimeout:       5,
-		ReduceMemoryUsage: true,
-	})
-
-	server.Use(cors.New(cors.Config{
-		AllowOrigins: "http://localhost:1400",
-		AllowHeaders: "Origin, Content-Type, Accept",
-	}))
+	if err := godotenv.Load(".env"); err != nil {
+		helper.ErrorPanic(err, "Could not load env")
+	}
 
 	config := &database.DbConfig{
 		Host:     os.Getenv("DB_HOST"),
@@ -47,7 +29,7 @@ func main() {
 		DbName:   os.Getenv("DB_NAME"),
 	}
 
-	db, err := database.DbNewConnection(config); 
+	db, err := database.NewConnection(config); 
 
 	if err != nil {
 		helper.ErrorPanic(err, "Cannot connect to db")
@@ -58,6 +40,8 @@ func main() {
 	appState := app.AppState{
 		DB: db,
 	}
+
+	server := appState.NewApp()
 
 	appState.SetupRoutes(server)
 

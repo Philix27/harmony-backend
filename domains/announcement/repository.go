@@ -9,6 +9,15 @@ import (
 	"gorm.io/gorm"
 )
 
+
+type iRepository interface {
+	Create(data createAnnouncementDto)
+	Update(data updateAnnouncementDto)
+	Delete(dataId int)
+	FindById(dataId int) (data announcement, err error)
+	FindAll() (list []announcement)
+}
+
 type Repository struct {
 	Db *gorm.DB
 }

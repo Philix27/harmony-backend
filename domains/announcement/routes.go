@@ -6,6 +6,14 @@ import (
 
 var list = []announcement{}
 
+type iRoutes interface {
+	create(router fiber.Router)
+	update(c *fiber.Ctx) error
+	getAll(c *fiber.Ctx) error
+	getOne(c *fiber.Ctx) error
+	deleteOne(c *fiber.Ctx) error
+}
+
 type Routes struct {
 	service iService
 }
@@ -58,3 +66,20 @@ func (r *Routes) getAll(c *fiber.Ctx) error {
 func (r *Routes) getOne(c *fiber.Ctx) error {
 	return c.SendString("Get one announcement")
 }
+
+// announce := router.Group("/")
+// announce.Post("/", handler.create).Name("AnnouncementCreate")
+// announce.Patch("/:id/expired", handler.update).Name("AnnouncementPatch")
+// announce.Get("/", handler.getAll).Name("AnnouncementGetAll")
+// announce.Get("/id", handler.getOne).Name("AnnouncementGetOne")
+// announce.Delete("/", handler.deleteOne).Name("AnnouncementDelete")
+// return GenRoutes(router  ,handler)
+
+// func GenRoutes(router fiber.Router, handler Routes)    {
+// 	announce := router.Group("/")
+// 	announce.Post("/", handler.create).Name("AnnouncementCreate")
+// 	announce.Patch("/:id/expired", handler.update).Name("AnnouncementPatch")
+// 	announce.Get("/", handler.getAll).Name("AnnouncementGetAll")
+// 	announce.Get("/id", handler.getOne).Name("AnnouncementGetOne")
+// 	announce.Delete("/", handler.deleteOne).Name("AnnouncementDelete")
+// }

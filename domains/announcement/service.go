@@ -6,6 +6,14 @@ import (
 	"github.com/go-playground/validator"
 )
 
+type iService interface {
+	Create(data createAnnouncementDto)
+	Update(data updateAnnouncementDto)
+	Delete(dataId int)
+	FindById(dataId int) (data announcementResponseDto, err error)
+	FindAll() (list []announcementResponseDto)
+}
+
 type Service struct {
 	repository iRepository
 	validate   *validator.Validate

@@ -6,6 +6,11 @@ import (
 	"gorm.io/gorm"
 )
 
+type iRepository interface {
+	CreateUser(data database.User) (database.User, error)
+	getUserByEmail(email string) (database.User, error)
+}
+
 type repository struct {
 	Db *gorm.DB
 }
