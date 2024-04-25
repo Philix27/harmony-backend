@@ -1,12 +1,14 @@
 package main
 
 import (
+	"fmt"
 	_ "harmony/docs"
 	"harmony/libs/app"
+	"harmony/libs/code_gen"
 	"harmony/libs/database"
 	"harmony/libs/helper"
-
 	"log"
+
 	"os"
 
 	"github.com/gofiber/fiber/v2"
@@ -14,25 +16,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// @title Harmony
-// @version 1.0
-// @description Harmony Backend Server
-// @termsOfService http://swagger.io/terms/
-
-// @contact.name Felix Eligbue
-// @contact.email philixbob@gmail.com
-// @contact.url    http://www.swagger.io/support
-
-// @license.name Apache 2.0
-// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
-
-// @host localhost:3111
-// @BasePath /api/v1/
-
-// @securityDefinitions.basic  BasicAuth
-
-// @externalDocs.description  OpenAPI
-// @externalDocs.url          https://swagger.io/resources/open-api/
 
 func main() {
 	err := godotenv.Load(".env")
@@ -64,15 +47,12 @@ func main() {
 		DbName:   os.Getenv("DB_NAME"),
 	}
 
-	db, err := database.DbNewConnection(config)
-	if err != nil {
-		println("An error occurred during db con")
-	} else {
-		log.Println("Database connection successful")
-		println("Database connection successful")
-	}
-	helper.ErrorPanic(err, "Cannot connect to db")
+	db, err := database.DbNewConnection(config); 
 
+	if err != nil {
+		helper.ErrorPanic(err, "Cannot connect to db")
+	}
+	
 	database.RunMigrations(db)
 
 	appState := app.AppState{
@@ -81,8 +61,15 @@ func main() {
 
 	appState.SetupRoutes(server)
 
-	helper.GenerateTypescriptPaths(server)
+	if os.Getenv("ENV") == "DEV" {
+		code_gen.GenerateTypescriptPaths(server, "./sdk/routes.ts")
+		if err := code_gen.ConvertGoToTs("sample.go", "./sdk/dto.ts"); err != nil {
+			fmt.Println("Error in conversion: ", err)
+		} else {
+			fmt.Println("Conversion successful!")
 
-	panic("Quit")
+		}
+	}
+
 	log.Fatal(server.Listen(":" + os.Getenv("PORT")))
 }
