@@ -1,4 +1,4 @@
-package organization
+package workspace
 
 import (
 	"harmony/libs/database"
@@ -7,13 +7,13 @@ import (
 )
 
 type iRepository interface {
-	createOrg(data organizationModel) (database.User, error)
+	createOrg(data workspaceModel) (database.User, error)
 	getByUserEmail(data getByUserIdDto) (database.User, error)
 	getByOrgId(data getByOrgIdDto) (database.User, error)
 }
 
 type iService interface {
-	create(data createOrganizationDto) (database.User, error)
+	create(data createWorkspaceDto) (database.User, error)
 	get(data getByUserIdDto) (database.User, error)
 }
 

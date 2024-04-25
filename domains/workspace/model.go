@@ -1,6 +1,6 @@
-package organization
+package workspace
 
-type organizationModel struct {
+type workspaceModel struct {
 	Id          string
 	Name        string
 	Description string

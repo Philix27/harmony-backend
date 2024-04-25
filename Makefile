@@ -47,6 +47,9 @@ vet:
 # Run all checks
 check: fmt vet test
 
+gen: 
+	$(GO_RUN_DEV) ./libs/helper/gen.go
+
 
 
 

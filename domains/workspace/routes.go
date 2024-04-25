@@ -1,4 +1,4 @@
-package organization
+package workspace
 
 import (
 	"github.com/gofiber/fiber/v2"

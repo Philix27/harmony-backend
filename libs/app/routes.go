@@ -5,12 +5,12 @@ import (
 	"harmony/domains/auth"
 	"harmony/domains/chat"
 	"harmony/domains/notes"
-	"harmony/domains/organization"
 	"harmony/domains/task"
 	"harmony/domains/taskEpic"
 	"harmony/domains/taskStory"
 	"harmony/domains/team"
 	"harmony/domains/user"
+	"harmony/domains/workspace"
 	"harmony/libs/middleware"
 
 	"github.com/gofiber/fiber/v2"
@@ -24,7 +24,7 @@ func (state AppState) SetupRoutes(app *fiber.App) {
 	announcement.Setup(v1, state.DB)
 	v1.Route("/auth", auth.RoutesHandler)
 	v1.Route("/chat", chat.RoutesHandler)
-	v1.Route("/organization", organization.RoutesHandler)
+	v1.Route("/organization", workspace.RoutesHandler)
 	v1.Route("/task_epic", taskEpic.RoutesHandler)
 	v1.Route("/task_story", taskStory.RoutesHandler)
 	v1.Route("/task", task.RoutesHandler)

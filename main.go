@@ -83,5 +83,6 @@ func main() {
 
 	helper.GenerateTypescriptPaths(server)
 
+	panic("Quit")
 	log.Fatal(server.Listen(":" + os.Getenv("PORT")))
 }

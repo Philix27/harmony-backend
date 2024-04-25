@@ -1,14 +1,14 @@
-package organization
+package workspace
 
-type createOrganizationDto struct {
+type createWorkspaceDto struct {
 	Name        string
 	Description string
 }
-type updateOrganizationDto struct {
+type updateWorkspaceDto struct {
 	Id          string
 	Description string
 }
-type deleteOrganizationDto struct {
+type deleteWorkspaceDto struct {
 	Id string
 }
 type getByUserIdDto struct {

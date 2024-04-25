@@ -1,7 +1,7 @@
 {
-  "name": "kolab_backend",
+  "name": "harmony_sdk",
   "version": "0.0.1",
-  "description": "",
+  "description": "collection of endpoint and types",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
@@ -11,5 +11,6 @@
     "docs_fmt": "./swag fmt",
     "docs_gen": "./swag init -g main.go",
     "dev": "go run main.go"
-  }
+  },
+  "main": "index.js"
 }
