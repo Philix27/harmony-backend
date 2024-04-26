@@ -5,14 +5,8 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "scripts": {
-    "gqlgen": "go run github.com/99designs/gqlgen generate",
-    "run": "go run server.go",
-    "docs_fmt": "./swag fmt",
-    "docs_gen": "./swag init -g main.go",
-    "dev": "go run main.go"
-  },
-  "main": "index.js",
+  "scripts": {},
+  "main": "index.ts",
   "dependencies": {
     "axios": "^1.6.8"
   }

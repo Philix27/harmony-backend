@@ -8,7 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func GenerateTypescriptPaths(server *fiber.App, outputPath string) {
+func GenerateTsRouteHandlers(server *fiber.App, outputPath string) {
 
 	// server.GetRoute("./").Handlers
 	// Open the output file for writing
@@ -23,7 +23,9 @@ func GenerateTypescriptPaths(server *fiber.App, outputPath string) {
 	var arrName []string
 	var arrWeirdPath = []string{"/api", "/api/v1", "/", "/swagger/*"}
 
-	setup := `import axios from "axios";
+	setup := `
+import axios from "axios";
+import * as T from "./dto";
 
 export class ApiRoutes {
 	`
@@ -38,15 +40,15 @@ export class ApiRoutes {
 		// 	continue
 		// }
 		c := fmt.Sprintf("  "+
-			`public async %v(): Promise<any> {
+			`public async %v(data: T.%vInput): Promise<T.%vResponse> {
 		try {
-			const res = await axios.%v("%v");
-			return res;
+			const res = await axios.%v("%v", data);
+			return res.data as T.%vResponse;
 		} catch(e) {
 			return e.message;
 		}
 
-	}`, r.Name, getMethod(r.Method), r.Path)
+	}`, r.Name, r.Name, r.Name, getMethod(r.Method), r.Path, r.Name)
 
 		setup = setup + c + "\n"
 	}

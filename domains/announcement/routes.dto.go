@@ -1,5 +1,15 @@
 package announcement
 
+type AnnouncementCreateInput struct {
+	Id       int    `json:"id"`
+	Title    string `json:"title"`
+	Subtitle string `json:"subtitle"`
+}
+
+type AnnouncementCreateResponse struct {
+	data []AnnouncementCreateInput
+}
+
 type announcement struct {
 	Id       int    `json:"id"`
 	Title    string `json:"title"`

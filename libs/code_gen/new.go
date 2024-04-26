@@ -52,22 +52,22 @@ func processGoFile(goFilePath string, tsFile *os.File) error {
 	scanner := bufio.NewScanner(goFile)
 
 	// Write the TypeScript interface definitions to the output file
-    // Read each line of the file
+	// Read each line of the file
 	for scanner.Scan() {
 		line := scanner.Text()
 		if strings.HasPrefix(line, "type ") { // Check if the line defines a struct
 			structName := strings.Fields(line)[1]
 			tsFile.WriteString(fmt.Sprintf("\nexport interface %s {\n", structName))
 			// Read each line of the struct
-            for scanner.Scan() {
+			for scanner.Scan() {
 				line = scanner.Text()
 				if line == "}" {
 					break
 				}
 				parts := strings.Fields(line)
 				fieldName := parts[0]
-				fieldType := parts[1]
-				tsFile.WriteString(fmt.Sprintf("    %s: %s;\n", fieldName, mapGoTypeToTsType(fieldType)))
+				fieldType := checkForArray(parts[1])
+				tsFile.WriteString(fmt.Sprintf(" %s: %s;\n", fieldName, mapGoTypeToTsType(fieldType)))
 			}
 			tsFile.WriteString("}\n")
 		}
@@ -80,16 +80,10 @@ func processGoFile(goFilePath string, tsFile *os.File) error {
 	return nil
 }
 
-// Function to map Go types to TypeScript types
-func mapGoTypeToTsType(goType string) string {
-	switch goType {
-	case "string":
-		return "string"
-	case "int", "int32", "int64", "uint", "uint32", "uint64":
-		return "number"
-	case "float32", "float64":
-		return "number"
-	default:
-		return goType
+func checkForArray(val string) string {
+	if strings.HasPrefix(val, "[]") {
+		withoutArr, _ := strings.CutPrefix(val, "[]")
+		return withoutArr + "[]"
 	}
+	return val
 }

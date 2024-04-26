@@ -4,8 +4,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-var list = []announcement{}
-
 type iRoutes interface {
 	create(router fiber.Router)
 	update(c *fiber.Ctx) error
@@ -24,14 +22,15 @@ func NewRoutes(svc iService) iRoutes {
 	}
 }
 
-// type announcementX struct {
-// 	Id       int    `json:"id"`
-// 	Title    string `json:"title"`
-// 	Subtitle string `json:"subtitle"`
-// }
+//	type announcementX struct {
+//		Id       int    `json:"id"`
+//		Title    string `json:"title"`
+//		Subtitle string `json:"subtitle"`
+//	}
 func (r *Routes) create(route fiber.Router) {
 	route.Post("/", func(c *fiber.Ctx) error {
-		body := &announcement{}
+		var list = []AnnouncementCreateInput{}
+		body := &AnnouncementCreateInput{}
 
 		if err := c.BodyParser(body); err != nil {
 			return err
@@ -41,12 +40,14 @@ func (r *Routes) create(route fiber.Router) {
 
 		list = append(list, *body)
 
-		return c.JSON(list)
+		return c.JSON(AnnouncementCreateResponse{
+			data: list,
+		})
 	}).Name("AnnouncementCreate")
-
 }
 
 func (r *Routes) update(c *fiber.Ctx) error {
+	var list = []AnnouncementCreateInput{}
 	id, err := c.ParamsInt("id")
 
 	if err != nil {
@@ -67,6 +68,7 @@ func (r *Routes) deleteOne(c *fiber.Ctx) error {
 }
 
 func (r *Routes) getAll(c *fiber.Ctx) error {
+	var list = []AnnouncementCreateInput{}
 	return c.JSON(list)
 }
 

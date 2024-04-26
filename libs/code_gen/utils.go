@@ -24,3 +24,17 @@ func arrContains(arr []string, value string) bool {
 	}
 	return false
 }
+
+// Function to map Go types to TypeScript types
+func mapGoTypeToTsType(goType string) string {
+	switch goType {
+	case "string":
+		return "string"
+	case "int", "int32", "int64", "uint", "uint32", "uint64":
+		return "number"
+	case "float32", "float64":
+		return "number"
+	default:
+		return goType
+	}
+}

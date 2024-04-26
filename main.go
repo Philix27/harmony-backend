@@ -44,14 +44,14 @@ func main() {
 	appState.SetupRoutes(server)
 
 	if os.Getenv("ENV") == "DEV" {
-		// code_gen.GenerateTypescriptPaths(server, "./sdk/routes.ts")
-		// if err := code_gen.ConvertGoToTs("sample.go", "./sdk/dto.ts"); err != nil {
+		code_gen.GenerateTsRouteHandlers(server, "./sdk/routes.ts")
+		// if err := code_gen.GenerateTsRouteHandlers(server, "./sdk/dto.ts"); err != nil {
 		// 	fmt.Println("Error in conversion: ", err)
 		// } else {
 		// 	fmt.Println("Conversion successful!")
 
 		// }
-		if err := code_gen.GoThroughFiles("./", "output.ts"); err != nil {
+		if err := code_gen.GoThroughFiles("./", "./sdk/dto.ts"); err != nil {
 			fmt.Println("Error:", err)
 		} else {
 			fmt.Println("Conversion successful!")

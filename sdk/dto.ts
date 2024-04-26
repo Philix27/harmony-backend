@@ -1,15 +1,56 @@
 
-export interface SampleJake {
-    Name: string;
-    Surname: string;
+export interface AnnouncementCreateInput {
+ Id: number;
+ Title: string;
+ Subtitle: string;
 }
 
-export interface AuthCreateGet {
-    Name: string;
-    Surname: string;
+export interface AnnouncementCreateResponse {
+ data: AnnouncementCreateInput[];
 }
 
-export interface AuthCreatePost {
-    Name: string;
-    Surname: string;
+export interface announcement {
+ Id: number;
+ Title: string;
+ Subtitle: string;
+}
+
+export interface createAnnouncementDto {
+ Title: string;
+ Subtitle: string;
+}
+
+export interface updateAnnouncementDto {
+ Id: number;
+ Title: string;
+ Subtitle: string;
+}
+
+export interface announcementResponseDto {
+ Id: number;
+ Title: string;
+ Subtitle: string;
+}
+
+export interface announcement {
+ Id: number;
+ Title: string;
+ Subtitle: string;
+}
+
+export interface createAnnouncementDto {
+ Title: string;
+ Subtitle: string;
+}
+
+export interface updateAnnouncementDto {
+ Id: number;
+ Title: string;
+ Subtitle: string;
+}
+
+export interface announcementResponseDto {
+ Id: number;
+ Title: string;
+ Subtitle: string;
 }
