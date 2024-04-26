@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"harmony/libs/app"
 	"harmony/libs/code_gen"
@@ -58,5 +59,5 @@ func main() {
 		}
 	}
 
-	// log.Fatal(server.Listen(":" + os.Getenv("PORT")))
+	log.Fatal(server.Listen(":" + os.Getenv("PORT")))
 }

@@ -14,7 +14,8 @@ func Setup(router fiber.Router, db *gorm.DB) {
 
 	handler := NewRoutes(svc)
 
-	router.Route("/announcement", handler.create)
+	router.Route("/announcement", handler.manager)
+	// router.Route("/announcement", handler.create).Name("AnnouncementCreate")
+	// router.Route("/announcement", handler.deleteOne).Name("AnnouncementUpdate")
 
 }
-
