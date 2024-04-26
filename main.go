@@ -2,18 +2,16 @@ package main
 
 import (
 	"fmt"
-	_ "harmony/docs"
+
 	"harmony/libs/app"
 	"harmony/libs/code_gen"
 	"harmony/libs/database"
 	"harmony/libs/helper"
-	"log"
 
 	"os"
 
 	"github.com/joho/godotenv"
 )
-
 
 func main() {
 	if err := godotenv.Load(".env"); err != nil {
@@ -29,12 +27,12 @@ func main() {
 		DbName:   os.Getenv("DB_NAME"),
 	}
 
-	db, err := database.NewConnection(config); 
+	db, err := database.NewConnection(config)
 
 	if err != nil {
 		helper.ErrorPanic(err, "Cannot connect to db")
 	}
-	
+
 	database.RunMigrations(db)
 
 	appState := app.AppState{
@@ -46,14 +44,19 @@ func main() {
 	appState.SetupRoutes(server)
 
 	if os.Getenv("ENV") == "DEV" {
-		code_gen.GenerateTypescriptPaths(server, "./sdk/routes.ts")
-		if err := code_gen.ConvertGoToTs("sample.go", "./sdk/dto.ts"); err != nil {
-			fmt.Println("Error in conversion: ", err)
+		// code_gen.GenerateTypescriptPaths(server, "./sdk/routes.ts")
+		// if err := code_gen.ConvertGoToTs("sample.go", "./sdk/dto.ts"); err != nil {
+		// 	fmt.Println("Error in conversion: ", err)
+		// } else {
+		// 	fmt.Println("Conversion successful!")
+
+		// }
+		if err := code_gen.GoThroughFiles("./", "output.ts"); err != nil {
+			fmt.Println("Error:", err)
 		} else {
 			fmt.Println("Conversion successful!")
-
 		}
 	}
 
-	log.Fatal(server.Listen(":" + os.Getenv("PORT")))
+	// log.Fatal(server.Listen(":" + os.Getenv("PORT")))
 }

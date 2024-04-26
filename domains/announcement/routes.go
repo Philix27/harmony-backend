@@ -24,6 +24,11 @@ func NewRoutes(svc iService) iRoutes {
 	}
 }
 
+// type announcementX struct {
+// 	Id       int    `json:"id"`
+// 	Title    string `json:"title"`
+// 	Subtitle string `json:"subtitle"`
+// }
 func (r *Routes) create(route fiber.Router) {
 	route.Post("/", func(c *fiber.Ctx) error {
 		body := &announcement{}
@@ -60,9 +65,11 @@ func (r *Routes) update(c *fiber.Ctx) error {
 func (r *Routes) deleteOne(c *fiber.Ctx) error {
 	return c.SendString("Delete one announcement")
 }
+
 func (r *Routes) getAll(c *fiber.Ctx) error {
 	return c.JSON(list)
 }
+
 func (r *Routes) getOne(c *fiber.Ctx) error {
 	return c.SendString("Get one announcement")
 }

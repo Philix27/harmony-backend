@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func ConvertGoToTs(goFilePath string, tsFilePath string) error {
+func ConvertGoToTsProcessor(goFilePath string, tsFilePath string) error {
 	// open Files
 	goFile, err := os.Open(goFilePath)
 
