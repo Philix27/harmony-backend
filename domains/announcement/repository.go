@@ -4,53 +4,77 @@ import (
 	"errors"
 
 	"harmony/libs/database"
-	"harmony/libs/helper"
 
+	"golang.org/x/exp/slog"
 	"gorm.io/gorm"
 )
 
-
 type iRepository interface {
-	Create(data createAnnouncementDto)
-	Update(data updateAnnouncementDto)
-	Delete(dataId int)
-	FindById(dataId int) (data announcement, err error)
-	FindAll() (list []announcement)
+	Create(data createAnnouncementDto) error
+	Update(data updateAnnouncementDto) error
+	Delete(dataId int) error
+	FindById(dataId int) (announcement, error)
+	FindAll() ([]announcement, error)
 }
 
 type Repository struct {
-	Db *gorm.DB
+	Db          *gorm.DB
+	logger      *slog.Logger
+	logGroupKey string
 }
 
-func NewRepository(db *gorm.DB) iRepository {
-	return &Repository{Db: db}
+func NewRepository(db *gorm.DB, logger *slog.Logger, logGroupKey string) iRepository {
+	return &Repository{Db: db, logger: logger, logGroupKey: logGroupKey}
 }
 
 // Create implements iRepository.
-func (r *Repository) Create(data createAnnouncementDto) {
+func (r *Repository) Create(data createAnnouncementDto) error {
 	model := database.Announcement{
-		Title: data.Title,
+		Title:       data.Title,
+		Subtitle:    data.Subtitle,
+		WorkspaceID: data.WorkspaceID,
 	}
-	result := r.Db.Create(&model)
-	helper.ErrorPanic(result.Error, "Create announcement")
+
+	if result := r.Db.Create(&model); result.Error != nil {
+		println(result.Error)
+		r.logger.WithGroup(r.logGroupKey).Error("FAILED_TO_CREATE", "errMsg", result.Error)
+		return result.Error
+	}
+	r.logger.WithGroup(r.logGroupKey).Info("CREATE_SUCCESSFUL")
+	return nil
 }
 
-// Delete implements iRepository.
-func (r *Repository) Delete(dataId int) {
-	result := r.Db.Where("id = ?", dataId).Delete(new(announcement))
-	helper.ErrorPanic(result.Error, "Delete announcement")
+// Update implements iRepository.
+func (r *Repository) Update(data updateAnnouncementDto) error {
+	var updateAn = updateAnnouncementDto{
+		Title: data.Subtitle,
+		Id:    int(data.Id),
+	}
+
+	result := r.Db.Model(&data).Updates(updateAn)
+
+	if result.Error != nil {
+		r.logger.Error("CANNOT UPDATE")
+		return result.Error
+	}
+	r.logger.Info("UPDATE announcement successful")
+	return nil
 }
 
 // FindAll implements iRepository.
-func (r *Repository) FindAll() (list []announcement) {
+func (r *Repository) FindAll() ([]announcement, error) {
 	var announceList []announcement
 	result := r.Db.Find(&announceList)
-	helper.ErrorPanic(result.Error, "Find all announcement")
-	return announceList
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return announceList, nil
 }
 
 // FindById implements iRepository.
-func (r *Repository) FindById(dataId int) (data announcement, err error) {
+func (r *Repository) FindById(dataId int) (announcement, error) {
 	var announcementItem database.Announcement
 	result := r.Db.Find(&announcementItem, dataId)
 
@@ -62,18 +86,17 @@ func (r *Repository) FindById(dataId int) (data announcement, err error) {
 	if result != nil {
 		return res, nil
 	} else {
-		return res, errors.New("Announcement not found")
+		return res, errors.New("NOT FOUND")
 	}
 
 }
 
-// Update implements iRepository.
-func (r *Repository) Update(data updateAnnouncementDto) {
-	var updateAn = updateAnnouncementDto{
-		Title: data.Subtitle,
-		Id:    int(data.Id),
-	}
+// Delete implements iRepository.
+func (r *Repository) Delete(dataId int) error {
+	result := r.Db.Where("id = ?", dataId).Delete(new(announcement))
 
-	result := r.Db.Model(&data).Updates(updateAn)
-	helper.ErrorPanic(result.Error, "Update announcement")
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
 }

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"harmony/libs/app"
+	"harmony/app"
 	"harmony/libs/code_gen"
 	"harmony/libs/database"
 	"harmony/libs/helper"
@@ -12,6 +12,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"golang.org/x/exp/slog"
 )
 
 func main() {
@@ -35,6 +36,15 @@ func main() {
 	}
 
 	database.RunMigrations(db)
+	// Slog
+	handlerOpt := &slog.HandlerOptions{
+		Level:     slog.LevelDebug,
+		AddSource: true,
+	}
+
+	logger := slog.New(slog.NewJSONHandler(os.Stderr, handlerOpt))
+
+	slog.SetDefault(logger);
 
 	appState := app.AppState{
 		DB: db,
@@ -42,7 +52,7 @@ func main() {
 
 	server := appState.NewApp()
 
-	appState.SetupRoutes(server)
+	appState.SetupRoutes(server, logger)
 
 	if os.Getenv("ENV") == "DEV" {
 		code_gen.GenerateTsRouteHandlers(server, "./sdk/routes.ts")
@@ -60,4 +70,5 @@ func main() {
 	}
 
 	log.Fatal(server.Listen(":" + os.Getenv("PORT")))
+	// log.Fatal()
 }

@@ -6,16 +6,17 @@ import (
 
 // The order of which you run the migrations matters
 // User first, workspace next
+// Tables with More dependencies stays on top
 func RunMigrations(db *gorm.DB) {
 	err := db.AutoMigrate(
-		User{},
 		Workspace{},
+		TaskEpic{},
+		TaskStory{},
+		User{},
 		Announcement{},
-		Team{},
-		Notes{},
+		Documents{},
 		Task{},
-		Task_Story{},
-		Task_Epic{},
+		TaskTags{},
 	)
 
 	if err != nil {

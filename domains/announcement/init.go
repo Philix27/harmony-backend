@@ -1,21 +1,17 @@
 package announcement
 
 import (
-	"github.com/go-playground/validator"
 	"github.com/gofiber/fiber/v2"
+	"golang.org/x/exp/slog"
 	"gorm.io/gorm"
 )
 
-func Setup(router fiber.Router, db *gorm.DB) {
+func Setup(router fiber.Router, db *gorm.DB, logger *slog.Logger) {
 
-	repo := NewRepository(db)
+	repo := NewRepository(db, logger, "ANNOUNCEMENT_REPOSITORY")
 
-	svc := NewService(repo, validator.New())
-
-	handler := NewRoutes(svc)
+	handler := NewRoutes(repo, logger)
 
 	router.Route("/announcement", handler.manager)
-	// router.Route("/announcement", handler.create).Name("AnnouncementCreate")
-	// router.Route("/announcement", handler.deleteOne).Name("AnnouncementUpdate")
 
 }

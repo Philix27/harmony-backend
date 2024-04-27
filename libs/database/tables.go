@@ -10,32 +10,24 @@ type User struct {
 	Password     string
 	AccessToken  string
 	RefreshToken string
-	TeamID       uint
+	WorkspaceID  uint
 }
 
 type Workspace struct {
 	gorm.Model
 	Name          string
 	Description   string
-	Notes         []Notes
-	Teams         []Team
+	Notes         []Documents
 	Announcements []Announcement
-	Epics         []Task_Epic
+	Epics         []TaskEpic
+	Members       []User
 }
 
-type Notes struct {
+type Documents struct {
 	gorm.Model
 	Title       string
 	Body        string
 	WorkspaceID uint
-}
-
-type Team struct {
-	gorm.Model
-	Name        string
-	Description string
-	WorkspaceID uint
-	Users       []User
 }
 
 type Announcement struct {
@@ -45,15 +37,15 @@ type Announcement struct {
 	WorkspaceID uint
 }
 
-type Task_Epic struct {
+type TaskEpic struct {
 	gorm.Model
 	Title       string
 	Description string
-	TaskStories []Task_Story
+	TaskStories []TaskStory
 	WorkspaceID uint
 }
 
-type Task_Story struct {
+type TaskStory struct {
 	gorm.Model
 	Title       string
 	Description string
@@ -69,24 +61,12 @@ type Task struct {
 	GithubIssueLink   string
 	AssignedTo        string
 	TaskStoryID       uint
+	TaskEpic       uint
+	
 }
-type Chat_Channel struct {
+type TaskTags struct {
 	gorm.Model
 	Name        string
 	Description string
-	Type        string
-	Chat_Msgs   []Chat_Msg
-}
-type Chat_Msg struct {
-	gorm.Model
-	Msg            string
-	Sender         string
-	Chat_ChannelID uint
-}
-type Chat_DM struct {
-	gorm.Model
-	Msg            string
-	Sender         string
-	Receiver       string
-	Chat_ChannelID uint
+	ColorCode   string
 }
