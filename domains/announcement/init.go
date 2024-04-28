@@ -10,7 +10,7 @@ func Setup(router fiber.Router, db *gorm.DB, logger *slog.Logger) {
 
 	repo := NewRepository(db, logger, "ANNOUNCEMENT_REPOSITORY")
 
-	handler := NewRoutes(repo, logger)
+	handler := NewRoutes(repo, logger, "ANNOUNCEMENT_ROUTES")
 
 	router.Route("/announcement", handler.manager)
 

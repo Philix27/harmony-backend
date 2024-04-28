@@ -1,8 +1,6 @@
 package announcement
 
 import (
-	"errors"
-
 	"harmony/libs/database"
 
 	"golang.org/x/exp/slog"
@@ -24,20 +22,23 @@ type Repository struct {
 }
 
 func NewRepository(db *gorm.DB, logger *slog.Logger, logGroupKey string) iRepository {
-	return &Repository{Db: db, logger: logger, logGroupKey: logGroupKey}
+	return &Repository{
+		Db:          db.Model(&database.Announcement{}).Debug(),
+		logger:      logger,
+		logGroupKey: logGroupKey,
+	}
 }
 
 // Create implements iRepository.
 func (r *Repository) Create(data createAnnouncementDto) error {
-	model := database.Announcement{
-		Title:       data.Title,
-		Subtitle:    data.Subtitle,
-		WorkspaceID: data.WorkspaceID,
-	}
 
-	if result := r.Db.Create(&model); result.Error != nil {
+	if result := r.Db.Create(data); result.Error != nil {
 		println(result.Error)
-		r.logger.WithGroup(r.logGroupKey).Error("FAILED_TO_CREATE", "errMsg", result.Error)
+		r.logger.WithGroup(r.logGroupKey).Error(
+			"FAILED_TO_CREATE",
+			"errMsg",
+			result.Error,
+		)
 		return result.Error
 	}
 	r.logger.WithGroup(r.logGroupKey).Info("CREATE_SUCCESSFUL")
@@ -46,12 +47,9 @@ func (r *Repository) Create(data createAnnouncementDto) error {
 
 // Update implements iRepository.
 func (r *Repository) Update(data updateAnnouncementDto) error {
-	var updateAn = updateAnnouncementDto{
-		Title: data.Subtitle,
-		Id:    int(data.Id),
-	}
-
-	result := r.Db.Model(&data).Updates(updateAn)
+	result := r.Db.Where(
+		"id = ?", data.Id,
+	).Updates(data)
 
 	if result.Error != nil {
 		r.logger.Error("CANNOT UPDATE")
@@ -64,29 +62,44 @@ func (r *Repository) Update(data updateAnnouncementDto) error {
 // FindAll implements iRepository.
 func (r *Repository) FindAll() ([]announcement, error) {
 	var announceList []announcement
-	result := r.Db.Find(&announceList)
+	result := r.Db.Limit(10).Find(&announceList)
 
 	if result.Error != nil {
+		r.logger.Error("CANNOT FIND_ALL:", result.Error)
 		return nil, result.Error
 	}
-
+	r.logger.Info("READ ALL")
 	return announceList, nil
 }
 
 // FindById implements iRepository.
 func (r *Repository) FindById(dataId int) (announcement, error) {
-	var announcementItem database.Announcement
-	result := r.Db.Find(&announcementItem, dataId)
+	announcementItem := announcement{}
+	
+	result := r.Db.First(&announcementItem, dataId)
 
-	res := announcement{
-		Title:    announcementItem.Title,
-		Subtitle: announcementItem.Subtitle,
+	if result.Error != nil {
+		r.logger.Error("CANNOT FIND_ONE:", result.Error, dataId)
+		return announcement{}, result.Error
+	} else {
+		r.logger.Error("RETRIEVE FIND_ONE:", announcementItem)
+		return announcementItem, nil
 	}
 
-	if result != nil {
-		return res, nil
+}
+
+// FindById implements iRepository.
+func (r *Repository) FindByProperties(dataId int) (announcement, error) {
+	var announcementItem announcement
+	result := r.Db.Where(
+		"id = ?", dataId,
+	).First(&announcementItem)
+
+	if result.Error != nil {
+		r.logger.Error("CANNOT FIND_ONE:", result.Error)
+		return announcement{}, result.Error
 	} else {
-		return res, errors.New("NOT FOUND")
+		return announcementItem, nil
 	}
 
 }

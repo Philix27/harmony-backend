@@ -44,7 +44,7 @@ export interface AnnouncementGetAllInput {
 }
 
 export interface AnnouncementGetAllResponse {
- data: announcement[];
+ Data: announcement[];
 }
 
 export interface announcement {
@@ -57,12 +57,6 @@ export interface createAnnouncementDto {
  Title: string;
  Subtitle: string;
  WorkspaceID: number;
-}
-
-export interface announcementResponseDto {
- Id: number;
- Title: string;
- Subtitle: string;
 }
 
 export interface updateAnnouncementDto {

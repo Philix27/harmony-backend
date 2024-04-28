@@ -1,6 +1,8 @@
 package announcement
 
 import (
+	"strconv"
+
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/exp/slog"
 )
@@ -19,18 +21,18 @@ type Routes struct {
 	logger     *slog.Logger
 }
 
-func NewRoutes(repo iRepository, logger *slog.Logger) iRoutes {
+func NewRoutes(repo iRepository, logger *slog.Logger, logGroupKey string) iRoutes {
 	return &Routes{
 		repository: repo,
-		logger:     logger,
+		logger:     logger.WithGroup(logGroupKey),
 	}
 }
 
 func (r *Routes) manager(route fiber.Router) {
 	route.Post("/", r.create).Name("AnnouncementCreate")
 	route.Put("/", r.update).Name("AnnouncementUpdate")
-	route.Get("/:id", r.getOne).Name("AnnouncementGetOne")
 	route.Delete("/", r.deleteOne).Name("AnnouncementDelete")
+	route.Get("/:id", r.getOne).Name("AnnouncementGetOne")
 	route.Get("/", r.getAll).Name("AnnouncementGetAll")
 }
 
@@ -44,14 +46,14 @@ func (r *Routes) create(c *fiber.Ctx) error {
 	}
 
 	if err := r.repository.Create(createAnnouncementDto{
-		Title:    input.Subtitle,
-		Subtitle: input.Subtitle,
+		Title:       input.Title,
+		Subtitle:    input.Subtitle,
 		WorkspaceID: input.WorkspaceID,
 	}); err != nil {
 		return c.SendString("Error in request")
-		// return c.SendStatus(503)
 	}
-	r.logger.Info("Created announcement successfully")
+
+	r.logger.Info("CREATED_ANNOUNCEMENT")
 	return c.SendString("Created successfully")
 }
 
@@ -60,6 +62,7 @@ func (r *Routes) update(c *fiber.Ctx) error {
 	var input = &AnnouncementUpdateInput{}
 
 	if err := c.BodyParser(input); err != nil {
+		r.logger.Error("Error passing body")
 		return err
 	}
 
@@ -70,7 +73,7 @@ func (r *Routes) update(c *fiber.Ctx) error {
 	}); err != nil {
 		return err
 	}
-
+	r.logger.Info("UPDATED_ANNOUNCEMENT")
 	return c.JSON(AnnouncementUpdateResponse{
 		Msg: "success",
 	})
@@ -79,9 +82,10 @@ func (r *Routes) update(c *fiber.Ctx) error {
 
 func (r *Routes) getAll(c *fiber.Ctx) error {
 
-	var input = &[]AnnouncementGetAllInput{}
+	var input = &AnnouncementGetAllInput{}
 
 	if err := c.BodyParser(input); err != nil {
+		r.logger.Error("Error passing body")
 		return err
 	}
 
@@ -91,29 +95,26 @@ func (r *Routes) getAll(c *fiber.Ctx) error {
 		return err
 	}
 
+	r.logger.Info("GET_ALL_ANNOUNCEMENTS", obj)
 	return c.JSON(AnnouncementGetAllResponse{
-		data: obj,
+		Data: obj,
 	})
 }
 
 func (r *Routes) getOne(c *fiber.Ctx) error {
-	input := &AnnouncementGetOneInput{}
+	id := c.Params("id")
 
-	if err := c.BodyParser(input); err != nil {
+	if intValue, err := strconv.Atoi(id); err != nil {
+		r.logger.Error("Error passing id")
 		return err
+	} else {
+		obj, err := r.repository.FindById(intValue)
+		if err != nil {
+			return err
+		}
+		r.logger.Info("GET_ANNOUNCEMENT: " + strconv.Itoa(obj.Id))
+		return c.JSON(obj)
 	}
-
-	obj, err := r.repository.FindById(input.Id)
-
-	if err != nil {
-		return err
-	}
-
-	return c.JSON(AnnouncementGetOneResponse{
-		Title:    obj.Title,
-		Subtitle: obj.Subtitle,
-		Id:       obj.Id,
-	})
 
 }
 
@@ -121,12 +122,14 @@ func (r *Routes) deleteOne(c *fiber.Ctx) error {
 	input := &AnnouncementDeleteInput{}
 
 	if err := c.BodyParser(input); err != nil {
+		r.logger.Error("Error passing body")
 		return err
 	}
 	if err := r.repository.Delete(input.Id); err != nil {
 		return err
 	}
 
+	r.logger.Info("DELETED_ANNOUNCEMENT")
 	return c.JSON(AnnouncementDeleteResponse{
 		Msg: "Deleted successfully",
 	})

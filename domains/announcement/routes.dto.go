@@ -2,39 +2,39 @@ package announcement
 
 // * Create
 type AnnouncementCreateInput struct {
-	Title    string `json:"title"`
-	Subtitle string `json:"subtitle"`
-	WorkspaceID uint `json:"workspaceId"`
+	Title       string `json:"title"`
+	Subtitle    string `json:"subtitle"`
+	WorkspaceID uint   `json:"workspaceId"`
 }
 
 type AnnouncementCreateResponse struct {
-	Id       int 
+	Id       int    `json:"id"`
 	Title    string `json:"title"`
 	Subtitle string `json:"subtitle"`
 }
 
 // * Update
 type AnnouncementUpdateInput struct {
-	Id       int `validate:"required"`
-	Title    string
-	Subtitle string
+	Id       int    `json:"id"`
+	Title    string `json:"title"`
+	Subtitle string `json:"subtitle"`
 }
 type AnnouncementUpdateResponse struct {
-	Msg string
+	Msg string `json:"msg"`
 }
 
 // * Delete
 
 type AnnouncementDeleteInput struct {
-	Id int `validate:"required"`
+	Id int `json:"id"`
 }
 type AnnouncementDeleteResponse struct {
-	Msg string
+	Msg string `json:"msg"`
 }
 
 // * Read one
 type AnnouncementGetOneInput struct {
-	Id int
+	Id int `json:"id"`
 }
 type AnnouncementGetOneResponse struct {
 	Id       int    `json:"id"`
@@ -44,10 +44,10 @@ type AnnouncementGetOneResponse struct {
 
 // * Read all
 type AnnouncementGetAllInput struct {
-	Limit int
+	Limit int `json:"limit"`
 }
 type AnnouncementGetAllResponse struct {
-	data []announcement
+	Data []announcement `json:"data"`
 }
 
 type announcement struct {
@@ -57,15 +57,9 @@ type announcement struct {
 }
 
 type createAnnouncementDto struct {
-	Title    string `validate:"required, min=1, max=10" json:"name" `
-	Subtitle string `validate:"required"`
-	WorkspaceID uint 
-}
-
-type announcementResponseDto struct {
-	Id       int    `validate:"required"`
-	Title    string `validate:"required"`
-	Subtitle string
+	Title       string `validate:"required, min=1, max=10" json:"name" `
+	Subtitle    string `validate:"required"`
+	WorkspaceID uint
 }
 
 type updateAnnouncementDto struct {
