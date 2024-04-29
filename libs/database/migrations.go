@@ -12,11 +12,17 @@ func RunMigrations(db *gorm.DB) {
 		Workspace{},
 		TaskEpic{},
 		TaskStory{},
-		User{},
-		Announcement{},
-		Documents{},
 		Task{},
+		Board{},
+		BoardStage{},
+		User{},
+		UserAuth{},
+		Announcement{},
+		Note{},
+		Canvas{},
+		Document{},
 		TaskTags{},
+		Schedule{},
 	)
 
 	if err != nil {
