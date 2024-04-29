@@ -16,6 +16,7 @@ type iRoutes interface {
 	deleteOne(c *fiber.Ctx) error
 }
 
+var ModuleName = "ANNOUNCEMENT"
 type Routes struct {
 	repository iRepository
 	logger     *slog.Logger
@@ -29,11 +30,11 @@ func NewRoutes(repo iRepository, logger *slog.Logger, logGroupKey string) iRoute
 }
 
 func (r *Routes) manager(route fiber.Router) {
-	route.Post("/", r.create).Name("AnnouncementCreate")
-	route.Put("/", r.update).Name("AnnouncementUpdate")
-	route.Delete("/", r.deleteOne).Name("AnnouncementDelete")
-	route.Get("/:id", r.getOne).Name("AnnouncementGetOne")
-	route.Get("/", r.getAll).Name("AnnouncementGetAll")
+	route.Post("/", r.create).Name("WorkspaceCreate")
+	route.Put("/", r.update).Name("WorkspaceUpdate")
+	route.Delete("/", r.deleteOne).Name("WorkspaceDelete")
+	route.Get("/:id", r.getOne).Name("WorkspaceGetOne")
+	route.Get("/", r.getAll).Name("WorkspaceGetAll")
 }
 
 func (r *Routes) create(c *fiber.Ctx) error {
@@ -53,7 +54,7 @@ func (r *Routes) create(c *fiber.Ctx) error {
 		return c.SendString("Error in request")
 	}
 
-	r.logger.Info("CREATED_ANNOUNCEMENT")
+	r.logger.Info("CREATED_" + ModuleName)
 	return c.SendString("Created successfully")
 }
 
@@ -73,7 +74,7 @@ func (r *Routes) update(c *fiber.Ctx) error {
 	}); err != nil {
 		return err
 	}
-	r.logger.Info("UPDATED_ANNOUNCEMENT")
+	r.logger.Info("UPDATED_" + ModuleName)
 	return c.JSON(AnnouncementUpdateResponse{
 		Msg: "success",
 	})
@@ -95,7 +96,7 @@ func (r *Routes) getAll(c *fiber.Ctx) error {
 		return err
 	}
 
-	r.logger.Info("GET_ALL_ANNOUNCEMENTS", obj)
+	r.logger.Info("GET_ALL_" + ModuleName, obj)
 	return c.JSON(AnnouncementGetAllResponse{
 		Data: obj,
 	})
@@ -112,7 +113,7 @@ func (r *Routes) getOne(c *fiber.Ctx) error {
 		if err != nil {
 			return err
 		}
-		r.logger.Info("GET_ANNOUNCEMENT: " + strconv.Itoa(obj.Id))
+		r.logger.Info("GET_" + ModuleName)
 		return c.JSON(obj)
 	}
 
@@ -129,7 +130,7 @@ func (r *Routes) deleteOne(c *fiber.Ctx) error {
 		return err
 	}
 
-	r.logger.Info("DELETED_ANNOUNCEMENT")
+	r.logger.Info("DELETED_" + ModuleName)
 	return c.JSON(AnnouncementDeleteResponse{
 		Msg: "Deleted successfully",
 	})

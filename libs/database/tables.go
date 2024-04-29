@@ -31,12 +31,14 @@ type Workspace struct {
 	gorm.Model
 	Name          string
 	Description   string
+	OwnerId       uint
 	Notes         []Document
 	Announcements []Announcement
 	Epics         []TaskEpic
 	Members       []User
 	Boards        []Board
 }
+
 type Board struct {
 	gorm.Model
 	Title       string
