@@ -65,6 +65,61 @@ export interface updateAnnouncementDto {
  Subtitle: string;
 }
 
+export interface WorkspaceCreateInput {
+ Name: string;
+ Description: string;
+ OwnerId: number;
+}
+
+export interface WorkspaceCreateResponse {
+ Id: number;
+ Name: string;
+ Description: string;
+}
+
+export interface WorkspaceUpdateInput {
+ Id: number;
+ Name: string;
+ Description: string;
+}
+
+export interface WorkspaceUpdateResponse {
+ Msg: string;
+}
+
+export interface WorkspaceDeleteInput {
+ Id: number;
+}
+
+export interface WorkspaceDeleteResponse {
+ Msg: string;
+}
+
+export interface WorkspaceGetOneInput {
+ UserId: number;
+}
+
+export interface WorkspaceGetOneResponse {
+ Id: number;
+ Name: string;
+ Description: string;
+}
+
+export interface WorkspaceGetAllInput {
+ Limit: number;
+ UserId: number;
+}
+
+export interface WorkspaceGetAllResponse {
+ Data: Workspace[];
+}
+
+export interface Workspace {
+ Id: number;
+ Name: string;
+ Description: string;
+}
+
 export interface announcement {
  Id: number;
  Title: string;

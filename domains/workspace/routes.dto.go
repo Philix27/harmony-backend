@@ -8,16 +8,16 @@ type WorkspaceCreateInput struct {
 }
 
 type WorkspaceCreateResponse struct {
-	Id       int    `json:"id"`
-	Title    string `json:"title"`
-	Subtitle string `json:"subtitle"`
+	Id          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
 }
 
 // * Update
 type WorkspaceUpdateInput struct {
-	Id       int    `json:"id"`
-	Title    string `json:"title"`
-	Subtitle string `json:"subtitle"`
+	Id          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
 }
 type WorkspaceUpdateResponse struct {
 	Msg string `json:"msg"`
@@ -37,14 +37,14 @@ type WorkspaceGetOneInput struct {
 	UserId int `json:"userId"`
 }
 type WorkspaceGetOneResponse struct {
-	Id       int    `json:"id"`
-	Title    string `json:"title"`
-	Subtitle string `json:"subtitle"`
+	Id          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
 }
 
 // * Read all
 type WorkspaceGetAllInput struct {
-	Limit int `json:"limit"`
+	Limit  int `json:"limit"`
 	UserId int `json:"userId"`
 }
 type WorkspaceGetAllResponse struct {
@@ -52,7 +52,7 @@ type WorkspaceGetAllResponse struct {
 }
 
 type Workspace struct {
-	Id       int    `json:"id"`
-	Title    string `json:"title"`
-	Subtitle string `json:"subtitle"`
+	Id          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
 }

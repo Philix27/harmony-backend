@@ -32,7 +32,13 @@ func NewRepository(db *gorm.DB, logger *slog.Logger, logGroupKey string) iReposi
 // Create implements iRepository.
 func (r *Repository) Create(data createAnnouncementDto) error {
 
-	if result := r.Db.Create(data); result.Error != nil {
+	result := r.Db.Create(&database.Announcement{
+		Title:       data.Title,
+		Subtitle:    data.Subtitle,
+		WorkspaceID: data.WorkspaceID,
+	})
+
+	if result.Error != nil {
 		println(result.Error)
 		r.logger.WithGroup(r.logGroupKey).Error(
 			"FAILED_TO_CREATE",
@@ -75,7 +81,7 @@ func (r *Repository) FindAll() ([]announcement, error) {
 // FindById implements iRepository.
 func (r *Repository) FindById(dataId int) (announcement, error) {
 	announcementItem := announcement{}
-	
+
 	result := r.Db.First(&announcementItem, dataId)
 
 	if result.Error != nil {

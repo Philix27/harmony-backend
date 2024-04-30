@@ -31,17 +31,21 @@ func NewRepository(db *gorm.DB, logger *slog.Logger, logGroupKey string) iReposi
 
 // Create implements iRepository.
 func (r *Repository) Create(data WorkspaceCreateInput) error {
-
-	if result := r.Db.Create(data); result.Error != nil {
+	// fmt.Println(data)
+	if result := r.Db.Create(&database.Workspace{
+		Name:        data.Name,
+		Description: data.Description,
+		OwnerId:     data.OwnerId,
+	}); result.Error != nil {
 		println(result.Error)
-		r.logger.WithGroup(r.logGroupKey).Error(
+		r.logger.Error(
 			"FAILED_TO_CREATE",
 			"errMsg",
 			result.Error,
 		)
 		return result.Error
 	}
-	r.logger.WithGroup(r.logGroupKey).Info("CREATE_SUCCESSFUL")
+	r.logger.Info("CREATE_SUCCESSFUL")
 	return nil
 }
 
@@ -62,7 +66,7 @@ func (r *Repository) Update(data WorkspaceUpdateInput) error {
 // FindAll implements iRepository.
 func (r *Repository) FindAllByUserId(data WorkspaceGetAllInput) ([]Workspace, error) {
 	var list []Workspace
-	result := r.Db.Where("ownerId =? ", data.UserId).Limit(data.Limit).Find(&list)
+	result := r.Db.Where("owner_id =? ", data.UserId).Limit(data.Limit).Find(&list)
 
 	if result.Error != nil {
 		r.logger.Error("CANNOT_FIND_ALL:", result.Error)
@@ -76,10 +80,10 @@ func (r *Repository) FindAllByUserId(data WorkspaceGetAllInput) ([]Workspace, er
 func (r *Repository) FindByUserId(id int) (Workspace, error) {
 	object := Workspace{}
 
-	result := r.Db.Where("id = ?", id).First(&object, id)
+	result := r.Db.Where("owner_id = ?", id).First(&object, id)
 
 	if result.Error != nil {
-		r.logger.Error("CANNOT_FIND_ONE:", result.Error, id)
+		r.logger.Error("CANNOT_FIND_ONE:", result.Error)
 		return Workspace{}, result.Error
 	} else {
 		r.logger.Error("RETRIEVE_FIND_ONE:", object)
@@ -90,7 +94,7 @@ func (r *Repository) FindByUserId(id int) (Workspace, error) {
 
 // Delete implements iRepository.
 func (r *Repository) Delete(dataId int) error {
-	result := r.Db.Where("id = ?", dataId).Delete(new(Workspace))
+	result := r.Db.Where("id = ?", dataId).Delete(&database.Workspace{})
 
 	if result.Error != nil {
 		return result.Error

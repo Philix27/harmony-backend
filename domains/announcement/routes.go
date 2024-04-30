@@ -62,7 +62,7 @@ func (r *Routes) update(c *fiber.Ctx) error {
 
 	var input = &AnnouncementUpdateInput{}
 
-	if err := c.BodyParser(input); err != nil {
+	if err := c.BodyParser(*input); err != nil {
 		r.logger.Error("Error passing body")
 		return err
 	}
@@ -85,7 +85,7 @@ func (r *Routes) getAll(c *fiber.Ctx) error {
 
 	var input = &AnnouncementGetAllInput{}
 
-	if err := c.BodyParser(input); err != nil {
+	if err := c.BodyParser(*input); err != nil {
 		r.logger.Error("Error passing body")
 		return err
 	}
@@ -122,7 +122,7 @@ func (r *Routes) getOne(c *fiber.Ctx) error {
 func (r *Routes) deleteOne(c *fiber.Ctx) error {
 	input := &AnnouncementDeleteInput{}
 
-	if err := c.BodyParser(input); err != nil {
+	if err := c.BodyParser(*input); err != nil {
 		r.logger.Error("Error passing body")
 		return err
 	}

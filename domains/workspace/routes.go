@@ -11,7 +11,7 @@ type iRoutes interface {
 	manager(router fiber.Router)
 	create(c *fiber.Ctx) error
 	update(c *fiber.Ctx) error
-	getAll(c *fiber.Ctx) error
+	getAllByUserId(c *fiber.Ctx) error
 	getOne(c *fiber.Ctx) error
 	deleteOne(c *fiber.Ctx) error
 }
@@ -33,9 +33,9 @@ func NewRoutes(repo iRepository, logger *slog.Logger, logGroupKey string) iRoute
 func (r *Routes) manager(route fiber.Router) {
 	route.Post("/", r.create).Name("WorkspaceCreate")
 	route.Put("/", r.update).Name("WorkspaceUpdate")
-	route.Delete("/", r.deleteOne).Name("WorkspaceDelete")
+	route.Delete("/:id", r.deleteOne).Name("WorkspaceDelete")
 	route.Get("/:id", r.getOne).Name("WorkspaceGetOne")
-	route.Get("/", r.getAll).Name("WorkspaceGetAll")
+	route.Get("/", r.getAllByUserId).Name("WorkspaceGetAll")
 }
 
 func (r *Routes) create(c *fiber.Ctx) error {
@@ -75,7 +75,7 @@ func (r *Routes) update(c *fiber.Ctx) error {
 
 }
 
-func (r *Routes) getAll(c *fiber.Ctx) error {
+func (r *Routes) getAllByUserId(c *fiber.Ctx) error {
 
 	var input = &WorkspaceGetAllInput{}
 
@@ -115,13 +115,16 @@ func (r *Routes) getOne(c *fiber.Ctx) error {
 }
 
 func (r *Routes) deleteOne(c *fiber.Ctx) error {
-	input := &WorkspaceDeleteInput{}
+	// input := &WorkspaceDeleteInput{}
+	id := c.Params("id")
 
-	if err := c.BodyParser(input); err != nil {
-		r.logger.Error("Error passing body")
+	intValue, err := strconv.Atoi(id)
+	if err != nil {
+		r.logger.Error("Error passing id")
 		return err
 	}
-	if err := r.repository.Delete(input.Id); err != nil {
+
+	if err := r.repository.Delete(intValue); err != nil {
 		return err
 	}
 
