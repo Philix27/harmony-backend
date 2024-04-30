@@ -3,6 +3,7 @@ package app
 import (
 	"harmony/domains/announcement"
 	"harmony/domains/workspace"
+	"harmony/domains/workspaceEpics"
 	"harmony/libs/middleware"
 
 	"github.com/gofiber/fiber/v2"
@@ -17,6 +18,7 @@ func (state AppState) SetupRoutes(app *fiber.App, logger *slog.Logger) {
 
 	announcement.Setup(v1, state.DB, logger)
 	workspace.Setup(v1, state.DB, logger)
+	workspaceEpics.Setup(v1, state.DB, logger)
 	// v1.Route("/auth", auth.RoutesHandler)
 	// v1.Route("/chat", chat.RoutesHandler)
 	// v1.Route("/workspace", workspace.RoutesHandler)

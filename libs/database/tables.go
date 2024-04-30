@@ -34,7 +34,7 @@ type Workspace struct {
 	OwnerId       uint
 	Notes         []Document
 	Announcements []Announcement
-	Epics         []TaskEpic
+	Epics         []WorkspaceEpic
 	Members       []User
 	Boards        []Board
 }
@@ -100,7 +100,7 @@ type Announcement struct {
 	WorkspaceID uint
 }
 
-type TaskEpic struct {
+type WorkspaceEpic struct {
 	gorm.Model
 	Title       string
 	Description string

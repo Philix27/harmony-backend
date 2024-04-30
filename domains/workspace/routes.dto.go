@@ -23,19 +23,11 @@ type WorkspaceUpdateResponse struct {
 	Msg string `json:"msg"`
 }
 
-// * Delete
-type WorkspaceDeleteInput struct {
-	Id int `json:"id"`
-}
-
 type WorkspaceDeleteResponse struct {
 	Msg string `json:"msg"`
 }
 
 // * Read one
-type WorkspaceGetOneInput struct {
-	UserId int `json:"userId"`
-}
 type WorkspaceGetOneResponse struct {
 	Id          int    `json:"id"`
 	Name        string `json:"name"`

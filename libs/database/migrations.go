@@ -10,7 +10,7 @@ import (
 func RunMigrations(db *gorm.DB) {
 	err := db.AutoMigrate(
 		Workspace{},
-		TaskEpic{},
+		WorkspaceEpic{},
 		TaskStory{},
 		Task{},
 		Board{},

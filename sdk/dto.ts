@@ -87,16 +87,8 @@ export interface WorkspaceUpdateResponse {
  Msg: string;
 }
 
-export interface WorkspaceDeleteInput {
- Id: number;
-}
-
 export interface WorkspaceDeleteResponse {
  Msg: string;
-}
-
-export interface WorkspaceGetOneInput {
- UserId: number;
 }
 
 export interface WorkspaceGetOneResponse {
@@ -115,6 +107,55 @@ export interface WorkspaceGetAllResponse {
 }
 
 export interface Workspace {
+ Id: number;
+ Name: string;
+ Description: string;
+}
+
+export interface WorkspaceEpicCreateInput {
+ Title: string;
+ Description: string;
+ WorkspaceID: number;
+}
+
+export interface WorkspaceEpicCreateResponse {
+ Id: number;
+ Title: string;
+ Description: string;
+ WorkspaceID: number;
+}
+
+export interface WorkspaceEpicUpdateInput {
+ Id: number;
+ Title: string;
+ Description: string;
+}
+
+export interface WorkspaceEpicUpdateResponse {
+ Msg: string;
+}
+
+export interface WorkspaceEpicDeleteResponse {
+ Msg: string;
+}
+
+export interface WorkspaceEpicGetOneResponse {
+ Id: number;
+ Title: string;
+ Description: string;
+ WorkspaceID: number;
+}
+
+export interface WorkspaceEpicGetAllInput {
+ Limit: number;
+ UserId: number;
+}
+
+export interface WorkspaceEpicGetAllResponse {
+ Data: WorkspaceEpic[];
+}
+
+export interface WorkspaceEpic {
  Id: number;
  Name: string;
  Description: string;
