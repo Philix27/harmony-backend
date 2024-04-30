@@ -27,6 +27,7 @@ type UserAuth struct {
 	UserID         uint
 }
 
+// / * Workspace
 type Workspace struct {
 	gorm.Model
 	Name          string
@@ -37,6 +38,22 @@ type Workspace struct {
 	Epics         []WorkspaceEpic
 	Members       []User
 	Boards        []Board
+}
+
+type WorkspaceEpic struct {
+	gorm.Model
+	Title            string
+	Description      string
+	WorkspaceID      uint
+	WorkspaceStories []WorkspaceStory
+}
+
+type WorkspaceStory struct {
+	gorm.Model
+	Title       string
+	Description string
+	Tasks       []Task
+	WorkspaceEpicID  uint
 }
 
 type Board struct {
@@ -62,10 +79,39 @@ type Task struct {
 	GithubIssueNumber string
 	GithubIssueLink   string
 	AssignedTo        string
-	TaskStoryID       uint
+	WorkspaceStoryID  uint
 	TaskEpic          uint
 	BoardStageID      uint
 }
+
+type Announcement struct {
+	gorm.Model
+	Title       string
+	Subtitle    string
+	WorkspaceID uint
+}
+
+type TaskTags struct {
+	gorm.Model
+	Name        string
+	Description string
+	ColorCode   string
+}
+
+// / * Schedule
+type Schedule struct {
+	gorm.Model
+	Title       string
+	Msg         string
+	ImgPath     string
+	Type        string
+	IsCompleted bool
+	IsCanceled  bool
+	UserID      uint
+}
+
+/// * Document
+
 type Document struct {
 	gorm.Model
 	Title       string
@@ -91,44 +137,4 @@ type Canvas struct {
 	HasChild    bool
 	WorkspaceID uint
 	DocumentID  uint
-}
-
-type Announcement struct {
-	gorm.Model
-	Title       string
-	Subtitle    string
-	WorkspaceID uint
-}
-
-type WorkspaceEpic struct {
-	gorm.Model
-	Title       string
-	Description string
-	TaskStories []TaskStory
-	WorkspaceID uint
-}
-
-type TaskStory struct {
-	gorm.Model
-	Title       string
-	Description string
-	Tasks       []Task
-	TaskEpicID  uint
-}
-
-type TaskTags struct {
-	gorm.Model
-	Name        string
-	Description string
-	ColorCode   string
-}
-type Schedule struct {
-	gorm.Model
-	Title       string
-	Msg         string
-	ImgPath     string
-	Type        string
-	IsCompleted bool
-	IsCanceled  bool
-	UserID      uint
 }

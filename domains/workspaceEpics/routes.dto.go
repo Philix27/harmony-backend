@@ -39,10 +39,10 @@ type WorkspaceEpicGetOneResponse struct {
 }
 
 // * Read all
-type WorkspaceEpicGetAllInput struct {
-	Limit  int `json:"limit"`
-	UserId int `json:"userId"`
-}
+// type WorkspaceEpicGetAllInput struct {
+// 	Limit  int `json:"limit"`
+// 	UserId int `json:"userId"`
+// }
 
 type WorkspaceEpicGetAllResponse struct {
 	Data []WorkspaceEpic `json:"data"`
@@ -50,6 +50,7 @@ type WorkspaceEpicGetAllResponse struct {
 
 type WorkspaceEpic struct {
 	Id          int    `json:"id"`
-	Name        string `json:"name"`
+	Title       string `json:"title"`
 	Description string `json:"description"`
+	WorkspaceID uint   `json:"workspaceId"`
 }

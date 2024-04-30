@@ -11,7 +11,7 @@ func RunMigrations(db *gorm.DB) {
 	err := db.AutoMigrate(
 		Workspace{},
 		WorkspaceEpic{},
-		TaskStory{},
+		WorkspaceStory{},
 		Task{},
 		Board{},
 		BoardStage{},

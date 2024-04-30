@@ -11,8 +11,8 @@ type iRepository interface {
 	Create(WorkspaceEpicCreateInput) error
 	Update(WorkspaceEpicUpdateInput) error
 	Delete(int) error
-	FindByUserId(int) (WorkspaceEpic, error)
-	FindAllByUserId(WorkspaceEpicGetAllInput) ([]WorkspaceEpic, error)
+	FindById(int) (WorkspaceEpic, error)
+	FindWorkspaceId(workspaceId int, limit int) ([]WorkspaceEpic, error)
 }
 
 type Repository struct {
@@ -33,9 +33,9 @@ func NewRepository(db *gorm.DB, logger *slog.Logger, logGroupKey string) iReposi
 func (r *Repository) Create(data WorkspaceEpicCreateInput) error {
 	// fmt.Println(data)
 	if result := r.Db.Create(&database.WorkspaceEpic{
-		Title:        data.Title,
+		Title:       data.Title,
 		Description: data.Description,
-		WorkspaceID:     data.WorkspaceID,
+		WorkspaceID: data.WorkspaceID,
 	}); result.Error != nil {
 		println(result.Error)
 		r.logger.Error(
@@ -64,9 +64,9 @@ func (r *Repository) Update(data WorkspaceEpicUpdateInput) error {
 }
 
 // FindAll implements iRepository.
-func (r *Repository) FindAllByUserId(data WorkspaceEpicGetAllInput) ([]WorkspaceEpic, error) {
+func (r *Repository) FindWorkspaceId(workspaceId int, limit int) ([]WorkspaceEpic, error) {
 	var list []WorkspaceEpic
-	result := r.Db.Where("owner_id =? ", data.UserId).Limit(data.Limit).Find(&list)
+	result := r.Db.Where("workspace_id =? ", workspaceId).Limit(limit).Find(&list)
 
 	if result.Error != nil {
 		r.logger.Error("CANNOT_FIND_ALL:", result.Error)
@@ -77,13 +77,13 @@ func (r *Repository) FindAllByUserId(data WorkspaceEpicGetAllInput) ([]Workspace
 }
 
 // FindById implements iRepository.
-func (r *Repository) FindByUserId(id int) (WorkspaceEpic, error) {
+func (r *Repository) FindById(id int) (WorkspaceEpic, error) {
 	object := WorkspaceEpic{}
 
-	result := r.Db.Where("owner_id = ?", id).First(&object, id)
+	result := r.Db.Where("id = ?", id).First(&object, id)
 
 	if result.Error != nil {
-		r.logger.Error("CANNOT_FIND_ONE:", result.Error)
+		r.logger.Error("FindById:", result.Error)
 		return WorkspaceEpic{}, result.Error
 	} else {
 		r.logger.Error("RETRIEVE_FIND_ONE:", object)

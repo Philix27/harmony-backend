@@ -11,7 +11,7 @@ type iRoutes interface {
 	manager(router fiber.Router)
 	create(c *fiber.Ctx) error
 	update(c *fiber.Ctx) error
-	getAllByUserId(c *fiber.Ctx) error
+	getByWorkspaceId(c *fiber.Ctx) error
 	getOne(c *fiber.Ctx) error
 	deleteOne(c *fiber.Ctx) error
 }
@@ -29,11 +29,11 @@ func NewRoutes(repo iRepository, logger *slog.Logger, logGroupKey string) iRoute
 }
 
 func (r *Routes) manager(route fiber.Router) {
-	route.Post("/", r.create).Name("WorkspaceCreate")
-	route.Put("/", r.update).Name("WorkspaceUpdate")
-	route.Delete("/:id", r.deleteOne).Name("WorkspaceDelete")
-	route.Get("/:id", r.getOne).Name("WorkspaceGetOne")
-	route.Get("/", r.getAllByUserId).Name("WorkspaceGetAll")
+	route.Post("/", r.create).Name("WorkspaceEpicCreate")
+	route.Put("/", r.update).Name("WorkspaceEpicUpdate")
+	route.Delete("/:id", r.deleteOne).Name("WorkspaceEpicDelete")
+	route.Get("/:id", r.getOne).Name("WorkspaceEpicGetOne")
+	route.Get("/", r.getByWorkspaceId).Name("WorkspaceEpicGetByWorkspaceId")
 }
 
 func (r *Routes) create(c *fiber.Ctx) error {
@@ -70,21 +70,32 @@ func (r *Routes) update(c *fiber.Ctx) error {
 	})
 }
 
-func (r *Routes) getAllByUserId(c *fiber.Ctx) error {
-	var input = &WorkspaceEpicGetAllInput{}
+func (r *Routes) getByWorkspaceId(c *fiber.Ctx) error {
+	// var input = &WorkspaceEpicGetAllInput{}
+	workspaceId := c.Query("id")
+	limit := c.Query("limit")
 
-	if err := c.BodyParser(input); err != nil {
-		r.logger.Error("Error passing body")
+	workspaceIdValue, err := strconv.Atoi(workspaceId)
+	limitValue, limitErr := strconv.Atoi(limit)
+
+	if err != nil {
+		r.logger.Error("Cannot parse workspaceId")
 		return err
 	}
 
-	obj, err := r.repository.FindAllByUserId(*input)
+	if limitErr != nil {
+		r.logger.Error("Cannot parse limit")
+		return err
+	}
+
+	obj, err := r.repository.FindWorkspaceId(workspaceIdValue, limitValue)
 
 	if err != nil {
 		return err
 	}
 
-	r.logger.Info("GET_ALL_"+ModuleName, obj)
+	r.logger.Info("GET_ALL_" + ModuleName)
+
 	return c.JSON(WorkspaceEpicGetAllResponse{
 		Data: obj,
 	})
@@ -98,7 +109,7 @@ func (r *Routes) getOne(c *fiber.Ctx) error {
 		return err
 
 	} else {
-		obj, err := r.repository.FindByUserId(intValue)
+		obj, err := r.repository.FindById(intValue)
 		if err != nil {
 			return err
 		}

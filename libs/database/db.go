@@ -41,17 +41,13 @@ func NewConnection(config *DbConfig) (*gorm.DB, error) {
 		Logger: newLogger,
 	})
 
-	
-
 	if err != nil {
-			fmt.Println("Error connecting to database", err.Error())
-			return db, err
+		fmt.Println("Error connecting to database", err.Error())
+		return db, err
 	} else {
 		log.Println("Database connection successful")
 		println("Database connection successful")
 		return db, nil
 	}
 
-
-	
 }

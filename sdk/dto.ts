@@ -146,19 +146,15 @@ export interface WorkspaceEpicGetOneResponse {
  WorkspaceID: number;
 }
 
-export interface WorkspaceEpicGetAllInput {
- Limit: number;
- UserId: number;
-}
-
 export interface WorkspaceEpicGetAllResponse {
  Data: WorkspaceEpic[];
 }
 
 export interface WorkspaceEpic {
  Id: number;
- Name: string;
+ Title: string;
  Description: string;
+ WorkspaceID: number;
 }
 
 export interface announcement {

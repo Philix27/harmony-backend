@@ -14,7 +14,6 @@ func (state AppState) SetupRoutes(app *fiber.App, logger *slog.Logger) {
 	app.Group("/api", middleware.ApiHandler)        // /api
 	api := app.Group("/api", middleware.ApiHandler) // /api
 	v1 := api.Group("/v1", middleware.Version)      // /api/v1
-	// api.Group("/v1", middleware.Version) // /api/v1
 
 	announcement.Setup(v1, state.DB, logger)
 	workspace.Setup(v1, state.DB, logger)
