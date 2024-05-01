@@ -29,15 +29,15 @@ func NewRoutes(repo iRepository, logger *slog.Logger, logGroupKey string) iRoute
 }
 
 func (r *Routes) manager(route fiber.Router) {
-	route.Post("/", r.create).Name("WorkspaceEpicCreate")
-	route.Put("/", r.update).Name("WorkspaceEpicUpdate")
-	route.Delete("/:id", r.deleteOne).Name("WorkspaceEpicDelete")
-	route.Get("/:id", r.getOne).Name("WorkspaceEpicGetOne")
-	route.Get("/", r.getByWorkspaceId).Name("WorkspaceEpicGetByWorkspaceId")
+	route.Post("/", r.create).Name("WorkspaceStoryCreate")
+	route.Put("/", r.update).Name("WorkspaceStoryUpdate")
+	route.Delete("/:id", r.deleteOne).Name("WorkspaceStoryDelete")
+	route.Get("/:id", r.getOne).Name("WorkspaceStoryGetOne")
+	route.Get("/", r.getByWorkspaceId).Name("WorkspaceStoryGetByWorkspaceId")
 }
 
 func (r *Routes) create(c *fiber.Ctx) error {
-	input := &WorkspaceEpicCreateInput{}
+	input := &WorkspaceStoryCreateInput{}
 
 	if err := c.BodyParser(input); err != nil {
 		r.logger.Error("Error passing body")
@@ -53,7 +53,7 @@ func (r *Routes) create(c *fiber.Ctx) error {
 }
 
 func (r *Routes) update(c *fiber.Ctx) error {
-	var input = &WorkspaceEpicUpdateInput{}
+	var input = &WorkspaceStoryUpdateInput{}
 
 	if err := c.BodyParser(input); err != nil {
 		r.logger.Error("Error passing body")
@@ -65,13 +65,13 @@ func (r *Routes) update(c *fiber.Ctx) error {
 	}
 
 	r.logger.Info("UPDATED_" + ModuleName)
-	return c.JSON(WorkspaceEpicUpdateResponse{
+	return c.JSON(WorkspaceStoryUpdateResponse{
 		Msg: "success",
 	})
 }
 
 func (r *Routes) getByWorkspaceId(c *fiber.Ctx) error {
-	// var input = &WorkspaceEpicGetAllInput{}
+	// var input = &WorkspaceStoryGetAllInput{}
 	workspaceId := c.Query("id")
 	limit := c.Query("limit")
 
@@ -96,7 +96,7 @@ func (r *Routes) getByWorkspaceId(c *fiber.Ctx) error {
 
 	r.logger.Info("GET_ALL_" + ModuleName)
 
-	return c.JSON(WorkspaceEpicGetAllResponse{
+	return c.JSON(WorkspaceStoryGetAllResponse{
 		Data: obj,
 	})
 }
@@ -132,7 +132,7 @@ func (r *Routes) deleteOne(c *fiber.Ctx) error {
 	}
 
 	r.logger.Info("DELETED_" + ModuleName)
-	return c.JSON(WorkspaceEpicDeleteResponse{
+	return c.JSON(WorkspaceStoryDeleteResponse{
 		Msg: "Deleted successfully",
 	})
 }

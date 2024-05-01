@@ -1,56 +1,55 @@
 package workspaceStory
 
 // * Create
-type WorkspaceEpicCreateInput struct {
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	WorkspaceID uint   `json:"workspaceId"`
+type WorkspaceStoryCreateInput struct {
+	Title           string `json:"title"`
+	Description     string `json:"description"`
+	WorkspaceEpicId uint   `json:"workspaceEpicId"`
 }
 
-type WorkspaceEpicCreateResponse struct {
-	Id          int    `json:"id"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	WorkspaceID uint   `json:"workspaceId"`
+type WorkspaceStoryCreateResponse struct {
+	Id              int    `json:"id"`
+	Title           string `json:"title"`
+	Description     string `json:"description"`
+	WorkspaceEpicId uint   `json:"workspaceEpicId"`
 }
 
 // * Update
-type WorkspaceEpicUpdateInput struct {
+type WorkspaceStoryUpdateInput struct {
 	Id          int    `json:"id"`
 	Title       string `json:"title"`
 	Description string `json:"description"`
 }
 
-type WorkspaceEpicUpdateResponse struct {
+type WorkspaceStoryUpdateResponse struct {
 	Msg string `json:"msg"`
 }
 
-
-type WorkspaceEpicDeleteResponse struct {
+type WorkspaceStoryDeleteResponse struct {
 	Msg string `json:"msg"`
 }
 
 // * Read one
-type WorkspaceEpicGetOneResponse struct {
-	Id          int    `json:"id"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	WorkspaceID uint   `json:"workspaceId"`
+type WorkspaceStoryGetOneResponse struct {
+	Id              int    `json:"id"`
+	Title           string `json:"title"`
+	Description     string `json:"description"`
+	WorkspaceEpicId uint   `json:"workspaceEpicId"`
 }
 
 // * Read all
-// type WorkspaceEpicGetAllInput struct {
+// type WorkspaceStoryGetAllInput struct {
 // 	Limit  int `json:"limit"`
 // 	UserId int `json:"userId"`
 // }
 
-type WorkspaceEpicGetAllResponse struct {
-	Data []WorkspaceEpic `json:"data"`
+type WorkspaceStoryGetAllResponse struct {
+	Data []WorkspaceStory `json:"data"`
 }
 
-type WorkspaceEpic struct {
-	Id          int    `json:"id"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	WorkspaceID uint   `json:"workspaceId"`
+type WorkspaceStory struct {
+	Id              int    `json:"id"`
+	Title           string `json:"title"`
+	Description     string `json:"description"`
+	WorkspaceEpicId uint   `json:"workspaceEpicId"`
 }

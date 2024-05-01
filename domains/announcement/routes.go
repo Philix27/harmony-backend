@@ -16,7 +16,7 @@ type iRoutes interface {
 	deleteOne(c *fiber.Ctx) error
 }
 
-var ModuleName = "ANNOUNCEMENT"
+
 type Routes struct {
 	repository iRepository
 	logger     *slog.Logger

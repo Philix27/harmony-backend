@@ -8,11 +8,11 @@ import (
 )
 
 type iRepository interface {
-	Create(WorkspaceEpicCreateInput) error
-	Update(WorkspaceEpicUpdateInput) error
+	Create(WorkspaceStoryCreateInput) error
+	Update(WorkspaceStoryUpdateInput) error
 	Delete(int) error
-	FindById(int) (WorkspaceEpic, error)
-	FindWorkspaceId(workspaceId int, limit int) ([]WorkspaceEpic, error)
+	FindById(int) (WorkspaceStory, error)
+	FindWorkspaceId(workspaceId int, limit int) ([]WorkspaceStory, error)
 }
 
 type Repository struct {
@@ -23,19 +23,19 @@ type Repository struct {
 
 func NewRepository(db *gorm.DB, logger *slog.Logger, logGroupKey string) iRepository {
 	return &Repository{
-		Db:          db.Model(&database.WorkspaceEpic{}).Debug(),
+		Db:         db,
 		logger:      logger,
 		logGroupKey: logGroupKey,
 	}
 }
 
 // Create implements iRepository.
-func (r *Repository) Create(data WorkspaceEpicCreateInput) error {
+func (r *Repository) Create(data WorkspaceStoryCreateInput) error {
 	// fmt.Println(data)
-	if result := r.Db.Create(&database.WorkspaceEpic{
-		Title:       data.Title,
-		Description: data.Description,
-		WorkspaceID: data.WorkspaceID,
+	if result := r.Db.Create(&database.WorkspaceStory{
+		Title:           data.Title,
+		Description:     data.Description,
+		WorkspaceEpicID: data.WorkspaceEpicId,
 	}); result.Error != nil {
 		println(result.Error)
 		r.logger.Error(
@@ -50,7 +50,7 @@ func (r *Repository) Create(data WorkspaceEpicCreateInput) error {
 }
 
 // Update implements iRepository.
-func (r *Repository) Update(data WorkspaceEpicUpdateInput) error {
+func (r *Repository) Update(data WorkspaceStoryUpdateInput) error {
 	result := r.Db.Where(
 		"id = ?", data.Id,
 	).Updates(data)
@@ -64,9 +64,9 @@ func (r *Repository) Update(data WorkspaceEpicUpdateInput) error {
 }
 
 // FindAll implements iRepository.
-func (r *Repository) FindWorkspaceId(workspaceId int, limit int) ([]WorkspaceEpic, error) {
-	var list []WorkspaceEpic
-	result := r.Db.Where("workspace_id =? ", workspaceId).Limit(limit).Find(&list)
+func (r *Repository) FindWorkspaceId(workspaceEpicId int, limit int) ([]WorkspaceStory, error) {
+	var list []WorkspaceStory
+	result := r.Db.Where("workspace_id =? ", workspaceEpicId).Limit(limit).Find(&list)
 
 	if result.Error != nil {
 		r.logger.Error("CANNOT_FIND_ALL:", result.Error)
@@ -77,14 +77,14 @@ func (r *Repository) FindWorkspaceId(workspaceId int, limit int) ([]WorkspaceEpi
 }
 
 // FindById implements iRepository.
-func (r *Repository) FindById(id int) (WorkspaceEpic, error) {
-	object := WorkspaceEpic{}
+func (r *Repository) FindById(id int) (WorkspaceStory, error) {
+	object := WorkspaceStory{}
 
 	result := r.Db.Where("id = ?", id).First(&object, id)
 
 	if result.Error != nil {
 		r.logger.Error("FindById:", result.Error)
-		return WorkspaceEpic{}, result.Error
+		return WorkspaceStory{}, result.Error
 	} else {
 		r.logger.Error("RETRIEVE_FIND_ONE:", object)
 		return object, nil
@@ -94,7 +94,7 @@ func (r *Repository) FindById(id int) (WorkspaceEpic, error) {
 
 // Delete implements iRepository.
 func (r *Repository) Delete(dataId int) error {
-	result := r.Db.Where("id = ?", dataId).Delete(&database.WorkspaceEpic{})
+	result := r.Db.Where("id = ?", dataId).Delete(&database.WorkspaceStory{})
 
 	if result.Error != nil {
 		return result.Error

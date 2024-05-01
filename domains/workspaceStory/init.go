@@ -1,6 +1,8 @@
 package workspaceStory
 
 import (
+	"harmony/libs/database"
+
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/exp/slog"
 	"gorm.io/gorm"
@@ -10,7 +12,9 @@ var ModuleName = "WORKSPACE_STORY"
 
 func Setup(router fiber.Router, db *gorm.DB, logger *slog.Logger) {
 
-	repo := NewRepository(db, logger, ModuleName + "_REPOSITORY")
+	repo := NewRepository(
+		db.Model(&database.WorkspaceStory{}).Debug(),
+		logger, ModuleName+"_REPOSITORY")
 
 	handler := NewRoutes(repo, logger, "_ROUTES")
 

@@ -1,14 +1,20 @@
 package announcement
 
 import (
+	"harmony/libs/database"
+
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/exp/slog"
 	"gorm.io/gorm"
 )
 
+var ModuleName = "ANNOUNCEMENT"
+
 func Setup(router fiber.Router, db *gorm.DB, logger *slog.Logger) {
 
-	repo := NewRepository(db, logger, "ANNOUNCEMENT_REPOSITORY")
+	repo := NewRepository(
+		db.Model(&database.Announcement{}).Debug(),
+		logger, ModuleName+"_REPOSITORY")
 
 	handler := NewRoutes(repo, logger, "ANNOUNCEMENT_ROUTES")
 

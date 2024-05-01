@@ -23,7 +23,7 @@ type Repository struct {
 
 func NewRepository(db *gorm.DB, logger *slog.Logger, logGroupKey string) iRepository {
 	return &Repository{
-		Db:          db.Model(&database.Workspace{}).Debug(),
+		Db:          db,
 		logger:      logger,
 		logGroupKey: logGroupKey,
 	}
