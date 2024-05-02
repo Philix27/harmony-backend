@@ -35,7 +35,7 @@ func (r *Repository) Create(data createAnnouncementDto) error {
 	result := r.Db.Create(&database.Announcement{
 		Title:       data.Title,
 		Subtitle:    data.Subtitle,
-		WorkspaceID: data.WorkspaceID,
+		WorkspaceID: data.WorkspaceId,
 	})
 
 	if result.Error != nil {

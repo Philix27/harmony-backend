@@ -30,11 +30,11 @@ func NewRoutes(repo iRepository, logger *slog.Logger, logGroupKey string) iRoute
 }
 
 func (r *Routes) manager(route fiber.Router) {
-	route.Post("/", r.create).Name("WorkspaceCreate")
-	route.Put("/", r.update).Name("WorkspaceUpdate")
-	route.Delete("/", r.deleteOne).Name("WorkspaceDelete")
-	route.Get("/:id", r.getOne).Name("WorkspaceGetOne")
-	route.Get("/", r.getAll).Name("WorkspaceGetAll")
+	route.Post("/", r.create).Name("AnnouncementCreate")
+	route.Put("/", r.update).Name("AnnouncementUpdate")
+	route.Delete("/", r.deleteOne).Name("AnnouncementDelete")
+	route.Get("/:id", r.getOne).Name("AnnouncementGetOne")
+	route.Get("/", r.getAll).Name("AnnouncementGetAll")
 }
 
 func (r *Routes) create(c *fiber.Ctx) error {
@@ -49,7 +49,7 @@ func (r *Routes) create(c *fiber.Ctx) error {
 	if err := r.repository.Create(createAnnouncementDto{
 		Title:       input.Title,
 		Subtitle:    input.Subtitle,
-		WorkspaceID: input.WorkspaceID,
+		WorkspaceId: input.WorkspaceId,
 	}); err != nil {
 		return c.SendString("Error in request")
 	}

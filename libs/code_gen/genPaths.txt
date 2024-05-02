@@ -24,6 +24,7 @@ func GenerateTsRouteHandlers(server *fiber.App, outputPath string) {
 	var arrWeirdPath = []string{"/api", "/api/v1", "/", "/swagger/*"}
 
 	setup := `
+import axios from "axios";
 import * as T from "./dto";
 import axiosClient from "./axiosClient";
 
@@ -37,20 +38,21 @@ export class ApiRoutes {
 		}
 
 		arrName = append(arrName, r.Name)
-
+		
 		// if r.Path == "/api" || r.Path == "/api/v1" || r.Path == "/" || r.Path == "/swagger/*" {
 		// 	continue
 		// }
 
 		c := fmt.Sprintf("  "+
-			`
-  public %v: Promise<T.%vResponse> {
-    return axiosClient.%v(%v);
-  }
- `, genFuncHead(r.Path, r.Name),
-			r.Name,
-			getMethod(r.Method),
-			processPath(r.Path))
+			`public async %v(data: T.%vInput): Promise<T.%vResponse> {
+		try {
+			const res = await axios.%v("%v", data);
+			return res.data as T.%vResponse;
+		} catch(e) {
+			return e.message;
+		}
+
+	}`, r.Name, r.Name, r.Name, getMethod(r.Method), r.Path, r.Name)
 
 		setup = setup + c + "\n"
 	}

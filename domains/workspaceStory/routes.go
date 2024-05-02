@@ -3,6 +3,7 @@ package workspaceStory
 import (
 	"strconv"
 
+	"github.com/LNMMusic/optional"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/exp/slog"
 )
@@ -11,7 +12,7 @@ type iRoutes interface {
 	manager(router fiber.Router)
 	create(c *fiber.Ctx) error
 	update(c *fiber.Ctx) error
-	getByWorkspaceId(c *fiber.Ctx) error
+	getById(c *fiber.Ctx) error
 	getOne(c *fiber.Ctx) error
 	deleteOne(c *fiber.Ctx) error
 }
@@ -33,7 +34,7 @@ func (r *Routes) manager(route fiber.Router) {
 	route.Put("/", r.update).Name("WorkspaceStoryUpdate")
 	route.Delete("/:id", r.deleteOne).Name("WorkspaceStoryDelete")
 	route.Get("/:id", r.getOne).Name("WorkspaceStoryGetOne")
-	route.Get("/", r.getByWorkspaceId).Name("WorkspaceStoryGetByWorkspaceId")
+	route.Get("/", r.getById).Name("WorkspaceStoryGetByWorkspaceId")
 }
 
 func (r *Routes) create(c *fiber.Ctx) error {
@@ -70,35 +71,28 @@ func (r *Routes) update(c *fiber.Ctx) error {
 	})
 }
 
-func (r *Routes) getByWorkspaceId(c *fiber.Ctx) error {
+func (r *Routes) getById(c *fiber.Ctx) error {
 	// var input = &WorkspaceStoryGetAllInput{}
-	workspaceId := c.Query("id")
+	epicId := c.Query("epic_id")
 	limit := c.Query("limit")
 
-	workspaceIdValue, err := strconv.Atoi(workspaceId)
-	limitValue, limitErr := strconv.Atoi(limit)
+	epicIdIdValue, _ := strconv.Atoi(epicId)
+	limitValue, _ := strconv.Atoi(limit)
 
-	if err != nil {
-		r.logger.Error("Cannot parse workspaceId")
-		return err
+	workspaceOp := optional.Some[int](epicIdIdValue)
+	epicOp := optional.Some[int](epicIdIdValue)
+
+	if workspaceOp.IsSome() || epicOp.IsSome() {
+		obj, _ := r.repository.FindManyById(epicOp, workspaceOp, limitValue)
+
+		r.logger.Info("GET_ALL_" + ModuleName)
+		return c.JSON(WorkspaceStoryGetAllResponse{
+			Data: obj,
+		})
+	} else {
+		return c.SendString("A Workspace or Epic id must be provided ")
 	}
 
-	if limitErr != nil {
-		r.logger.Error("Cannot parse limit")
-		return err
-	}
-
-	obj, err := r.repository.FindWorkspaceId(workspaceIdValue, limitValue)
-
-	if err != nil {
-		return err
-	}
-
-	r.logger.Info("GET_ALL_" + ModuleName)
-
-	return c.JSON(WorkspaceStoryGetAllResponse{
-		Data: obj,
-	})
 }
 
 func (r *Routes) getOne(c *fiber.Ctx) error {

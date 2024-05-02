@@ -11,6 +11,7 @@ require (
 
 require (
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
+	github.com/LNMMusic/optional v1.1.0 // indirect
 	github.com/casbin/casbin/v2 v2.77.1 // indirect
 	github.com/casbin/gorm-adapter/v3 v3.24.0 // indirect
 	github.com/clerkinc/clerk-sdk-go v1.49.0 // indirect
@@ -34,6 +35,7 @@ require (
 	github.com/tidwall/gjson v1.14.4 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
+	go.mongodb.org/mongo-driver v1.12.1 // indirect
 	gorm.io/driver/mysql v1.5.6 // indirect
 	gorm.io/driver/sqlserver v1.5.3 // indirect
 	gorm.io/plugin/dbresolver v1.3.0 // indirect

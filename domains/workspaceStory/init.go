@@ -16,8 +16,8 @@ func Setup(router fiber.Router, db *gorm.DB, logger *slog.Logger) {
 		db.Model(&database.WorkspaceStory{}).Debug(),
 		logger, ModuleName+"_REPOSITORY")
 
-	handler := NewRoutes(repo, logger, "_ROUTES")
+	handler := NewRoutes(repo, logger, ModuleName+"_ROUTES")
 
-	router.Route("/workspace_epic", handler.manager)
+	router.Route("/workspace_story", handler.manager)
 
 }

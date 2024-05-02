@@ -35,7 +35,7 @@ func (r *Repository) Create(data WorkspaceEpicCreateInput) error {
 	if result := r.Db.Create(&database.WorkspaceEpic{
 		Title:       data.Title,
 		Description: data.Description,
-		WorkspaceID: data.WorkspaceID,
+		WorkspaceID: data.WorkspaceId,
 	}); result.Error != nil {
 		println(result.Error)
 		r.logger.Error(

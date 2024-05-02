@@ -4,7 +4,7 @@ package announcement
 type AnnouncementCreateInput struct {
 	Title       string `json:"title"`
 	Subtitle    string `json:"subtitle"`
-	WorkspaceID uint   `json:"workspaceId"`
+	WorkspaceId uint   `json:"workspaceId"`
 }
 
 type AnnouncementCreateResponse struct {
@@ -59,7 +59,7 @@ type announcement struct {
 type createAnnouncementDto struct {
 	Title       string `validate:"required, min=1, max=10" json:"name" `
 	Subtitle    string `validate:"required"`
-	WorkspaceID uint
+	WorkspaceId uint
 }
 
 type updateAnnouncementDto struct {

@@ -3,6 +3,7 @@ package workspaceStory
 import (
 	"harmony/libs/database"
 
+	"github.com/LNMMusic/optional"
 	"golang.org/x/exp/slog"
 	"gorm.io/gorm"
 )
@@ -12,7 +13,8 @@ type iRepository interface {
 	Update(WorkspaceStoryUpdateInput) error
 	Delete(int) error
 	FindById(int) (WorkspaceStory, error)
-	FindWorkspaceId(workspaceId int, limit int) ([]WorkspaceStory, error)
+	// FindWorkspaceId(workspaceId int, limit int) ([]WorkspaceStory, error)
+	FindManyById(epicId optional.Option[int], workspaceId optional.Option[int], limit int) ([]WorkspaceStory, error)
 }
 
 type Repository struct {
@@ -23,7 +25,7 @@ type Repository struct {
 
 func NewRepository(db *gorm.DB, logger *slog.Logger, logGroupKey string) iRepository {
 	return &Repository{
-		Db:         db,
+		Db:          db,
 		logger:      logger,
 		logGroupKey: logGroupKey,
 	}
@@ -63,20 +65,40 @@ func (r *Repository) Update(data WorkspaceStoryUpdateInput) error {
 	return nil
 }
 
-// FindAll implements iRepository.
-func (r *Repository) FindWorkspaceId(workspaceEpicId int, limit int) ([]WorkspaceStory, error) {
+func (r *Repository) FindManyById(epicId optional.Option[int], workspaceId optional.Option[int], limit int) ([]WorkspaceStory, error) {
 	var list []WorkspaceStory
-	result := r.Db.Where("workspace_id =? ", workspaceEpicId).Limit(limit).Find(&list)
 
-	if result.Error != nil {
-		r.logger.Error("CANNOT_FIND_ALL:", result.Error)
-		return nil, result.Error
+	if workspaceId.IsSome() {
+		result := r.Db.Where("workspace_id =?", workspaceId.Unwrap()).Limit(limit).Find(&list)
+
+		if err := r.hasErr(result, "CANNOT_FIND_ALL:"); err != nil {
+			return nil, err
+		} else {
+			r.logger.Info("READ_BY_WORKSPACE_ID_SUCCESSFUL")
+			return list, nil
+		}
+	} else if epicId.IsSome() {
+		result := r.Db.Where("workspace_epic_id =? ", epicId.Unwrap()).Limit(limit).Find(&list)
+
+		if err := r.hasErr(result, "CANNOT_FIND_ALL:"); err != nil {
+			return nil, err
+		} else {
+			r.logger.Info("READ_BY_EPIC_ID_SUCCESSFUL")
+			return list, nil
+		}
 	}
-	r.logger.Info("READ_ALL_SUCCESS")
-	return list, nil
+
+	return nil, nil
 }
 
-// FindById implements iRepository.
+func (r *Repository) hasErr(result *gorm.DB, logTitle string) error {
+	if result.Error != nil {
+		r.logger.Error(logTitle, result.Error)
+		return result.Error
+	}
+	return nil
+}
+
 func (r *Repository) FindById(id int) (WorkspaceStory, error) {
 	object := WorkspaceStory{}
 

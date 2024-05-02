@@ -4,14 +4,14 @@ package workspaceEpics
 type WorkspaceEpicCreateInput struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
-	WorkspaceID uint   `json:"workspaceId"`
+	WorkspaceId uint   `json:"workspaceId"`
 }
 
 type WorkspaceEpicCreateResponse struct {
 	Id          int    `json:"id"`
 	Title       string `json:"title"`
 	Description string `json:"description"`
-	WorkspaceID uint   `json:"workspaceId"`
+	WorkspaceId uint   `json:"workspaceId"`
 }
 
 // * Update
@@ -35,7 +35,7 @@ type WorkspaceEpicGetOneResponse struct {
 	Id          int    `json:"id"`
 	Title       string `json:"title"`
 	Description string `json:"description"`
-	WorkspaceID uint   `json:"workspaceId"`
+	WorkspaceId uint   `json:"workspaceId"`
 }
 
 // * Read all
@@ -52,5 +52,5 @@ type WorkspaceEpic struct {
 	Id          int    `json:"id"`
 	Title       string `json:"title"`
 	Description string `json:"description"`
-	WorkspaceID uint   `json:"workspaceId"`
+	WorkspaceId uint   `json:"workspaceId"`
 }

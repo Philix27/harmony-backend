@@ -16,7 +16,7 @@ func Setup(router fiber.Router, db *gorm.DB, logger *slog.Logger) {
 		db.Model(&database.Announcement{}).Debug(),
 		logger, ModuleName+"_REPOSITORY")
 
-	handler := NewRoutes(repo, logger, "ANNOUNCEMENT_ROUTES")
+	handler := NewRoutes(repo, logger, ModuleName+"_ROUTES")
 
 	router.Route("/announcement", handler.manager)
 

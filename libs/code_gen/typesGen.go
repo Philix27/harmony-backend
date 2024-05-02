@@ -65,7 +65,7 @@ func processGoFile(goFilePath string, tsFile *os.File) error {
 					break
 				}
 				parts := strings.Fields(line)
-				fieldName := parts[0]
+				fieldName := strings.ToLower(parts[0][:1]) + parts[0][1:]
 				fieldType := checkForArray(parts[1])
 				tsFile.WriteString(fmt.Sprintf(" %s: %s;\n", fieldName, mapGoTypeToTsType(fieldType)))
 			}
