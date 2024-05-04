@@ -55,7 +55,7 @@ func main() {
 	appState.SetupRoutes(server, logger)
 
 	if os.Getenv("ENV") == "DEV" {
-		code_gen.GenerateTsRouteHandlers(server, "./sdk/core/routes.ts")
+		code_gen.GenerateTsRouteHandlers(server, "./sdk/core/genTypes.ts")
 		// if err := code_gen.GenerateTsRouteHandlers(server, "./sdk/dto.ts"); err != nil {
 		// 	fmt.Println("Error in conversion: ", err)
 		// } else {

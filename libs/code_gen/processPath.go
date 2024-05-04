@@ -4,14 +4,23 @@ import "strings"
 
 func processPath(apiPath string) string {
 	newPath, _ := strings.CutPrefix(apiPath, "/api/v1/")
-	lPath, hasId := strings.CutSuffix(newPath, "/:id")
+	lPath, _ := strings.CutSuffix(newPath, "/:id")
 
-	if hasId {
-		return `"` + lPath + `"` + " + id"
+	// var patho string
+
+	// if hasId {
+	// 	patho = `"` + lPath + `"`
+	// } else {
+
+	// 	patho = `"` + lPath + `"`
+	// }
+
+	if hasSlash := strings.HasSuffix(lPath, "/"); hasSlash {
+		return lPath
 	} else {
-
-		return  `"` + lPath + `"`
+		return lPath + "/"
 	}
+
 }
 
 // Name of function

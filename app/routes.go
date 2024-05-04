@@ -2,6 +2,7 @@ package app
 
 import (
 	"harmony/domains/announcement"
+	"harmony/domains/board"
 	"harmony/domains/workspace"
 	"harmony/domains/workspaceEpics"
 	"harmony/domains/workspaceStory"
@@ -20,4 +21,5 @@ func (state AppState) SetupRoutes(app *fiber.App, logger *slog.Logger) {
 	workspace.Setup(v1, state.DB, logger)
 	workspaceEpics.Setup(v1, state.DB, logger)
 	workspaceStory.Setup(v1, state.DB, logger)
+	board.Setup(v1, state.DB, logger)
 }
