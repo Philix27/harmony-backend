@@ -25,7 +25,9 @@ func GenerateTsRouteHandlers(server *fiber.App, outputPath string) {
 
 	setup := `
 import * as T from "./dto";
+import axiosClient from "./axiosClient";
 
+export class ApiRoutes {
 	`
 
 	for _, r := range server.GetRoutes() {
@@ -38,44 +40,20 @@ import * as T from "./dto";
 
 		c := fmt.Sprintf("  "+
 			`
-  type %v = {
-	path: "%v";
-	%v
-	response: T.%vResponse;
-	pathParam: T.%vPathParams;
-	queryParams: T.%vQueryParams;
-	method: "%v";
+  public %v: Promise<T.%vResponse> {
+    return axiosClient.%v(%v);
   }
- `,
-			r.Name,
-			processPath(r.Path),
-			genInput(r.Method, r.Name),
-			r.Name,
-			r.Name,
+ `, genFuncHead(r.Path, r.Name, r.Method),
 			r.Name,
 			getMethod(r.Method),
-		)
+			processPath(r.Method, r.Name, r.Path))
 
 		setup = setup + c + "\n"
 	}
 
-	typesCollection := `
- type AllTypes = { 
-	`
+	newVar := fmt.Append([]byte(setup), "}")
 
-	for _, val := range arrName {
-		body := fmt.Sprintf(
-			`%v: %v;`, val, val,
-		)
-
-		typesCollection = typesCollection + body + "\n"
-	}
-
-	typesCollection += "}"
-
-	// newVar := fmt.Append([]byte(setup), "}")
-
-	_, err = output.Write([]byte(setup + typesCollection))
+	_, err = output.Write([]byte(newVar))
 	if err != nil {
 		fmt.Println("Error writing to output file:", err)
 	}

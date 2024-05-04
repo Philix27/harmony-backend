@@ -1,281 +1,174 @@
-
 import * as T from "./dto";
+import axiosClient from "./axiosClient";
 
-	  
-  type AnnouncementGetOne = {
-	path: "announcement/";
-	
-	response: T.AnnouncementGetOneResponse;
-	pathParam: T.AnnouncementGetOnePathParams;
-	queryParams: T.AnnouncementGetOneQueryParams;
-	method: "get";
+export class ApiRoutes {
+  public announcementGetOne(
+    id: number,
+    params: T.AnnouncementGetOneQueryParams
+  ): Promise<T.AnnouncementGetOneResponse> {
+    return axiosClient.get("announcement/");
   }
- 
-  
-  type AnnouncementGetAll = {
-	path: "announcement/";
-	
-	response: T.AnnouncementGetAllResponse;
-	pathParam: T.AnnouncementGetAllPathParams;
-	queryParams: T.AnnouncementGetAllQueryParams;
-	method: "get";
-  }
- 
-  
-  type WorkspaceGetOne = {
-	path: "workspace/";
-	
-	response: T.WorkspaceGetOneResponse;
-	pathParam: T.WorkspaceGetOnePathParams;
-	queryParams: T.WorkspaceGetOneQueryParams;
-	method: "get";
-  }
- 
-  
-  type WorkspaceGetAll = {
-	path: "workspace/";
-	
-	response: T.WorkspaceGetAllResponse;
-	pathParam: T.WorkspaceGetAllPathParams;
-	queryParams: T.WorkspaceGetAllQueryParams;
-	method: "get";
-  }
- 
-  
-  type WorkspaceEpicGetOne = {
-	path: "workspace_epic/";
-	
-	response: T.WorkspaceEpicGetOneResponse;
-	pathParam: T.WorkspaceEpicGetOnePathParams;
-	queryParams: T.WorkspaceEpicGetOneQueryParams;
-	method: "get";
-  }
- 
-  
-  type WorkspaceEpicGetAll = {
-	path: "workspace_epic/";
-	
-	response: T.WorkspaceEpicGetAllResponse;
-	pathParam: T.WorkspaceEpicGetAllPathParams;
-	queryParams: T.WorkspaceEpicGetAllQueryParams;
-	method: "get";
-  }
- 
-  
-  type WorkspaceStoryGetOne = {
-	path: "workspace_story/";
-	
-	response: T.WorkspaceStoryGetOneResponse;
-	pathParam: T.WorkspaceStoryGetOnePathParams;
-	queryParams: T.WorkspaceStoryGetOneQueryParams;
-	method: "get";
-  }
- 
-  
-  type WorkspaceStoryGetAll = {
-	path: "workspace_story/";
-	
-	response: T.WorkspaceStoryGetAllResponse;
-	pathParam: T.WorkspaceStoryGetAllPathParams;
-	queryParams: T.WorkspaceStoryGetAllQueryParams;
-	method: "get";
-  }
- 
-  
-  type BoardGetOne = {
-	path: "board/";
-	
-	response: T.BoardGetOneResponse;
-	pathParam: T.BoardGetOnePathParams;
-	queryParams: T.BoardGetOneQueryParams;
-	method: "get";
-  }
- 
-  
-  type BoardGetAll = {
-	path: "board/";
-	
-	response: T.BoardGetAllResponse;
-	pathParam: T.BoardGetAllPathParams;
-	queryParams: T.BoardGetAllQueryParams;
-	method: "get";
-  }
- 
-  
-  type AnnouncementCreate = {
-	path: "announcement/";
-	input: T.AnnouncementCreateInput;
-	response: T.AnnouncementCreateResponse;
-	pathParam: T.AnnouncementCreatePathParams;
-	queryParams: T.AnnouncementCreateQueryParams;
-	method: "post";
-  }
- 
-  
-  type WorkspaceCreate = {
-	path: "workspace/";
-	input: T.WorkspaceCreateInput;
-	response: T.WorkspaceCreateResponse;
-	pathParam: T.WorkspaceCreatePathParams;
-	queryParams: T.WorkspaceCreateQueryParams;
-	method: "post";
-  }
- 
-  
-  type WorkspaceEpicCreate = {
-	path: "workspace_epic/";
-	input: T.WorkspaceEpicCreateInput;
-	response: T.WorkspaceEpicCreateResponse;
-	pathParam: T.WorkspaceEpicCreatePathParams;
-	queryParams: T.WorkspaceEpicCreateQueryParams;
-	method: "post";
-  }
- 
-  
-  type WorkspaceStoryCreate = {
-	path: "workspace_story/";
-	input: T.WorkspaceStoryCreateInput;
-	response: T.WorkspaceStoryCreateResponse;
-	pathParam: T.WorkspaceStoryCreatePathParams;
-	queryParams: T.WorkspaceStoryCreateQueryParams;
-	method: "post";
-  }
- 
-  
-  type BoardCreate = {
-	path: "board/";
-	input: T.BoardCreateInput;
-	response: T.BoardCreateResponse;
-	pathParam: T.BoardCreatePathParams;
-	queryParams: T.BoardCreateQueryParams;
-	method: "post";
-  }
- 
-  
-  type AnnouncementUpdate = {
-	path: "announcement/";
-	input: T.AnnouncementUpdateInput;
-	response: T.AnnouncementUpdateResponse;
-	pathParam: T.AnnouncementUpdatePathParams;
-	queryParams: T.AnnouncementUpdateQueryParams;
-	method: "put";
-  }
- 
-  
-  type WorkspaceUpdate = {
-	path: "workspace/";
-	input: T.WorkspaceUpdateInput;
-	response: T.WorkspaceUpdateResponse;
-	pathParam: T.WorkspaceUpdatePathParams;
-	queryParams: T.WorkspaceUpdateQueryParams;
-	method: "put";
-  }
- 
-  
-  type WorkspaceEpicUpdate = {
-	path: "workspace_epic/";
-	input: T.WorkspaceEpicUpdateInput;
-	response: T.WorkspaceEpicUpdateResponse;
-	pathParam: T.WorkspaceEpicUpdatePathParams;
-	queryParams: T.WorkspaceEpicUpdateQueryParams;
-	method: "put";
-  }
- 
-  
-  type WorkspaceStoryUpdate = {
-	path: "workspace_story/";
-	input: T.WorkspaceStoryUpdateInput;
-	response: T.WorkspaceStoryUpdateResponse;
-	pathParam: T.WorkspaceStoryUpdatePathParams;
-	queryParams: T.WorkspaceStoryUpdateQueryParams;
-	method: "put";
-  }
- 
-  
-  type BoardUpdate = {
-	path: "board/";
-	input: T.BoardUpdateInput;
-	response: T.BoardUpdateResponse;
-	pathParam: T.BoardUpdatePathParams;
-	queryParams: T.BoardUpdateQueryParams;
-	method: "put";
-  }
- 
-  
-  type AnnouncementDelete = {
-	path: "announcement/";
-	
-	response: T.AnnouncementDeleteResponse;
-	pathParam: T.AnnouncementDeletePathParams;
-	queryParams: T.AnnouncementDeleteQueryParams;
-	method: "delete";
-  }
- 
-  
-  type WorkspaceDelete = {
-	path: "workspace/";
-	
-	response: T.WorkspaceDeleteResponse;
-	pathParam: T.WorkspaceDeletePathParams;
-	queryParams: T.WorkspaceDeleteQueryParams;
-	method: "delete";
-  }
- 
-  
-  type WorkspaceEpicDelete = {
-	path: "workspace_epic/";
-	
-	response: T.WorkspaceEpicDeleteResponse;
-	pathParam: T.WorkspaceEpicDeletePathParams;
-	queryParams: T.WorkspaceEpicDeleteQueryParams;
-	method: "delete";
-  }
- 
-  
-  type WorkspaceStoryDelete = {
-	path: "workspace_story/";
-	
-	response: T.WorkspaceStoryDeleteResponse;
-	pathParam: T.WorkspaceStoryDeletePathParams;
-	queryParams: T.WorkspaceStoryDeleteQueryParams;
-	method: "delete";
-  }
- 
-  
-  type BoardDelete = {
-	path: "board/";
-	
-	response: T.BoardDeleteResponse;
-	pathParam: T.BoardDeletePathParams;
-	queryParams: T.BoardDeleteQueryParams;
-	method: "delete";
-  }
- 
 
- type AllTypes = { 
-	AnnouncementGetOne: AnnouncementGetOne;
-AnnouncementGetAll: AnnouncementGetAll;
-WorkspaceGetOne: WorkspaceGetOne;
-WorkspaceGetAll: WorkspaceGetAll;
-WorkspaceEpicGetOne: WorkspaceEpicGetOne;
-WorkspaceEpicGetAll: WorkspaceEpicGetAll;
-WorkspaceStoryGetOne: WorkspaceStoryGetOne;
-WorkspaceStoryGetAll: WorkspaceStoryGetAll;
-BoardGetOne: BoardGetOne;
-BoardGetAll: BoardGetAll;
-AnnouncementCreate: AnnouncementCreate;
-WorkspaceCreate: WorkspaceCreate;
-WorkspaceEpicCreate: WorkspaceEpicCreate;
-WorkspaceStoryCreate: WorkspaceStoryCreate;
-BoardCreate: BoardCreate;
-AnnouncementUpdate: AnnouncementUpdate;
-WorkspaceUpdate: WorkspaceUpdate;
-WorkspaceEpicUpdate: WorkspaceEpicUpdate;
-WorkspaceStoryUpdate: WorkspaceStoryUpdate;
-BoardUpdate: BoardUpdate;
-AnnouncementDelete: AnnouncementDelete;
-WorkspaceDelete: WorkspaceDelete;
-WorkspaceEpicDelete: WorkspaceEpicDelete;
-WorkspaceStoryDelete: WorkspaceStoryDelete;
-BoardDelete: BoardDelete;
+  public announcementGetAll(
+    params: T.AnnouncementGetAllQueryParams
+  ): Promise<T.AnnouncementGetAllResponse> {
+    return axiosClient.get("announcement/", { params: params });
+  }
+
+  public workspaceGetOne(
+    id: number,
+    params: T.WorkspaceGetOneQueryParams
+  ): Promise<T.WorkspaceGetOneResponse> {
+    return axiosClient.get("workspace/");
+  }
+
+  public workspaceGetAll(
+    params: T.WorkspaceGetAllQueryParams
+  ): Promise<T.WorkspaceGetAllResponse> {
+    return axiosClient.get("workspace/", { params: params });
+  }
+
+  public workspaceEpicGetOne(
+    id: number,
+    params: T.WorkspaceEpicGetOneQueryParams
+  ): Promise<T.WorkspaceEpicGetOneResponse> {
+    return axiosClient.get("workspace_epic/");
+  }
+
+  public workspaceEpicGetAll(
+    params: T.WorkspaceEpicGetAllQueryParams
+  ): Promise<T.WorkspaceEpicGetAllResponse> {
+    return axiosClient.get("workspace_epic/", { params: params });
+  }
+
+  public workspaceStoryGetOne(
+    id: number,
+    params: T.WorkspaceStoryGetOneQueryParams
+  ): Promise<T.WorkspaceStoryGetOneResponse> {
+    return axiosClient.get("workspace_story/");
+  }
+
+  public workspaceStoryGetAll(
+    params: T.WorkspaceStoryGetAllQueryParams
+  ): Promise<T.WorkspaceStoryGetAllResponse> {
+    return axiosClient.get("workspace_story/", { params: params });
+  }
+
+  public boardGetOne(
+    id: number,
+    params: T.BoardGetOneQueryParams
+  ): Promise<T.BoardGetOneResponse> {
+    return axiosClient.get("board/");
+  }
+
+  public boardGetAll(
+    params: T.BoardGetAllQueryParams
+  ): Promise<T.BoardGetAllResponse> {
+    return axiosClient.get("board/", { params: params });
+  }
+
+  public announcementCreate(
+    data: T.AnnouncementCreateInput,
+    params: T.AnnouncementCreateQueryParams
+  ): Promise<T.AnnouncementCreateResponse> {
+    return axiosClient.post("announcement/", data, params);
+  }
+
+  public workspaceCreate(
+    data: T.WorkspaceCreateInput,
+    params: T.WorkspaceCreateQueryParams
+  ): Promise<T.WorkspaceCreateResponse> {
+    return axiosClient.post("workspace/", data, params);
+  }
+
+  public workspaceEpicCreate(
+    data: T.WorkspaceEpicCreateInput,
+    params: T.WorkspaceEpicCreateQueryParams
+  ): Promise<T.WorkspaceEpicCreateResponse> {
+    return axiosClient.post("workspace_epic/", data, params);
+  }
+
+  public workspaceStoryCreate(
+    data: T.WorkspaceStoryCreateInput,
+    params: T.WorkspaceStoryCreateQueryParams
+  ): Promise<T.WorkspaceStoryCreateResponse> {
+    return axiosClient.post("workspace_story/", data, params);
+  }
+
+  public boardCreate(
+    data: T.BoardCreateInput,
+    params: T.BoardCreateQueryParams
+  ): Promise<T.BoardCreateResponse> {
+    return axiosClient.post("board/", data, params);
+  }
+
+  public announcementUpdate(
+    data: T.AnnouncementUpdateInput,
+    params: T.AnnouncementUpdateQueryParams
+  ): Promise<T.AnnouncementUpdateResponse> {
+    return axiosClient.put("announcement/", data, params);
+  }
+
+  public workspaceUpdate(
+    data: T.WorkspaceUpdateInput,
+    params: T.WorkspaceUpdateQueryParams
+  ): Promise<T.WorkspaceUpdateResponse> {
+    return axiosClient.put("workspace/", data, params);
+  }
+
+  public workspaceEpicUpdate(
+    data: T.WorkspaceEpicUpdateInput,
+    params: T.WorkspaceEpicUpdateQueryParams
+  ): Promise<T.WorkspaceEpicUpdateResponse> {
+    return axiosClient.put("workspace_epic/", data, params);
+  }
+
+  public workspaceStoryUpdate(
+    data: T.WorkspaceStoryUpdateInput,
+    params: T.WorkspaceStoryUpdateQueryParams
+  ): Promise<T.WorkspaceStoryUpdateResponse> {
+    return axiosClient.put("workspace_story/", data, params);
+  }
+
+  public boardUpdate(
+    data: T.BoardUpdateInput,
+    params: T.BoardUpdateQueryParams
+  ): Promise<T.BoardUpdateResponse> {
+    return axiosClient.put("board/", data, params);
+  }
+
+  public announcementDelete(
+    id: number,
+    params: T.AnnouncementDeleteQueryParams
+  ): Promise<T.AnnouncementDeleteResponse> {
+    return axiosClient.delete("announcement/".concat(id.toString()), params);
+  }
+
+  public workspaceDelete(
+    id: number,
+    params: T.WorkspaceDeleteQueryParams
+  ): Promise<T.WorkspaceDeleteResponse> {
+    return axiosClient.delete("workspace/");
+  }
+
+  public workspaceEpicDelete(
+    id: number,
+    params: T.WorkspaceEpicDeleteQueryParams
+  ): Promise<T.WorkspaceEpicDeleteResponse> {
+    return axiosClient.delete("workspace_epic/");
+  }
+
+  public workspaceStoryDelete(
+    id: number,
+    params: T.WorkspaceStoryDeleteQueryParams
+  ): Promise<T.WorkspaceStoryDeleteResponse> {
+    return axiosClient.delete("workspace_story/");
+  }
+
+  public boardDelete(
+    id: number,
+    params: T.BoardDeleteQueryParams
+  ): Promise<T.BoardDeleteResponse> {
+    return axiosClient.delete("board/");
+  }
 }
