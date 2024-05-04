@@ -30,15 +30,15 @@ func NewRoutes(repo iRepository, logger *slog.Logger, logGroupKey string) iRoute
 }
 
 func (r *Routes) manager(route fiber.Router) {
-	route.Post("/", r.create).Name("WorkspaceStoryCreate")
-	route.Put("/", r.update).Name("WorkspaceStoryUpdate")
-	route.Delete("/:id", r.deleteOne).Name("WorkspaceStoryDelete")
-	route.Get("/:id", r.getOne).Name("WorkspaceStoryGetOne")
-	route.Get("/", r.getById).Name("WorkspaceStoryGetByWorkspaceId")
+	route.Post("/", r.create).Name("BoardCreate")
+	route.Put("/", r.update).Name("BoardUpdate")
+	route.Delete("/:id", r.deleteOne).Name("BoardDelete")
+	route.Get("/:id", r.getOne).Name("BoardGetOne")
+	route.Get("/", r.getById).Name("BoardGetByWorkspaceId")
 }
 
 func (r *Routes) create(c *fiber.Ctx) error {
-	input := &WorkspaceStoryCreateInput{}
+	input := &BoardCreateInput{}
 
 	if err := c.BodyParser(input); err != nil {
 		r.logger.Error("Error passing body")
@@ -54,7 +54,7 @@ func (r *Routes) create(c *fiber.Ctx) error {
 }
 
 func (r *Routes) update(c *fiber.Ctx) error {
-	var input = &WorkspaceStoryUpdateInput{}
+	var input = &BoardUpdateInput{}
 
 	if err := c.BodyParser(input); err != nil {
 		r.logger.Error("Error passing body")
@@ -66,13 +66,13 @@ func (r *Routes) update(c *fiber.Ctx) error {
 	}
 
 	r.logger.Info("UPDATED_" + ModuleName)
-	return c.JSON(WorkspaceStoryUpdateResponse{
+	return c.JSON(BoardUpdateResponse{
 		Msg: "success",
 	})
 }
 
 func (r *Routes) getById(c *fiber.Ctx) error {
-	// var input = &WorkspaceStoryGetAllInput{}
+	// var input = &BoardGetAllInput{}
 	epicId := c.Query("epic_id")
 	limit := c.Query("limit")
 
@@ -86,7 +86,7 @@ func (r *Routes) getById(c *fiber.Ctx) error {
 		obj, _ := r.repository.FindManyById(epicOp, workspaceOp, limitValue)
 
 		r.logger.Info("GET_ALL_" + ModuleName)
-		return c.JSON(WorkspaceStoryGetAllResponse{
+		return c.JSON(BoardGetAllResponse{
 			Data: obj,
 		})
 	} else {
@@ -126,7 +126,7 @@ func (r *Routes) deleteOne(c *fiber.Ctx) error {
 	}
 
 	r.logger.Info("DELETED_" + ModuleName)
-	return c.JSON(WorkspaceStoryDeleteResponse{
+	return c.JSON(BoardDeleteResponse{
 		Msg: "Deleted successfully",
 	})
 }

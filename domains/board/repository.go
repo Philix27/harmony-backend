@@ -9,12 +9,12 @@ import (
 )
 
 type iRepository interface {
-	Create(WorkspaceStoryCreateInput) error
-	Update(WorkspaceStoryUpdateInput) error
+	Create(BoardCreateInput) error
+	Update(BoardUpdateInput) error
 	Delete(int) error
-	FindById(int) (WorkspaceStory, error)
-	// FindWorkspaceId(workspaceId int, limit int) ([]WorkspaceStory, error)
-	FindManyById(epicId optional.Option[int], workspaceId optional.Option[int], limit int) ([]WorkspaceStory, error)
+	FindById(int) (Board, error)
+	// FindWorkspaceId(workspaceId int, limit int) ([]Board, error)
+	FindManyById(epicId optional.Option[int], workspaceId optional.Option[int], limit int) ([]Board, error)
 }
 
 type Repository struct {
@@ -32,12 +32,12 @@ func NewRepository(db *gorm.DB, logger *slog.Logger, logGroupKey string) iReposi
 }
 
 // Create implements iRepository.
-func (r *Repository) Create(data WorkspaceStoryCreateInput) error {
+func (r *Repository) Create(data BoardCreateInput) error {
 	// fmt.Println(data)
-	if result := r.Db.Create(&database.WorkspaceStory{
+	if result := r.Db.Create(&database.Board{
 		Title:           data.Title,
 		Description:     data.Description,
-		WorkspaceEpicID: data.WorkspaceEpicId,
+		WorkspaceID: data.WorkspaceId,
 	}); result.Error != nil {
 		println(result.Error)
 		r.logger.Error(
@@ -52,7 +52,7 @@ func (r *Repository) Create(data WorkspaceStoryCreateInput) error {
 }
 
 // Update implements iRepository.
-func (r *Repository) Update(data WorkspaceStoryUpdateInput) error {
+func (r *Repository) Update(data BoardUpdateInput) error {
 	result := r.Db.Where(
 		"id = ?", data.Id,
 	).Updates(data)
@@ -65,8 +65,8 @@ func (r *Repository) Update(data WorkspaceStoryUpdateInput) error {
 	return nil
 }
 
-func (r *Repository) FindManyById(epicId optional.Option[int], workspaceId optional.Option[int], limit int) ([]WorkspaceStory, error) {
-	var list []WorkspaceStory
+func (r *Repository) FindManyById(epicId optional.Option[int], workspaceId optional.Option[int], limit int) ([]Board, error) {
+	var list []Board
 
 	if workspaceId.IsSome() {
 		result := r.Db.Where("workspace_id =?", workspaceId.Unwrap()).Limit(limit).Find(&list)
@@ -99,14 +99,14 @@ func (r *Repository) hasErr(result *gorm.DB, logTitle string) error {
 	return nil
 }
 
-func (r *Repository) FindById(id int) (WorkspaceStory, error) {
-	object := WorkspaceStory{}
+func (r *Repository) FindById(id int) (Board, error) {
+	object := Board{}
 
 	result := r.Db.Where("id = ?", id).First(&object, id)
 
 	if result.Error != nil {
 		r.logger.Error("FindById:", result.Error)
-		return WorkspaceStory{}, result.Error
+		return Board{}, result.Error
 	} else {
 		r.logger.Error("RETRIEVE_FIND_ONE:", object)
 		return object, nil
@@ -116,7 +116,7 @@ func (r *Repository) FindById(id int) (WorkspaceStory, error) {
 
 // Delete implements iRepository.
 func (r *Repository) Delete(dataId int) error {
-	result := r.Db.Where("id = ?", dataId).Delete(&database.WorkspaceStory{})
+	result := r.Db.Where("id = ?", dataId).Delete(&database.Board{})
 
 	if result.Error != nil {
 		return result.Error

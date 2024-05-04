@@ -13,11 +13,11 @@ var ModuleName = "BOARD"
 func Setup(router fiber.Router, db *gorm.DB, logger *slog.Logger) {
 
 	repo := NewRepository(
-		db.Model(&database.WorkspaceStory{}).Debug(),
+		db.Model(&database.Board{}).Debug(),
 		logger, ModuleName+"_REPOSITORY")
 
 	handler := NewRoutes(repo, logger, ModuleName+"_ROUTES")
 
-	router.Route("/workspace_story", handler.manager)
+	router.Route("/board", handler.manager)
 
 }
