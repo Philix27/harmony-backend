@@ -65,6 +65,79 @@ export interface updateAnnouncementDto {
  subtitle: string;
 }
 
+export interface BoardCreatePathParams {
+ id: string;
+}
+
+export interface BoardCreateQueryParams {
+}
+
+export interface BoardDeletePathParams {
+ id: string;
+}
+
+export interface BoardDeleteQueryParams {
+}
+
+export interface BoardUpdatePathParams {
+ id: string;
+}
+
+export interface BoardUpdateQueryParams {
+}
+
+export interface BoardGetAllPathParams {
+ id: string;
+}
+
+export interface BoardGetAllQueryParams {
+}
+
+export interface BoardCreateInput {
+ title: string;
+ description: string;
+ workspaceId: number;
+}
+
+export interface BoardCreateResponse {
+ id: number;
+ title: string;
+ description: string;
+ workspaceEpicId: number;
+}
+
+export interface BoardUpdateInput {
+ id: number;
+ title: string;
+ description: string;
+}
+
+export interface BoardUpdateResponse {
+ msg: string;
+}
+
+export interface BoardDeleteResponse {
+ msg: string;
+}
+
+export interface BoardGetOneResponse {
+ id: number;
+ title: string;
+ description: string;
+ workspaceId: number;
+}
+
+export interface BoardGetAllResponse {
+ data: Board[];
+}
+
+export interface Board {
+ id: number;
+ title: string;
+ description: string;
+ workspaceId: number;
+}
+
 export interface WorkspaceCreateInput {
  name: string;
  description: string;

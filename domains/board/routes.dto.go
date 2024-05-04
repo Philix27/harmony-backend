@@ -6,7 +6,6 @@ type BoardCreateInput struct {
 	Description string `json:"description"`
 	WorkspaceId uint   `json:"workspaceId"`
 }
-
 type BoardCreateResponse struct {
 	Id              int    `json:"id"`
 	Title           string `json:"title"`
@@ -25,31 +24,27 @@ type BoardUpdateResponse struct {
 	Msg string `json:"msg"`
 }
 
+// * Delete
 type BoardDeleteResponse struct {
 	Msg string `json:"msg"`
 }
 
 // * Read one
 type BoardGetOneResponse struct {
-	Id              int    `json:"id"`
-	Title           string `json:"title"`
-	Description     string `json:"description"`
+	Id          int    `json:"id"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
 	WorkspaceId uint   `json:"workspaceId"`
 }
 
 // * Read all
-// type BoardGetAllInput struct {
-// 	Limit  int `json:"limit"`
-// 	UserId int `json:"userId"`
-// }
-
 type BoardGetAllResponse struct {
 	Data []Board `json:"data"`
 }
 
 type Board struct {
-	Id              int    `json:"id"`
-	Title           string `json:"title"`
-	Description     string `json:"description"`
+	Id          int    `json:"id"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
 	WorkspaceId uint   `json:"workspaceId"`
 }
