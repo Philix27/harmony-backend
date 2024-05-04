@@ -40,7 +40,7 @@ import * as T from "./dto";
 			`
   type %v = {
 	path: "%v";
-	input: T.%vInput;
+	%v
 	response: T.%vResponse;
 	pathParam: T.%vPathParams;
 	queryParams: T.%vQueryParams;
@@ -49,7 +49,7 @@ import * as T from "./dto";
  `,
 			r.Name,
 			processPath(r.Path),
-			r.Name,
+			genInput(r.Method, r.Name),
 			r.Name,
 			r.Name,
 			r.Name,
@@ -71,7 +71,7 @@ import * as T from "./dto";
 		typesCollection = typesCollection + body + "\n"
 	}
 
-typesCollection += "}"	
+	typesCollection += "}"
 
 	// newVar := fmt.Append([]byte(setup), "}")
 

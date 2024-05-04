@@ -13,6 +13,12 @@ type AnnouncementCreateResponse struct {
 	Subtitle string `json:"subtitle"`
 }
 
+type AnnouncementCreatePathParams struct {
+	Id string `json:"id"`
+}
+type AnnouncementCreateQueryParams struct {
+}
+
 // * Update
 type AnnouncementUpdateInput struct {
 	Id       int    `json:"id"`
@@ -23,6 +29,12 @@ type AnnouncementUpdateResponse struct {
 	Msg string `json:"msg"`
 }
 
+type AnnouncementUpdatePathParams struct {
+	Id string `json:"id"`
+}
+type AnnouncementUpdateQueryParams struct {
+}
+
 // * Delete
 
 type AnnouncementDeleteInput struct {
@@ -30,6 +42,12 @@ type AnnouncementDeleteInput struct {
 }
 type AnnouncementDeleteResponse struct {
 	Msg string `json:"msg"`
+}
+
+type AnnouncementDeletePathParams struct {
+	Id string `json:"id"`
+}
+type AnnouncementDeleteQueryParams struct {
 }
 
 // * Read one
@@ -42,12 +60,24 @@ type AnnouncementGetOneResponse struct {
 	Subtitle string `json:"subtitle"`
 }
 
+type AnnouncementGetOnePathParams struct {
+	Id string `json:"id"`
+}
+type AnnouncementGetOneQueryParams struct {
+}
+
 // * Read all
 type AnnouncementGetAllInput struct {
 	Limit int `json:"limit"`
 }
 type AnnouncementGetAllResponse struct {
 	Data []announcement `json:"data"`
+}
+
+type AnnouncementGetAllPathParams struct {
+	Id string `json:"id"`
+}
+type AnnouncementGetAllQueryParams struct {
 }
 
 type announcement struct {

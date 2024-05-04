@@ -11,7 +11,7 @@ type iRoutes interface {
 	manager(router fiber.Router)
 	create(c *fiber.Ctx) error
 	update(c *fiber.Ctx) error
-	getByWorkspaceId(c *fiber.Ctx) error
+	getAll(c *fiber.Ctx) error
 	getOne(c *fiber.Ctx) error
 	deleteOne(c *fiber.Ctx) error
 }
@@ -33,7 +33,7 @@ func (r *Routes) manager(route fiber.Router) {
 	route.Put("/", r.update).Name("WorkspaceEpicUpdate")
 	route.Delete("/:id", r.deleteOne).Name("WorkspaceEpicDelete")
 	route.Get("/:id", r.getOne).Name("WorkspaceEpicGetOne")
-	route.Get("/", r.getByWorkspaceId).Name("WorkspaceEpicGetByWorkspaceId")
+	route.Get("/", r.getAll).Name("WorkspaceEpicGetAll")
 }
 
 func (r *Routes) create(c *fiber.Ctx) error {
@@ -70,9 +70,9 @@ func (r *Routes) update(c *fiber.Ctx) error {
 	})
 }
 
-func (r *Routes) getByWorkspaceId(c *fiber.Ctx) error {
+func (r *Routes) getAll(c *fiber.Ctx) error {
 	// var input = &WorkspaceEpicGetAllInput{}
-	workspaceId := c.Query("id")
+	workspaceId := c.Query("workspace_id")
 	limit := c.Query("limit")
 
 	workspaceIdValue, err := strconv.Atoi(workspaceId)

@@ -4,7 +4,7 @@ import * as T from "./dto";
 	  
   type AnnouncementGetOne = {
 	path: "announcement/";
-	input: T.AnnouncementGetOneInput;
+	
 	response: T.AnnouncementGetOneResponse;
 	pathParam: T.AnnouncementGetOnePathParams;
 	queryParams: T.AnnouncementGetOneQueryParams;
@@ -14,7 +14,7 @@ import * as T from "./dto";
   
   type AnnouncementGetAll = {
 	path: "announcement/";
-	input: T.AnnouncementGetAllInput;
+	
 	response: T.AnnouncementGetAllResponse;
 	pathParam: T.AnnouncementGetAllPathParams;
 	queryParams: T.AnnouncementGetAllQueryParams;
@@ -24,7 +24,7 @@ import * as T from "./dto";
   
   type WorkspaceGetOne = {
 	path: "workspace/";
-	input: T.WorkspaceGetOneInput;
+	
 	response: T.WorkspaceGetOneResponse;
 	pathParam: T.WorkspaceGetOnePathParams;
 	queryParams: T.WorkspaceGetOneQueryParams;
@@ -34,7 +34,7 @@ import * as T from "./dto";
   
   type WorkspaceGetAll = {
 	path: "workspace/";
-	input: T.WorkspaceGetAllInput;
+	
 	response: T.WorkspaceGetAllResponse;
 	pathParam: T.WorkspaceGetAllPathParams;
 	queryParams: T.WorkspaceGetAllQueryParams;
@@ -44,7 +44,7 @@ import * as T from "./dto";
   
   type WorkspaceEpicGetOne = {
 	path: "workspace_epic/";
-	input: T.WorkspaceEpicGetOneInput;
+	
 	response: T.WorkspaceEpicGetOneResponse;
 	pathParam: T.WorkspaceEpicGetOnePathParams;
 	queryParams: T.WorkspaceEpicGetOneQueryParams;
@@ -52,19 +52,19 @@ import * as T from "./dto";
   }
  
   
-  type WorkspaceEpicGetByWorkspaceId = {
+  type WorkspaceEpicGetAll = {
 	path: "workspace_epic/";
-	input: T.WorkspaceEpicGetByWorkspaceIdInput;
-	response: T.WorkspaceEpicGetByWorkspaceIdResponse;
-	pathParam: T.WorkspaceEpicGetByWorkspaceIdPathParams;
-	queryParams: T.WorkspaceEpicGetByWorkspaceIdQueryParams;
+	
+	response: T.WorkspaceEpicGetAllResponse;
+	pathParam: T.WorkspaceEpicGetAllPathParams;
+	queryParams: T.WorkspaceEpicGetAllQueryParams;
 	method: "get";
   }
  
   
   type WorkspaceStoryGetOne = {
 	path: "workspace_story/";
-	input: T.WorkspaceStoryGetOneInput;
+	
 	response: T.WorkspaceStoryGetOneResponse;
 	pathParam: T.WorkspaceStoryGetOnePathParams;
 	queryParams: T.WorkspaceStoryGetOneQueryParams;
@@ -72,19 +72,19 @@ import * as T from "./dto";
   }
  
   
-  type WorkspaceStoryGetByWorkspaceId = {
+  type WorkspaceStoryGetAll = {
 	path: "workspace_story/";
-	input: T.WorkspaceStoryGetByWorkspaceIdInput;
-	response: T.WorkspaceStoryGetByWorkspaceIdResponse;
-	pathParam: T.WorkspaceStoryGetByWorkspaceIdPathParams;
-	queryParams: T.WorkspaceStoryGetByWorkspaceIdQueryParams;
+	
+	response: T.WorkspaceStoryGetAllResponse;
+	pathParam: T.WorkspaceStoryGetAllPathParams;
+	queryParams: T.WorkspaceStoryGetAllQueryParams;
 	method: "get";
   }
  
   
   type BoardGetOne = {
 	path: "board/";
-	input: T.BoardGetOneInput;
+	
 	response: T.BoardGetOneResponse;
 	pathParam: T.BoardGetOnePathParams;
 	queryParams: T.BoardGetOneQueryParams;
@@ -92,12 +92,12 @@ import * as T from "./dto";
   }
  
   
-  type BoardGetByWorkspaceId = {
+  type BoardGetAll = {
 	path: "board/";
-	input: T.BoardGetByWorkspaceIdInput;
-	response: T.BoardGetByWorkspaceIdResponse;
-	pathParam: T.BoardGetByWorkspaceIdPathParams;
-	queryParams: T.BoardGetByWorkspaceIdQueryParams;
+	
+	response: T.BoardGetAllResponse;
+	pathParam: T.BoardGetAllPathParams;
+	queryParams: T.BoardGetAllQueryParams;
 	method: "get";
   }
  
@@ -204,7 +204,7 @@ import * as T from "./dto";
   
   type AnnouncementDelete = {
 	path: "announcement/";
-	input: T.AnnouncementDeleteInput;
+	
 	response: T.AnnouncementDeleteResponse;
 	pathParam: T.AnnouncementDeletePathParams;
 	queryParams: T.AnnouncementDeleteQueryParams;
@@ -214,7 +214,7 @@ import * as T from "./dto";
   
   type WorkspaceDelete = {
 	path: "workspace/";
-	input: T.WorkspaceDeleteInput;
+	
 	response: T.WorkspaceDeleteResponse;
 	pathParam: T.WorkspaceDeletePathParams;
 	queryParams: T.WorkspaceDeleteQueryParams;
@@ -224,7 +224,7 @@ import * as T from "./dto";
   
   type WorkspaceEpicDelete = {
 	path: "workspace_epic/";
-	input: T.WorkspaceEpicDeleteInput;
+	
 	response: T.WorkspaceEpicDeleteResponse;
 	pathParam: T.WorkspaceEpicDeletePathParams;
 	queryParams: T.WorkspaceEpicDeleteQueryParams;
@@ -234,7 +234,7 @@ import * as T from "./dto";
   
   type WorkspaceStoryDelete = {
 	path: "workspace_story/";
-	input: T.WorkspaceStoryDeleteInput;
+	
 	response: T.WorkspaceStoryDeleteResponse;
 	pathParam: T.WorkspaceStoryDeletePathParams;
 	queryParams: T.WorkspaceStoryDeleteQueryParams;
@@ -244,7 +244,7 @@ import * as T from "./dto";
   
   type BoardDelete = {
 	path: "board/";
-	input: T.BoardDeleteInput;
+	
 	response: T.BoardDeleteResponse;
 	pathParam: T.BoardDeletePathParams;
 	queryParams: T.BoardDeleteQueryParams;
@@ -258,11 +258,11 @@ AnnouncementGetAll: AnnouncementGetAll;
 WorkspaceGetOne: WorkspaceGetOne;
 WorkspaceGetAll: WorkspaceGetAll;
 WorkspaceEpicGetOne: WorkspaceEpicGetOne;
-WorkspaceEpicGetByWorkspaceId: WorkspaceEpicGetByWorkspaceId;
+WorkspaceEpicGetAll: WorkspaceEpicGetAll;
 WorkspaceStoryGetOne: WorkspaceStoryGetOne;
-WorkspaceStoryGetByWorkspaceId: WorkspaceStoryGetByWorkspaceId;
+WorkspaceStoryGetAll: WorkspaceStoryGetAll;
 BoardGetOne: BoardGetOne;
-BoardGetByWorkspaceId: BoardGetByWorkspaceId;
+BoardGetAll: BoardGetAll;
 AnnouncementCreate: AnnouncementCreate;
 WorkspaceCreate: WorkspaceCreate;
 WorkspaceEpicCreate: WorkspaceEpicCreate;

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { ApiRoutes } from "./routes";
 
 async function syMe() {
@@ -7,4 +8,7 @@ async function syMe() {
     Title: "",
     Subtitle: "",
   });
+
+  const sc = await axios.delete("./ds", {})
+  const bc = await axios.put("./ds", {})
 }

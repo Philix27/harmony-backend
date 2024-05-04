@@ -12,7 +12,7 @@ type iRoutes interface {
 	manager(router fiber.Router)
 	create(c *fiber.Ctx) error
 	update(c *fiber.Ctx) error
-	getById(c *fiber.Ctx) error
+	getAll(c *fiber.Ctx) error
 	getOne(c *fiber.Ctx) error
 	deleteOne(c *fiber.Ctx) error
 }
@@ -34,7 +34,7 @@ func (r *Routes) manager(route fiber.Router) {
 	route.Put("/", r.update).Name("WorkspaceStoryUpdate")
 	route.Delete("/:id", r.deleteOne).Name("WorkspaceStoryDelete")
 	route.Get("/:id", r.getOne).Name("WorkspaceStoryGetOne")
-	route.Get("/", r.getById).Name("WorkspaceStoryGetByWorkspaceId")
+	route.Get("/", r.getAll).Name("WorkspaceStoryGetAll")
 }
 
 func (r *Routes) create(c *fiber.Ctx) error {
@@ -71,7 +71,7 @@ func (r *Routes) update(c *fiber.Ctx) error {
 	})
 }
 
-func (r *Routes) getById(c *fiber.Ctx) error {
+func (r *Routes) getAll(c *fiber.Ctx) error {
 	// var input = &WorkspaceStoryGetAllInput{}
 	epicId := c.Query("epic_id")
 	limit := c.Query("limit")
