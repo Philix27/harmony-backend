@@ -19,12 +19,12 @@ export default function SidebarSections() {
           {
             title: "Dashboard",
             icon: LayoutDashboard,
-            link: AppPages.schedule.automate,
+            link: AppPages.dashboard,
           },
           {
             title: "Settings",
             icon: Settings,
-            link: AppPages.schedule.automate,
+            link: AppPages.dashboard,
           },
         ]}
       />
