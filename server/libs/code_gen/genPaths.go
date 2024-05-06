@@ -30,6 +30,13 @@ import axiosClient from "./axiosClient";
 export class ApiRoutes {
 	`
 
+	// 	  public async announcementGetAll(
+	//     params: T.AnnouncementGetAllQueryParams
+	//   ): Promise<T.AnnouncementGetAllResponse> {
+	//     const res = await axiosClient.get("announcement/", { params: params })
+	//     return res.data
+	//   }
+
 	for _, r := range server.GetRoutes() {
 
 		if arrContains(arrName, r.Name) || arrContains(arrWeirdPath, r.Path) {
@@ -40,8 +47,9 @@ export class ApiRoutes {
 
 		c := fmt.Sprintf("  "+
 			`
-  public %v: Promise<T.%vResponse> {
-    return axiosClient.%v(%v);
+  public async %v: Promise<T.%vResponse> {
+	const res = await axiosClient.%v(%v);
+    return res.data
   }
  `, genFuncHead(r.Path, r.Name, r.Method),
 			r.Name,

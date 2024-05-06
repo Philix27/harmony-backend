@@ -16,7 +16,6 @@ type iRoutes interface {
 	deleteOne(c *fiber.Ctx) error
 }
 
-
 type Routes struct {
 	repository iRepository
 	logger     *slog.Logger
@@ -83,12 +82,12 @@ func (r *Routes) update(c *fiber.Ctx) error {
 
 func (r *Routes) getAll(c *fiber.Ctx) error {
 
-	var input = &AnnouncementGetAllInput{}
+	// var input = &AnnouncementGetAllInput{}
 
-	if err := c.BodyParser(*input); err != nil {
-		r.logger.Error("Error passing body")
-		return err
-	}
+	// if err := c.BodyParser(*input); err != nil {
+	// 	r.logger.Error("Error passing body")
+	// 	return err
+	// }
 
 	obj, err := r.repository.FindAll()
 
@@ -96,7 +95,7 @@ func (r *Routes) getAll(c *fiber.Ctx) error {
 		return err
 	}
 
-	r.logger.Info("GET_ALL_" + ModuleName, obj)
+	r.logger.Info("GET_ALL_"+ModuleName, obj)
 	return c.JSON(AnnouncementGetAllResponse{
 		Data: obj,
 	})

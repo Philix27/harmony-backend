@@ -55,14 +55,15 @@ func main() {
 	appState.SetupRoutes(server, logger)
 
 	if os.Getenv("ENV") == "DEV" {
-		code_gen.GenerateTsRouteHandlers(server, "./sdk/core/genTypes.ts")
+		code_gen.GenerateTsRouteHandlers(server, "../core-sdk/core/routes.ts")
+		// ./sdk/core/routes.ts
 		// if err := code_gen.GenerateTsRouteHandlers(server, "./sdk/dto.ts"); err != nil {
 		// 	fmt.Println("Error in conversion: ", err)
 		// } else {
 		// 	fmt.Println("Conversion successful!")
 
 		// }
-		if err := code_gen.GoThroughFiles("./", "./sdk/core/dto.ts"); err != nil {
+		if err := code_gen.GoThroughFiles("./", "../core-sdk/core/dto.ts"); err != nil {
 			fmt.Println("Error:", err)
 		} else {
 			fmt.Println("Conversion successful!")
