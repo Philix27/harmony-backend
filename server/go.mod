@@ -1,6 +1,6 @@
 module harmony
 
-go 1.21.1
+go 1.23
 
 require (
 	github.com/99designs/gqlgen v0.17.44
