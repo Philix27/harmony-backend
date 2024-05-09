@@ -19,8 +19,8 @@ export default function HomeClient() {
   return (
     <section
       className={`
-        container flex flex-col items-center justify-between 
-        pb-8 pt-6 w-full h-screen
+        container flex h-screen w-full flex-col 
+        items-center justify-between pb-8 pt-6
       `}
       style={{ height: `calc(100vh - ${StylesUtils.navbarHeight})` }}
     >

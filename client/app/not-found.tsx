@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-
 import { Button, TextB, TextH } from "./comps"
 
 export default function NotFound() {

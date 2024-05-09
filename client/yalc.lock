@@ -1,0 +1,11 @@
+{
+  "version": "v1",
+  "packages": {
+    "core_api": {
+      "version": "0.0.2",
+      "signature": "988f61908f66428ef6e3bc13ded15b75",
+      "file": true,
+      "replaced": "0.0.2"
+    }
+  }
+}

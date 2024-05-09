@@ -1,3 +1,5 @@
 {
-  "cSpell.words": ["godotenv", "gofiber", "gorm", "Termii", "Twilo", "varchar"]
+  "cSpell.words": ["godotenv", "gofiber", "gorm", "Termii", "Twilo", "varchar"],
+  "editor.fontFamily": "IBM Plex Mono, monospace",
+  "editor.fontSize": 13
 }

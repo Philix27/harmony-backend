@@ -1,9 +1,9 @@
 {
-  "name": "harmony_sdk",
-  "version": "0.0.1",
+  "name": "core_api",
+  "version": "0.0.2",
   "description": "collection of endpoint and types",
   "author": "",
-  "private": true,
+  "private": false,
   "license": "UNLICENSED",
   "scripts": {},
   "main": "index.ts",
