@@ -9,6 +9,7 @@ import {
 } from "lucide-react"
 
 import { ASection } from "./ASection"
+import Docs from "./Docs"
 import ProjectSection from "./Project"
 
 export default function SidebarSections() {
@@ -30,21 +31,7 @@ export default function SidebarSections() {
         ]}
       />
       <ProjectSection />
-      <ASection
-        title="Documents"
-        data={[
-          {
-            title: "Planning",
-            icon: CircleDotIcon,
-            link: AppPages.schedule.automate,
-          },
-          {
-            title: "Interview",
-            icon: CircleDotIcon,
-            link: AppPages.schedule.automate,
-          },
-        ]}
-      />
+      <Docs />
       <ASection
         title="Scheduler"
         data={[
