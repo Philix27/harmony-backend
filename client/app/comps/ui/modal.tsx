@@ -10,8 +10,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./dialog"
-import { Input } from "./input"
-import { Label } from "./label"
 
 export function AppDialog(props: {
   title: string
