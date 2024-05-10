@@ -9,7 +9,8 @@ export function ASection(props: {
   data: {
     title: string
     icon: LucideIcon
-    link: string
+    link?: string
+    onClick?: VoidFunction
   }[]
 }) {
   const [showSection, setShowSection] = useState(false)
@@ -28,15 +29,20 @@ export function ASection(props: {
           {props.title}
         </TextH>
         {showSection ? (
-          <ChevronUp className={"text-muted-foreground w-5 h-5"} />
+          <ChevronUp className={"text-muted-foreground size-5"} />
         ) : (
-          <ChevronDown className={"text-muted-foreground w-5 h-5"} />
+          <ChevronDown className={"text-muted-foreground size-5"} />
         )}
       </div>
       {showSection && (
         <div className="pt-2">
           {props.data.map((val) => (
-            <SectionSubItem title={val.title} icon={val.icon} link={val.link} />
+            <SectionSubItem
+              title={val.title}
+              icon={val.icon}
+              link={val.link}
+              onClick={val.onClick}
+            />
           ))}
         </div>
       )}

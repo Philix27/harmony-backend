@@ -8,15 +8,27 @@ export default function SectionSubItem({
   ...props
 }: {
   title: string
-  link: string
+  link?: string
+  onClick?: VoidFunction
   icon: LucideIcon
 }) {
-  return (
-    <Link href={props.link}>
-      <div className="flex items-center ml-[10px] py-1 px-1 hover:bg-primary rounded-md">
-        <Icon className={"w-3 h-3 mr-2"} />
-        <TextB v="p5">{props.title}</TextB>
+  if (props.link) {
+    return (
+      <Link href={props.link}>
+        <div className="hover:bg-primary ml-[10px] flex items-center rounded-md p-1">
+          <Icon className={"mr-2 size-3"} />
+          <TextB v="p5">{props.title}</TextB>
+        </div>
+      </Link>
+    )
+  } else {
+    return (
+      <div onClick={props.onClick}>
+        <div className="hover:bg-primary ml-[10px] flex items-center rounded-md p-1">
+          <Icon className={"mr-2 size-3"} />
+          <TextB v="p5">{props.title}</TextB>
+        </div>
       </div>
-    </Link>
-  )
+    )
+  }
 }
