@@ -1,12 +1,6 @@
 import React from "react"
 import { AppPages } from "@/lib"
-import {
-  AlarmPlus,
-  CircleDotIcon,
-  CircleEllipsis,
-  LayoutDashboard,
-  Settings,
-} from "lucide-react"
+import { AlarmPlus, LayoutDashboard, Settings } from "lucide-react"
 
 import { ASection } from "./ASection"
 import Docs from "./Docs"

@@ -17,7 +17,7 @@ export function ASection(props: {
 
   return (
     <div
-      className={"border-b-2 px-4 py-1 "}
+      className={"border-b-[1px] px-4 py-1 "}
       onClick={(e) => {
         e.preventDefault()
         e.stopPropagation()

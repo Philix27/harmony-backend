@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { AppDialog, AppInput, Button, Form } from "@/comps"
 import { AppPages, AppStores } from "@/lib"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { CircleEllipsis, Plus } from "lucide-react"
+import { CircleDotIcon, CircleEllipsis, Plus } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
@@ -39,30 +39,30 @@ export default function ProjectSection() {
     <>
       <ASection
         title="Project"
-        data={
-          boardStore.boardList.length < 1
-            ? [
-                {
-                  title: "Add new board",
-                  icon: Plus,
-                  onClick: () => setShow((prev) => !prev),
-                },
-              ]
-            : [
-                ...boardStore.boardList.map((val, i) => {
-                  return {
-                    title: val.name,
-                    link: `${AppPages.board}/${i}`,
-                    icon: CircleEllipsis,
-                  }
-                }),
-                {
-                  title: "Add new board",
-                  icon: Plus,
-                  onClick: () => setShow((prev) => !prev),
-                },
-              ]
-        }
+        data={[
+          {
+            title: "Epic",
+            icon: CircleDotIcon,
+            link: AppPages.epics,
+          },
+          {
+            title: "Stories",
+            icon: CircleDotIcon,
+            link: AppPages.stories,
+          },
+          ...boardStore.boardList.map((val, i) => {
+            return {
+              title: val.name,
+              link: `${AppPages.board}/${i}`,
+              icon: CircleEllipsis,
+            }
+          }),
+          {
+            title: "Add new board",
+            icon: Plus,
+            onClick: () => setShow((prev) => !prev),
+          },
+        ]}
       />
 
       <AppDialog

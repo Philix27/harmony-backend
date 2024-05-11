@@ -3,6 +3,8 @@ export class AppPages {
   static repositories = "/repositories"
   static integrations = "/integrations"
   static board = "/board"
+  static epics = "/epics"
+  static stories = "/stories"
 
   static schedule = {
     calender: "/schedule/calender",
