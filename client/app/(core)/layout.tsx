@@ -20,7 +20,7 @@ export default function ProtectedLayout({ children }: RootLayoutProps) {
     <div className="flex flex-col min-h-screen">
       <div className="h-screen w-full flex flex-col justify-between">
         {/* TOp */}
-        <div className={`bg-amber-600 w-full h-[${BARS_WIDTH}]`}></div>
+        {/* <div className={`bg-amber-600 w-full h-[${BARS_WIDTH}]`}></div> */}
         {/* Body */}
         <div className={`w-full flex h-full justify-between`}>
           <LeftSidebar />
@@ -34,7 +34,7 @@ export default function ProtectedLayout({ children }: RootLayoutProps) {
           {/* <RightSidebar /> */}
         </div>
         {/* Bottom */}
-        <div className={`bg-amber-600 w-full h-[${BARS_WIDTH}]`}></div>
+        {/* <div className={`bg-amber-600 w-full h-[${BARS_WIDTH}]`}></div> */}
       </div>
     </div>
   )

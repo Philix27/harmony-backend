@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { AppDialog, AppInput, Button, Form, Input, Label } from "@/comps"
+import { AppDialog, AppInput, Button, Form } from "@/comps"
 import { AppPages, AppStores } from "@/lib"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CircleEllipsis, Plus } from "lucide-react"
@@ -27,6 +27,7 @@ export default function ProjectSection() {
         name: form.getValues("name"),
         desc: form.getValues("desc"),
       })
+      form.reset()
       //   const invoiceId = await t.mutateAsync()
       //   setInvId(invoiceId)
       toast.success("Invoice created")
@@ -51,7 +52,7 @@ export default function ProjectSection() {
                 ...boardStore.boardList.map((val, i) => {
                   return {
                     title: val.name,
-                    link: AppPages.schedule.automate,
+                    link: `${AppPages.board}/${i}`,
                     icon: CircleEllipsis,
                   }
                 }),

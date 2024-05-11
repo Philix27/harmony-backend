@@ -2,6 +2,7 @@ export class AppPages {
   static dashboard = "/dashboard"
   static repositories = "/repositories"
   static integrations = "/integrations"
+  static board = "/board"
 
   static schedule = {
     calender: "/schedule/calender",

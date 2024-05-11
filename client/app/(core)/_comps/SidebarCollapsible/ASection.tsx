@@ -25,7 +25,7 @@ export function ASection(props: {
       }}
     >
       <div className="flex items-start justify-between">
-        <TextH v={"h6"} className={"text-muted-foreground"}>
+        <TextH v={"h5"} className={"text-muted-foreground font-bold"}>
           {props.title}
         </TextH>
         {showSection ? (
